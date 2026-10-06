@@ -1,0 +1,2179 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Mission</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#080b16;
+    --card:rgba(255,255,255,.055);
+    --border:rgba(255,255,255,.11);
+    --purple:#7966ff;
+    --text:#fff;
+    --muted:#a9afc4;
+}
+
+body{
+    min-height:100vh;
+    padding:22px;
+    font-family:Arial,Helvetica,sans-serif;
+    color:var(--text);
+
+    background:
+        radial-gradient(
+            circle at 8% 8%,
+            rgba(75,70,190,.35),
+            transparent 33%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(145,45,155,.25),
+            transparent 35%
+        ),
+        var(--bg);
+}
+
+.container{
+    width:min(1180px,100%);
+    margin:auto;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    min-height:72px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:15px 21px;
+    margin-bottom:22px;
+
+    border:1px solid var(--border);
+    border-radius:22px;
+
+    background:rgba(255,255,255,.055);
+    backdrop-filter:blur(18px);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#8371ff;
+}
+
+.languages{
+    display:flex;
+    gap:7px;
+}
+
+.lang-btn{
+    padding:8px 12px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:10px;
+
+    background:rgba(255,255,255,.05);
+    color:white;
+
+    cursor:pointer;
+}
+
+.lang-btn.active{
+    background:var(--purple);
+    border-color:var(--purple);
+}
+
+/* ================= CARD ================= */
+
+.card{
+    padding:28px;
+
+    border:1px solid var(--border);
+    border-radius:28px;
+
+    background:var(--card);
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.32);
+}
+
+h1{
+    font-size:clamp(28px,5vw,46px);
+    line-height:1.05;
+    margin-bottom:9px;
+}
+
+.subtitle{
+    color:var(--muted);
+    margin-bottom:25px;
+}
+
+/* ================= INPUT ================= */
+
+.input-area{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+#optionInput{
+    flex:1;
+    min-width:0;
+
+    height:52px;
+
+    padding:0 17px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+
+    outline:none;
+
+    background:rgba(0,0,0,.25);
+    color:white;
+
+    font-size:16px;
+}
+
+#optionInput:focus{
+    border-color:var(--purple);
+
+    box-shadow:
+        0 0 0 3px rgba(121,102,255,.14);
+}
+
+.add-btn{
+    height:52px;
+
+    padding:0 24px;
+
+    border:0;
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7966ff,
+            #9c54ed
+        );
+
+    color:white;
+
+    font-weight:800;
+    cursor:pointer;
+}
+
+/* ================= LAYOUT ================= */
+
+.game-layout{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        320px;
+
+    gap:25px;
+
+    align-items:start;
+}
+
+.drum-area{
+    min-width:0;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.drum-title{
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:14px;
+}
+
+.drum-title h2{
+    font-size:20px;
+}
+
+.counter{
+    color:#9da4bc;
+    font-size:14px;
+}
+
+/* ================= DRUM ================= */
+
+.drum-wrapper{
+    position:relative;
+
+    width:min(620px,92vw);
+    aspect-ratio:1;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.wheel-frame{
+    position:absolute;
+    inset:0;
+
+    padding:8px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7160ff,
+            #c052ff,
+            #4c7eff
+        );
+
+    box-shadow:
+        0 0 45px rgba(115,92,255,.3),
+        0 25px 55px rgba(0,0,0,.4);
+}
+
+.wheel-svg{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    overflow:visible;
+
+    border-radius:50%;
+
+    background:#171a2c;
+}
+
+/* ================= POINTER ================= */
+
+.pointer{
+    position:absolute;
+
+    top:-7px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:0;
+    height:0;
+
+    border-left:17px solid transparent;
+    border-right:17px solid transparent;
+    border-top:32px solid white;
+
+    z-index:20;
+
+    filter:
+        drop-shadow(
+            0 3px 5px rgba(0,0,0,.7)
+        );
+}
+
+/* ================= CENTER BUTTON ================= */
+
+.center-button{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:116px;
+    height:116px;
+
+    border-radius:50%;
+
+    border:7px solid #171a2c;
+
+    background:
+        linear-gradient(
+            145deg,
+            #806cff,
+            #a34eee
+        );
+
+    color:white;
+
+    font-size:15px;
+    font-weight:900;
+
+    cursor:pointer;
+
+    z-index:30;
+
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,.15),
+        0 10px 28px rgba(0,0,0,.45),
+        0 0 35px rgba(128,108,255,.35);
+
+    transition:
+        transform .15s ease,
+        filter .2s ease;
+}
+
+.center-button:hover{
+    transform:
+        translate(-50%,-50%)
+        scale(1.05);
+
+    filter:brightness(1.08);
+}
+
+.center-button:active{
+    transform:
+        translate(-50%,-50%)
+        scale(.96);
+}
+
+.center-button:disabled{
+    cursor:default;
+    opacity:.72;
+}
+
+/* ================= RESULT ================= */
+
+.result-area{
+    position:sticky;
+    top:20px;
+
+    min-height:300px;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:28px;
+
+    text-align:center;
+
+    border:1px solid var(--border);
+    border-radius:25px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(120,101,255,.20),
+            transparent 68%
+        ),
+        rgba(255,255,255,.035);
+
+    overflow:hidden;
+}
+
+.result-label{
+    color:#9ca3bb;
+    font-size:14px;
+    margin-bottom:14px;
+}
+
+#result{
+    max-width:100%;
+
+    font-size:
+        clamp(27px,4vw,43px);
+
+    font-weight:900;
+    line-height:1.1;
+
+    word-break:break-word;
+}
+
+.result-animation{
+    animation:
+        resultPop .65s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes resultPop{
+
+    0%{
+        opacity:0;
+        transform:scale(.35) rotate(-8deg);
+    }
+
+    55%{
+        opacity:1;
+        transform:scale(1.12) rotate(2deg);
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1) rotate(0);
+    }
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+    width:min(620px,92vw);
+    aspect-ratio:1;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:40px;
+
+    border-radius:50%;
+    border:2px dashed rgba(255,255,255,.16);
+
+    color:#777e99;
+    text-align:center;
+}
+
+/* ================= CLEAR ================= */
+
+.clear-btn{
+    margin-top:18px;
+
+    padding:10px 17px;
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+
+    background:rgba(255,255,255,.05);
+    color:#aeb4ca;
+
+    cursor:pointer;
+}
+
+.clear-btn:hover{
+    background:rgba(255,255,255,.1);
+    color:white;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+    body{
+        padding:14px;
+    }
+
+    header{
+        flex-direction:column;
+        gap:14px;
+    }
+
+    .game-layout{
+        grid-template-columns:1fr;
+    }
+
+    .result-area{
+        position:static;
+        min-height:210px;
+    }
+}
+
+@media(max-width:600px){
+
+    .card{
+        padding:18px;
+    }
+
+    .input-area{
+        flex-direction:column;
+    }
+
+    .add-btn{
+        width:100%;
+    }
+
+    .center-button{
+        width:94px;
+        height:94px;
+        font-size:12px;
+    }
+}
+
+@media(max-width:400px){
+
+    .center-button{
+        width:78px;
+        height:78px;
+        border-width:5px;
+        font-size:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+    <div class="logo">
+        Random <span>Mission</span>
+    </div>
+
+    <div class="languages">
+
+        <button class="lang-btn active" data-lang="uz">
+            UZ
+        </button>
+
+        <button class="lang-btn" data-lang="ru">
+            RU
+        </button>
+
+        <button class="lang-btn" data-lang="en">
+            EN
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="card">
+
+    <h1 id="title">
+        Random tanlov
+    </h1>
+
+    <p class="subtitle" id="subtitle">
+        Variantlarni kiriting va barabandan tasodifiy variant tanlang.
+    </p>
+
+
+    <div class="input-area">
+
+        <input
+            id="optionInput"
+            type="text"
+            autocomplete="off"
+            placeholder="Variant yozing..."
+        >
+
+        <button id="addBtn" class="add-btn">
+            Qo‘shish
+        </button>
+
+    </div>
+
+
+    <div class="game-layout">
+
+        <section class="drum-area">
+
+            <div class="drum-title">
+
+                <h2 id="drumTitle">
+                    Variantlar
+                </h2>
+
+                <span id="counter" class="counter">
+                    0 ta
+                </span>
+
+            </div>
+
+
+            <div id="wheelContainer">
+
+                <div class="empty">
+                    Hali variant qo‘shilmagan
+                </div>
+
+            </div>
+
+
+            <button id="clearBtn" class="clear-btn">
+                Barchasini tozalash
+            </button>
+
+        </section>
+
+
+        <aside class="result-area">
+
+            <div id="resultLabel" class="result-label">
+                Natija
+            </div>
+
+            <div id="result">
+                ?
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   TARJIMALAR
+========================================================= */
+
+const translations = {
+
+    uz:{
+        title:"Random tanlov",
+
+        subtitle:
+            "Variantlarni kiriting va barabandan tasodifiy variant tanlang.",
+
+        placeholder:
+            "Variant yozing...",
+
+        add:
+            "Qo‘shish",
+
+        spin:
+            "🎲 Aylantirish",
+
+        variants:
+            "Variantlar",
+
+        empty:
+            "Hali variant qo‘shilmagan",
+
+        result:
+            "Natija",
+
+        clear:
+            "Barchasini tozalash",
+
+        count:
+            "ta"
+    },
+
+    ru:{
+        title:
+            "Случайный выбор",
+
+        subtitle:
+            "Введите варианты и выберите случайный вариант из барабана.",
+
+        placeholder:
+            "Введите вариант...",
+
+        add:
+            "Добавить",
+
+        spin:
+            "🎲 Крутить",
+
+        variants:
+            "Варианты",
+
+        empty:
+            "Варианты ещё не добавлены",
+
+        result:
+            "Результат",
+
+        clear:
+            "Очистить всё",
+
+        count:
+            "шт."
+    },
+
+    en:{
+        title:
+            "Random Choice",
+
+        subtitle:
+            "Enter your options and choose a random option from the drum.",
+
+        placeholder:
+            "Enter an option...",
+
+        add:
+            "Add",
+
+        spin:
+            "🎲 Spin",
+
+        variants:
+            "Options",
+
+        empty:
+            "No options added yet",
+
+        result:
+            "Result",
+
+        clear:
+            "Clear all",
+
+        count:
+            "items"
+    }
+
+};
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let lang =
+    localStorage.getItem("siteLanguage") ||
+    localStorage.getItem("language") ||
+    localStorage.getItem("lang") ||
+    "uz";
+
+let options = [];
+
+let rotation = 0;
+
+let spinning = false;
+
+/*
+   Oldingi tanlangan variant shu yerda saqlanadi.
+
+   U HOZIR o'chirilmaydi.
+
+   Keyingi spin bosilganda o'chiriladi.
+*/
+let pendingRemoval = null;
+
+
+/* =========================================================
+   ELEMENTLAR
+========================================================= */
+
+const input =
+    document.getElementById("optionInput");
+
+const wheelContainer =
+    document.getElementById("wheelContainer");
+
+const counter =
+    document.getElementById("counter");
+
+const result =
+    document.getElementById("result");
+
+
+/* =========================================================
+   RANGLAR
+========================================================= */
+
+const colors = [
+
+    "#6955F5",
+    "#914BE7",
+    "#3F73F2",
+    "#00A19A",
+    "#D94E7C",
+    "#E27D2D",
+    "#4A9C5A",
+    "#B64FD0",
+    "#318BAA",
+    "#CC4B59",
+    "#5B4BC4",
+    "#C34C8F",
+    "#396BC1",
+    "#8850C4",
+    "#459477",
+    "#C86445",
+    "#536ED0",
+    "#9C4FBD",
+    "#388C8C",
+    "#C95C68"
+
+];
+
+
+/* =========================================================
+   TIL
+========================================================= */
+
+function updateLanguage(){
+
+    const t =
+        translations[lang];
+
+
+    document.getElementById("title")
+        .textContent =
+        t.title;
+
+
+    document.getElementById("subtitle")
+        .textContent =
+        t.subtitle;
+
+
+    document.getElementById("addBtn")
+        .textContent =
+        t.add;
+
+
+    document.getElementById("drumTitle")
+        .textContent =
+        t.variants;
+
+
+    document.getElementById("resultLabel")
+        .textContent =
+        t.result;
+
+
+    document.getElementById("clearBtn")
+        .textContent =
+        t.clear;
+
+
+    input.placeholder =
+        t.placeholder;
+
+
+    document
+        .querySelectorAll(".lang-btn")
+        .forEach(button=>{
+
+            button.classList.toggle(
+                "active",
+                button.dataset.lang === lang
+            );
+
+        });
+
+
+    renderWheel();
+}
+
+
+document
+    .querySelectorAll(".lang-btn")
+    .forEach(button=>{
+
+        button.addEventListener(
+            "click",
+            ()=>{
+
+                if(spinning){
+                    return;
+                }
+
+                lang =
+                    button.dataset.lang;
+
+
+                localStorage.setItem(
+                    "siteLanguage",
+                    lang
+                );
+
+                localStorage.setItem(
+                    "language",
+                    lang
+                );
+
+                localStorage.setItem(
+                    "lang",
+                    lang
+                );
+
+                updateLanguage();
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   VARIANT QO'SHISH
+========================================================= */
+
+function addOption(){
+
+    if(spinning){
+        return;
+    }
+
+
+    const value =
+        input.value.trim();
+
+
+    if(!value){
+
+        input.focus();
+
+        return;
+    }
+
+
+    const exists =
+        options.some(
+            item =>
+                item.toLocaleLowerCase() ===
+                value.toLocaleLowerCase()
+        );
+
+
+    if(exists){
+
+        input.value = "";
+
+        return;
+    }
+
+
+    options.push(value);
+
+    input.value = "";
+
+    renderWheel();
+
+    input.focus();
+}
+
+
+document
+    .getElementById("addBtn")
+    .addEventListener(
+        "click",
+        addOption
+    );
+
+
+input.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            addOption();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SVG YORDAMCHI FUNKSIYALAR
+========================================================= */
+
+/*
+   Yuqori nuqta = -90°.
+
+   angleDeg:
+   0°   = tepaga
+   90°  = o'ngga
+   180° = pastga
+   270° = chapga
+*/
+
+function pointOnCircle(
+    cx,
+    cy,
+    radius,
+    angleDeg
+){
+
+    const rad =
+        angleDeg *
+        Math.PI /
+        180;
+
+
+    return {
+
+        x:
+            cx +
+            radius *
+            Math.sin(rad),
+
+        y:
+            cy -
+            radius *
+            Math.cos(rad)
+
+    };
+
+}
+
+
+/*
+   SVG path uchun sektor.
+*/
+
+function sectorPath(
+    cx,
+    cy,
+    radius,
+    startDeg,
+    endDeg
+){
+
+    const start =
+        pointOnCircle(
+            cx,
+            cy,
+            radius,
+            startDeg
+        );
+
+
+    const end =
+        pointOnCircle(
+            cx,
+            cy,
+            radius,
+            endDeg
+        );
+
+
+    const largeArc =
+        endDeg - startDeg >
+        180
+            ? 1
+            : 0;
+
+
+    return `
+        M ${cx} ${cy}
+        L ${start.x} ${start.y}
+        A ${radius} ${radius}
+        0 ${largeArc} 1
+        ${end.x} ${end.y}
+        Z
+    `;
+}
+
+
+/* =========================================================
+   MATN O'LCHAMI
+========================================================= */
+
+function textSize(count){
+
+    if(count <= 4)
+        return 25;
+
+    if(count <= 6)
+        return 21;
+
+    if(count <= 8)
+        return 18;
+
+    if(count <= 10)
+        return 16;
+
+    if(count <= 14)
+        return 13;
+
+    if(count <= 18)
+        return 11;
+
+    return 10;
+}
+
+
+/* =========================================================
+   SVG BARABANINI CHIZISH
+========================================================= */
+
+function renderWheel(){
+
+    const t =
+        translations[lang];
+
+
+    counter.textContent =
+        `${options.length} ${t.count}`;
+
+
+    if(options.length === 0){
+
+        wheelContainer.innerHTML = `
+            <div class="empty">
+                ${t.empty}
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /*
+       Spin davomida DOM qayta qurilmaydi.
+    */
+
+    if(spinning){
+        return;
+    }
+
+
+    const count =
+        options.length;
+
+
+    /*
+       SVG ichki koordinatalari.
+    */
+
+    const S = 1000;
+
+    const CX = 500;
+    const CY = 500;
+
+    const R = 492;
+
+
+    /*
+       Har bir sektor teng.
+    */
+
+    const sector =
+        360 / count;
+
+
+    const svg =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg"
+        );
+
+
+    svg.setAttribute(
+        "viewBox",
+        "0 0 1000 1000"
+    );
+
+
+    svg.classList.add(
+        "wheel-svg"
+    );
+
+
+    /*
+       Barcha sektorlarni bir guruhga
+       joylashtiramiz.
+
+       Keyinchalik faqat SHU group
+       rotate qilinadi.
+    */
+
+    const wheelGroup =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "g"
+        );
+
+
+    wheelGroup.id =
+        "wheelGroup";
+
+
+    wheelGroup.setAttribute(
+        "transform",
+        `rotate(${rotation} 500 500)`
+    );
+
+
+    /* =====================================================
+       SEKTORLAR
+    ===================================================== */
+
+    options.forEach(
+        (option,index)=>{
+
+            /*
+               MUHIM:
+
+               Har bir sektor 0 dan boshlanadi.
+
+               Uning markazi:
+               index * sector + sector / 2
+            */
+
+            const start =
+                index * sector;
+
+            const end =
+                (index + 1) * sector;
+
+
+            const path =
+                document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "path"
+                );
+
+
+            path.setAttribute(
+                "d",
+                sectorPath(
+                    CX,
+                    CY,
+                    R,
+                    start,
+                    end
+                )
+            );
+
+
+            path.setAttribute(
+                "fill",
+                colors[
+                    index %
+                    colors.length
+                ]
+            );
+
+
+            path.setAttribute(
+                "stroke",
+                "rgba(255,255,255,.22)"
+            );
+
+
+            path.setAttribute(
+                "stroke-width",
+                "4"
+            );
+
+
+            wheelGroup.appendChild(
+                path
+            );
+
+
+            /* =================================================
+               VARIANT MARKAZI
+            ================================================= */
+
+            const middle =
+                start +
+                sector / 2;
+
+
+            /*
+               Matn markazdan TASHQARIGA qarab
+               joylashadi.
+
+               Bu radius faqat yozuvning
+               markaz nuqtasi.
+
+               Shuning uchun matn markazga
+               yig'ilib qolmaydi.
+            */
+
+            const textRadius =
+                count <= 4
+                    ? 300
+                    : count <= 8
+                        ? 325
+                        : count <= 12
+                            ? 340
+                            : 350;
+
+
+            const textPoint =
+                pointOnCircle(
+                    CX,
+                    CY,
+                    textRadius,
+                    middle
+                );
+
+
+            /*
+               Matn.
+            */
+
+            const text =
+                document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "text"
+                );
+
+
+            text.setAttribute(
+                "x",
+                textPoint.x
+            );
+
+
+            text.setAttribute(
+                "y",
+                textPoint.y
+            );
+
+
+            /*
+               Markazdan tashqariga qaragan
+               radial yo'nalish.
+
+               SVG text-anchor middle
+               sababli x/y aynan yozuv markazi.
+            */
+
+            text.setAttribute(
+                "text-anchor",
+                "middle"
+            );
+
+
+            text.setAttribute(
+                "dominant-baseline",
+                "middle"
+            );
+
+
+            /*
+               Yozuvning yo'nalishi sektorning
+               radius chizig'iga parallel.
+
+               0° sektor -> yuqoridan pastga.
+
+               Shu sababli har bir yozuv
+               markazdan chetga qarab turadi.
+            */
+
+            text.setAttribute(
+                "transform",
+                `
+                rotate(
+                    ${middle}
+                    ${textPoint.x}
+                    ${textPoint.y}
+                )
+                `
+            );
+
+
+            text.setAttribute(
+                "fill",
+                "#ffffff"
+            );
+
+
+            text.setAttribute(
+                "font-size",
+                textSize(count)
+            );
+
+
+            text.setAttribute(
+                "font-family",
+                "Arial, sans-serif"
+            );
+
+
+            text.setAttribute(
+                "font-weight",
+                "900"
+            );
+
+
+            text.setAttribute(
+                "style",
+                `
+                paint-order:stroke;
+                stroke:rgba(0,0,0,.5);
+                stroke-width:7px;
+                stroke-linejoin:round;
+                `
+            );
+
+
+            /*
+               Juda uzun variantlar sektorni
+               buzmasligi uchun maksimal kenglik.
+            */
+
+            let maxChars;
+
+            if(count <= 5)
+                maxChars = 18;
+
+            else if(count <= 8)
+                maxChars = 13;
+
+            else if(count <= 12)
+                maxChars = 10;
+
+            else
+                maxChars = 8;
+
+
+            /*
+               Agar matn uzun bo'lsa,
+               bir nechta qatorda ko'rsatamiz.
+            */
+
+            const words =
+                option.split(" ");
+
+
+            let lines = [];
+            let current = "";
+
+
+            words.forEach(word=>{
+
+                const test =
+                    current
+                        ? current + " " + word
+                        : word;
+
+
+                if(
+                    test.length >
+                    maxChars
+                ){
+
+                    if(current){
+
+                        lines.push(
+                            current
+                        );
+
+                    }
+
+                    current =
+                        word;
+
+                }else{
+
+                    current =
+                        test;
+
+                }
+
+            });
+
+
+            if(current){
+
+                lines.push(
+                    current
+                );
+
+            }
+
+
+            /*
+               Juda uzun bitta so'z bo'lsa.
+            */
+
+            if(lines.length === 0){
+
+                lines = [
+                    option
+                ];
+
+            }
+
+
+            const lineHeight =
+                textSize(count) *
+                1.15;
+
+
+            const startY =
+                -(
+                    lines.length - 1
+                ) *
+                lineHeight /
+                2;
+
+
+            lines.forEach(
+                (line,lineIndex)=>{
+
+                    const tspan =
+                        document.createElementNS(
+                            "http://www.w3.org/2000/svg",
+                            "tspan"
+                        );
+
+
+                    tspan.setAttribute(
+                        "x",
+                        textPoint.x
+                    );
+
+
+                    tspan.setAttribute(
+                        "dy",
+                        lineIndex === 0
+                            ? startY
+                            : lineHeight
+                    );
+
+
+                    tspan.textContent =
+                        line;
+
+
+                    text.appendChild(
+                        tspan
+                    );
+
+                }
+            );
+
+
+            wheelGroup.appendChild(
+                text
+            );
+
+        }
+    );
+
+
+    svg.appendChild(
+        wheelGroup
+    );
+
+
+    /*
+       Ichki aylana bezagi.
+    */
+
+    const innerCircle =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "circle"
+        );
+
+
+    innerCircle.setAttribute(
+        "cx",
+        CX
+    );
+
+
+    innerCircle.setAttribute(
+        "cy",
+        CY
+    );
+
+
+    innerCircle.setAttribute(
+        "r",
+        105
+    );
+
+
+    innerCircle.setAttribute(
+        "fill",
+        "rgba(10,12,25,.2)"
+    );
+
+
+    innerCircle.setAttribute(
+        "stroke",
+        "rgba(255,255,255,.08)"
+    );
+
+
+    innerCircle.setAttribute(
+        "stroke-width",
+        "3"
+    );
+
+
+    svg.appendChild(
+        innerCircle
+    );
+
+
+    /*
+       Container.
+    */
+
+    wheelContainer.innerHTML = "";
+
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "drum-wrapper";
+
+
+    /*
+       POINTER.
+
+       Bu alohida va HARAKATSIZ.
+
+       Faqat wheelGroup aylanadi.
+    */
+
+    const pointer =
+        document.createElement(
+            "div"
+        );
+
+
+    pointer.className =
+        "pointer";
+
+
+    wrapper.appendChild(
+        pointer
+    );
+
+
+    const frame =
+        document.createElement(
+            "div"
+        );
+
+
+    frame.className =
+        "wheel-frame";
+
+
+    frame.appendChild(
+        svg
+    );
+
+
+    wrapper.appendChild(
+        frame
+    );
+
+
+    /*
+       Markaziy tugma.
+    */
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.className =
+        "center-button";
+
+    button.id =
+        "spinButton";
+
+    button.textContent =
+        t.spin;
+
+
+    button.addEventListener(
+        "click",
+        spin
+    );
+
+
+    wrapper.appendChild(
+        button
+    );
+
+
+    wheelContainer.appendChild(
+        wrapper
+    );
+}
+
+
+/* =========================================================
+   EASING
+========================================================= */
+
+function easeOutQuint(t){
+
+    return 1 -
+        Math.pow(
+            1 - t,
+            5
+        );
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+let animationId = null;
+
+let startTime = 0;
+
+let startRotation = 0;
+
+let targetRotation = 0;
+
+let selectedIndex = -1;
+
+
+const SPIN_TIME = 4800;
+
+
+/* =========================================================
+   SPIN
+========================================================= */
+
+function spin(){
+
+    if(spinning){
+        return;
+    }
+
+
+    /*
+       Keyingi spin bosilganda
+       OLDINGI variant o'chadi.
+    */
+
+    if(pendingRemoval !== null){
+
+        const oldIndex =
+            options.indexOf(
+                pendingRemoval
+            );
+
+
+        if(oldIndex !== -1){
+
+            options.splice(
+                oldIndex,
+                1
+            );
+
+        }
+
+
+        pendingRemoval =
+            null;
+
+
+        /*
+           Variantlar soni 0 yoki 1 bo'lib qolsa.
+        */
+
+        if(options.length <= 1){
+
+            rotation = 0;
+
+            renderWheel();
+
+
+            if(options.length === 1){
+
+                result.textContent =
+                    options[0];
+
+            }
+
+            return;
+        }
+
+
+        /*
+           Yangi son bo'yicha
+           sektorlar qayta chiziladi.
+        */
+
+        rotation = 0;
+
+        renderWheel();
+    }
+
+
+    if(options.length < 2){
+        return;
+    }
+
+
+    /*
+       -----------------------------------------------
+       RANDOM FAQAT QAYSI SEKTORNI TANLASH UCHUN.
+       -----------------------------------------------
+
+       Keyinchalik natija qayta random qilinmaydi.
+
+       Animation tugagach aynan shu sektor
+       pointerga keladi.
+    */
+
+    selectedIndex =
+        Math.floor(
+            Math.random() *
+            options.length
+        );
+
+
+    const count =
+        options.length;
+
+
+    const sector =
+        360 / count;
+
+
+    /*
+       Tanlangan sektor markazi.
+
+       SVG:
+       0° = tepada.
+
+       Pointer ham tepada.
+
+       Shuning uchun sektor markazini
+       0° ga olib kelamiz.
+    */
+
+    const selectedCenter =
+        selectedIndex *
+        sector +
+        sector / 2;
+
+
+    /*
+       Hozirgi rotationni 0..360 ga
+       normallashtiramiz.
+    */
+
+    const current =
+        (
+            rotation % 360 +
+            360
+        ) % 360;
+
+
+    /*
+       Wheel qaysi tomonga aylanishidan qat'i nazar,
+       target shunday hisoblanadiki:
+
+       selectedCenter + rotation = 360k
+
+       ya'ni selected sectorning MARKAZI
+       pointer ostiga keladi.
+    */
+
+    let needed =
+        360 -
+        selectedCenter -
+        current;
+
+
+    needed =
+        (
+            needed +
+            360
+        ) % 360;
+
+
+    /*
+       6-8 ta to'liq aylanish.
+    */
+
+    const fullTurns =
+        6 +
+        Math.floor(
+            Math.random() * 3
+        );
+
+
+    startRotation =
+        rotation;
+
+
+    targetRotation =
+        rotation +
+        fullTurns * 360 +
+        needed;
+
+
+    spinning =
+        true;
+
+
+    const button =
+        document.getElementById(
+            "spinButton"
+        );
+
+
+    if(button){
+
+        button.disabled =
+            true;
+
+    }
+
+
+    startTime =
+        performance.now();
+
+
+    if(animationId){
+
+        cancelAnimationFrame(
+            animationId
+        );
+
+    }
+
+
+    animationId =
+        requestAnimationFrame(
+            animate
+        );
+}
+
+
+/* =========================================================
+   SMOOTH ANIMATION
+========================================================= */
+
+function animate(now){
+
+    if(!spinning){
+        return;
+    }
+
+
+    const elapsed =
+        now -
+        startTime;
+
+
+    let progress =
+        elapsed /
+        SPIN_TIME;
+
+
+    if(progress > 1){
+        progress = 1;
+    }
+
+
+    const eased =
+        easeOutQuint(
+            progress
+        );
+
+
+    rotation =
+        startRotation +
+        (
+            targetRotation -
+            startRotation
+        ) *
+        eased;
+
+
+    const group =
+        document.getElementById(
+            "wheelGroup"
+        );
+
+
+    if(group){
+
+        group.setAttribute(
+            "transform",
+            `rotate(${rotation} 500 500)`
+        );
+
+    }
+
+
+    if(progress >= 1){
+
+        finishSpin();
+
+        return;
+    }
+
+
+    animationId =
+        requestAnimationFrame(
+            animate
+        );
+}
+
+
+/* =========================================================
+   SPIN TUGADI
+========================================================= */
+
+function finishSpin(){
+
+    spinning =
+        false;
+
+
+    animationId =
+        null;
+
+
+    rotation =
+        targetRotation;
+
+
+    /*
+       -----------------------------------------------
+       NATIJA RANDOMDAN EMAS!
+       -----------------------------------------------
+
+       Aynan spin boshida tanlangan sektor.
+
+       Va targetRotation uni pointerga olib kelgan.
+    */
+
+    const selected =
+        options[
+            selectedIndex
+        ];
+
+
+    /*
+       Natijani chiqaramiz.
+    */
+
+    result.textContent =
+        selected;
+
+
+    result.classList.remove(
+        "result-animation"
+    );
+
+
+    void result.offsetWidth;
+
+
+    result.classList.add(
+        "result-animation"
+    );
+
+
+    /*
+       Hozircha olib tashlamaymiz.
+
+       Keyingi AYLANTIRISH bosilganda
+       olib tashlanadi.
+    */
+
+    pendingRemoval =
+        selected;
+
+
+    /*
+       Pointerga tushgan sektorni
+       vizual tarzda tekshirish uchun
+       final transformni aniq qo'yamiz.
+    */
+
+    const group =
+        document.getElementById(
+            "wheelGroup"
+        );
+
+
+    if(group){
+
+        group.setAttribute(
+            "transform",
+            `rotate(${rotation} 500 500)`
+        );
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "spinButton"
+        );
+
+
+    if(button){
+
+        button.disabled =
+            false;
+
+    }
+}
+
+
+/* =========================================================
+   CLEAR
+========================================================= */
+
+function clearAll(){
+
+    if(spinning){
+        return;
+    }
+
+
+    options = [];
+
+    pendingRemoval = null;
+
+    rotation = 0;
+
+    selectedIndex = -1;
+
+    result.textContent = "?";
+
+    result.classList.remove(
+        "result-animation"
+    );
+
+    renderWheel();
+}
+
+
+document
+    .getElementById("clearBtn")
+    .addEventListener(
+        "click",
+        clearAll
+    );
+
+
+/* =========================================================
+   START
+========================================================= */
+
+updateLanguage();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dasturlash — Random Mission</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0f19;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    background: #111827;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #263043;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.home {
+    color: white;
+    text-decoration: none;
+    background: #1f2937;
+    padding: 9px 14px;
+    border-radius: 9px;
+}
+
+.languages {
+    display: flex;
+    gap: 6px;
+}
+
+.lang {
+    border: none;
+    padding: 8px 11px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #1f2937;
+    color: white;
+    font-weight: bold;
+}
+
+.lang.active {
+    background: #2563eb;
+}
+
+main {
+    width: min(950px, 94%);
+    margin: 40px auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    margin-bottom: 30px;
+}
+
+.modes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.mode {
+    border: none;
+    padding: 13px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    background: #1f2937;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.mode.active {
+    background: #2563eb;
+}
+
+.mission-box {
+    background: #111827;
+    border: 1px solid #263043;
+    border-radius: 18px;
+    padding: 35px 25px;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mode-name {
+    color: #60a5fa;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.mission {
+    font-size: 23px;
+    line-height: 1.5;
+    max-width: 820px;
+    margin-bottom: 25px;
+}
+
+.new-btn {
+    border: none;
+    background: #16a34a;
+    color: white;
+    padding: 13px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.new-btn:hover {
+    background: #15803d;
+}
+
+.counter {
+    margin-top: 18px;
+    color: #9ca3af;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .mission {
+        font-size: 19px;
+    }
+
+    .modes {
+        flex-wrap: wrap;
+    }
+
+    .mode {
+        padding: 11px 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">🎲 Random Mission</div>
+
+    <a href="index.html" class="home" id="homeBtn">
+        Bosh sahifa
+    </a>
+
+    <div class="languages">
+        <button class="lang active" onclick="changeLanguage('uz')">🇺🇿</button>
+        <button class="lang" onclick="changeLanguage('ru')">🇷🇺</button>
+        <button class="lang" onclick="changeLanguage('en')">🇬🇧</button>
+    </div>
+
+</header>
+
+<main>
+
+    <h1>💻 Dasturlash</h1>
+
+    <div class="subtitle" id="subtitle"></div>
+
+    <div class="modes">
+
+        <button
+            class="mode active"
+            id="normalBtn"
+            onclick="setMode('normal')">
+            🟢 Oddiy
+        </button>
+
+        <button
+            class="mode"
+            id="hardBtn"
+            onclick="setMode('hard')">
+            🔴 Qiyin
+        </button>
+
+    </div>
+
+    <div class="mission-box">
+
+        <div class="mode-name" id="modeName"></div>
+
+        <div class="mission" id="mission"></div>
+
+        <button
+            class="new-btn"
+            id="newBtn"
+            onclick="newChallenge()">
+            🎲 Yangi topshiriq
+        </button>
+
+    </div>
+
+    <div class="counter">
+        <span id="counterText"></span>
+    </div>
+
+</main>
+
+<script>
+
+const translations = {
+
+    uz: {
+        home: "Bosh sahifa",
+        subtitle: "Dasturlash bo‘yicha tasodifiy topshiriqni tanlang.",
+        normal: "🟢 Oddiy",
+        hard: "🔴 Qiyin",
+        normalMission: "🟢 Oddiy topshiriq",
+        hardMission: "🔴 Qiyin topshiriq",
+        newMission: "🎲 Yangi topshiriq",
+        counter: "Topshiriqlar: "
+    },
+
+    ru: {
+        home: "Главная",
+        subtitle: "Выберите случайное задание по программированию.",
+        normal: "🟢 Обычный",
+        hard: "🔴 Сложный",
+        normalMission: "🟢 Обычное задание",
+        hardMission: "🔴 Сложное задание",
+        newMission: "🎲 Новое задание",
+        counter: "Заданий: "
+    },
+
+    en: {
+        home: "Home",
+        subtitle: "Choose a random programming challenge.",
+        normal: "🟢 Normal",
+        hard: "🔴 Hard",
+        normalMission: "🟢 Normal challenge",
+        hardMission: "🔴 Hard challenge",
+        newMission: "🎲 New challenge",
+        counter: "Challenges: "
+    }
+
+};
+
+
+/* =========================
+   ODDIY TOPSHIRIQLAR
+========================= */
+
+const normalMissions = [
+
+{
+uz:"🌐 Oddiy HTML sahifa yarat.",
+ru:"🌐 Создай простую HTML-страницу.",
+en:"🌐 Create a simple HTML page."
+},
+
+{
+uz:"🎨 HTML sahifangga CSS yordamida fon rangi qo‘sh.",
+ru:"🎨 Добавь цвет фона на HTML-страницу с помощью CSS.",
+en:"🎨 Add a background color to an HTML page using CSS."
+},
+
+{
+uz:"🔘 JavaScript yordamida tugma bosilganda matnni o‘zgartir.",
+ru:"🔘 С помощью JavaScript измени текст после нажатия кнопки.",
+en:"🔘 Use JavaScript to change text when a button is clicked."
+},
+
+{
+uz:"🔢 Foydalanuvchi kiritgan ikkita sonni qo‘shadigan dastur yarat.",
+ru:"🔢 Создай программу, которая складывает два введённых числа.",
+en:"🔢 Create a program that adds two numbers entered by the user."
+},
+
+{
+uz:"🔄 1 dan 100 gacha bo‘lgan sonlarni chiqar.",
+ru:"🔄 Выведи числа от 1 до 100.",
+en:"🔄 Print numbers from 1 to 100."
+},
+
+{
+uz:"🔢 Juft sonlarni topadigan dastur yarat.",
+ru:"🔢 Создай программу для поиска чётных чисел.",
+en:"🔢 Create a program that finds even numbers."
+},
+
+{
+uz:"🔢 Sonning toq yoki juftligini aniqlaydigan dastur yarat.",
+ru:"🔢 Создай программу, определяющую, является ли число чётным или нечётным.",
+en:"🔢 Create a program that checks whether a number is even or odd."
+},
+
+{
+uz:"📊 Massivdagi eng katta sonni top.",
+ru:"📊 Найди самое большое число в массиве.",
+en:"📊 Find the largest number in an array."
+},
+
+{
+uz:"📊 Massivdagi eng kichik sonni top.",
+ru:"📊 Найди самое маленькое число в массиве.",
+en:"📊 Find the smallest number in an array."
+},
+
+{
+uz:"🔤 Berilgan matn uzunligini hisobla.",
+ru:"🔤 Посчитай длину заданной строки.",
+en:"🔤 Calculate the length of a given string."
+},
+
+{
+uz:"🔠 Matnni katta harflarga o‘giradigan dastur yarat.",
+ru:"🔠 Создай программу, которая переводит текст в верхний регистр.",
+en:"🔠 Create a program that converts text to uppercase."
+},
+
+{
+uz:"🔡 Matnni kichik harflarga o‘giradigan dastur yarat.",
+ru:"🔡 Создай программу, которая переводит текст в нижний регистр.",
+en:"🔡 Create a program that converts text to lowercase."
+},
+
+{
+uz:"🧮 Kalkulyator yarat.",
+ru:"🧮 Создай калькулятор.",
+en:"🧮 Create a calculator."
+},
+
+{
+uz:"🎲 Tasodifiy son chiqaradigan dastur yarat.",
+ru:"🎲 Создай программу, которая генерирует случайное число.",
+en:"🎲 Create a program that generates a random number."
+},
+
+{
+uz:"⏱️ Taymer yarat.",
+ru:"⏱️ Создай таймер.",
+en:"⏱️ Create a timer."
+},
+
+{
+uz:"🕐 Soat ko‘rsatadigan kichik dastur yarat.",
+ru:"🕐 Создай небольшую программу, показывающую время.",
+en:"🕐 Create a small program that displays the time."
+},
+
+{
+uz:"🔐 Oddiy parol tekshiruvchi dastur yarat.",
+ru:"🔐 Создай простой проверяющий пароль.",
+en:"🔐 Create a simple password checker."
+},
+
+{
+uz:"📝 Foydalanuvchi kiritgan matnni sahifada ko‘rsat.",
+ru:"📝 Покажи введённый пользователем текст на странице.",
+en:"📝 Display the text entered by the user on the page."
+},
+
+{
+uz:"📋 Oddiy vazifalar ro‘yxatini yarat.",
+ru:"📋 Создай простой список задач.",
+en:"📋 Create a simple to-do list."
+},
+
+{
+uz:"🌙 Sahifaga qorong‘i va yorug‘ rejim qo‘sh.",
+ru:"🌙 Добавь на страницу тёмную и светлую темы.",
+en:"🌙 Add dark and light themes to a page."
+},
+
+{
+uz:"🎨 Uch xil tugma yarat va har biriga boshqa rang ber.",
+ru:"🎨 Создай три кнопки и задай каждой свой цвет.",
+en:"🎨 Create three buttons and give each a different color."
+},
+
+{
+uz:"📱 Saytni telefon ekraniga moslashtir.",
+ru:"📱 Сделай сайт адаптивным для телефона.",
+en:"📱 Make the website responsive for phones."
+},
+
+{
+uz:"🔢 1 dan 10 gacha ko‘paytirish jadvalini chiqar.",
+ru:"🔢 Выведи таблицу умножения от 1 до 10.",
+en:"🔢 Display the multiplication table from 1 to 10."
+},
+
+{
+uz:"🔍 Matn ichidan berilgan so‘zni qidiradigan dastur yarat.",
+ru:"🔍 Создай программу для поиска заданного слова в тексте.",
+en:"🔍 Create a program that searches for a word in text."
+},
+
+{
+uz:"📈 Sonning kvadratini hisoblaydigan dastur yarat.",
+ru:"📈 Создай программу, вычисляющую квадрат числа.",
+en:"📈 Create a program that calculates the square of a number."
+},
+
+{
+uz:"🔁 Matnni teskari tartibda chiqar.",
+ru:"🔁 Выведи строку в обратном порядке.",
+en:"🔁 Reverse a string."
+},
+
+{
+uz:"🧮 Uchta sonning o‘rtacha qiymatini hisobla.",
+ru:"🧮 Вычисли среднее значение трёх чисел.",
+en:"🧮 Calculate the average of three numbers."
+},
+
+{
+uz:"🎯 Tasodifiy topshiriq tanlaydigan kichik dastur yarat.",
+ru:"🎯 Создай небольшую программу, выбирающую случайное задание.",
+en:"🎯 Create a small program that chooses a random challenge."
+},
+
+{
+uz:"🌐 Ikki sahifali kichik sayt yarat.",
+ru:"🌐 Создай небольшой сайт из двух страниц.",
+en:"🌐 Create a small two-page website."
+},
+
+{
+uz:"💾 Brauzer xotirasiga ma’lumot saqlaydigan dastur yarat.",
+ru:"💾 Создай программу, сохраняющую данные в памяти браузера.",
+en:"💾 Create a program that stores data in browser storage."
+}
+
+];
+
+
+/* =========================
+   QIYIN TOPSHIRIQLAR
+========================= */
+
+const hardMissions = [
+
+{
+uz:"🧠 Hech qanday kutubxonasiz o‘zingning to‘liq kalkulyatoringni yarat.",
+ru:"🧠 Создай полноценный калькулятор без использования библиотек.",
+en:"🧠 Build a complete calculator without using libraries."
+},
+
+{
+uz:"🌐 HTML, CSS va JavaScript yordamida to‘liq kirish oynasini yarat va ma’lumotlarni tekshir.",
+ru:"🌐 Создай полноценную форму входа на HTML, CSS и JavaScript с проверкой данных.",
+en:"🌐 Build a complete login form using HTML, CSS, and JavaScript with validation."
+},
+
+{
+uz:"💾 Ma’lumotlarni localStorage'ga saqlaydigan va sahifa qayta ochilganda tiklaydigan dastur yarat.",
+ru:"💾 Создай программу, которая сохраняет данные в localStorage и восстанавливает их после перезагрузки.",
+en:"💾 Build a program that saves data to localStorage and restores it after reload."
+},
+
+{
+uz:"📝 To‘liq vazifalar ro‘yxati yarat: qo‘shish, o‘chirish, bajarildi deb belgilash va saqlash ishlasin.",
+ru:"📝 Создай полноценный список задач: добавление, удаление, отметка выполнения и сохранение.",
+en:"📝 Build a complete to-do list with adding, deleting, completing, and saving tasks."
+},
+
+{
+uz:"🔍 Qidiruv tizimi yarat: foydalanuvchi yozgan so‘z bo‘yicha 20 ta ma’lumot ichidan moslarini top.",
+ru:"🔍 Создай поиск, который находит подходящие результаты из 20 записей.",
+en:"🔍 Build a search system that finds matching results from 20 entries."
+},
+
+{
+uz:"🎲 Tasodifiy topshiriq saytini yarat va 3 tilda ishlashini ta’minla.",
+ru:"🎲 Создай сайт случайных заданий и обеспечь работу на трёх языках.",
+en:"🎲 Build a random challenge website that supports three languages."
+},
+
+{
+uz:"🌙 Qorong‘i va yorug‘ rejimni localStorage bilan saqlaydigan sayt yarat.",
+ru:"🌙 Создай сайт с тёмной и светлой темами, сохраняя выбор в localStorage.",
+en:"🌙 Build a dark/light theme system that saves the choice in localStorage."
+},
+
+{
+uz:"⏱️ Start, to‘xtatish, davom ettirish va qayta boshlash tugmalariga ega taymer yarat.",
+ru:"⏱️ Создай таймер с запуском, остановкой, продолжением и сбросом.",
+en:"⏱️ Build a timer with start, stop, resume, and reset controls."
+},
+
+{
+uz:"🎮 Brauzerda ishlaydigan kichik o‘yin yarat.",
+ru:"🎮 Создай небольшую игру, работающую в браузере.",
+en:"🎮 Build a small browser game."
+},
+
+{
+uz:"🏆 Hisobni saqlaydigan va eng yuqori natijani ko‘rsatadigan o‘yin yarat.",
+ru:"🏆 Создай игру, которая сохраняет счёт и показывает лучший результат.",
+en:"🏆 Build a game that saves the score and displays the high score."
+},
+
+{
+uz:"🧠 Xotira o‘yinini yarat: kartalarni ochish va bir xil juftlarni topish kerak bo‘lsin.",
+ru:"🧠 Создай игру на память с открытием карт и поиском одинаковых пар.",
+en:"🧠 Build a memory game where players reveal cards and find matching pairs."
+},
+
+{
+uz:"🔐 Parol kuchini tekshiruvchi tizim yarat: uzunlik, raqam, katta va kichik harflarni tekshir.",
+ru:"🔐 Создай проверку сложности пароля: длина, цифры, заглавные и строчные буквы.",
+en:"🔐 Build a password-strength checker for length, numbers, uppercase and lowercase letters."
+},
+
+{
+uz:"📊 Foydalanuvchi kiritgan sonlardan statistik ma’lumot chiqar: minimum, maksimum, o‘rtacha va yig‘indi.",
+ru:"📊 По введённым числам выведи минимум, максимум, среднее значение и сумму.",
+en:"📊 From entered numbers, calculate minimum, maximum, average, and sum."
+},
+
+{
+uz:"🔢 Kalkulyatorda tarix funksiyasini yarat: oxirgi 10 ta amalni ko‘rsat.",
+ru:"🔢 Добавь в калькулятор историю и показывай последние 10 операций.",
+en:"🔢 Add calculator history and display the last 10 operations."
+},
+
+{
+uz:"🌐 Uch sahifali sayt yarat va barcha sahifalarda tanlangan tilni saqla.",
+ru:"🌐 Создай сайт из трёх страниц и сохраняй выбранный язык на всех страницах.",
+en:"🌐 Build a three-page website that keeps the selected language across all pages."
+},
+
+{
+uz:"📱 Telefon, planshet va kompyuter ekranlariga mos keladigan sayt yarat.",
+ru:"📱 Создай сайт, адаптированный под телефон, планшет и компьютер.",
+en:"📱 Build a website responsive to phones, tablets, and computers."
+},
+
+{
+uz:"🧩 JavaScript yordamida 20 ta savoldan tasodifiy viktorina yarat.",
+ru:"🧩 Создай случайную викторину из 20 вопросов с помощью JavaScript.",
+en:"🧩 Build a random quiz with 20 questions using JavaScript."
+},
+
+{
+uz:"🏆 Viktorina tizimida ball, to‘g‘ri javoblar va noto‘g‘ri javoblarni hisobla.",
+ru:"🏆 В викторине подсчитывай баллы, правильные и неправильные ответы.",
+en:"🏆 Make the quiz count points, correct answers, and wrong answers."
+},
+
+{
+uz:"⏳ Viktorina uchun vaqt chegarasi qo‘sh: vaqt tugaganda natijani avtomatik chiqar.",
+ru:"⏳ Добавь ограничение времени: после окончания времени автоматически показывай результат.",
+en:"⏳ Add a quiz time limit and automatically show the result when time runs out."
+},
+
+{
+uz:"💻 O‘zingga oddiy kod muharriri yarat: HTML, CSS va JavaScript kodlarini kiritish mumkin bo‘lsin.",
+ru:"💻 Создай простой редактор кода, в котором можно вводить HTML, CSS и JavaScript.",
+en:"💻 Build a simple code editor for HTML, CSS, and JavaScript."
+},
+
+{
+uz:"⚡ Kod muharririga natijani real vaqtda ko‘rsatadigan oynani qo‘sh.",
+ru:"⚡ Добавь к редактору кода окно с результатом в реальном времени.",
+en:"⚡ Add a live preview window to the code editor."
+},
+
+{
+uz:"🗂️ JavaScript yordamida papkalar va fayllarga o‘xshash daraxt ko‘rinishini yarat.",
+ru:"🗂️ Создай древовидную структуру, похожую на папки и файлы, с помощью JavaScript.",
+en:"🗂️ Build a file-and-folder-like tree structure using JavaScript."
+},
+
+{
+uz:"🔄 Saytda hech qanday kutubxonasiz slayder yarat.",
+ru:"🔄 Создай слайдер без использования библиотек.",
+en:"🔄 Build a slider without using libraries."
+},
+
+{
+uz:"🎨 CSS yordamida animatsiyali yuklanish belgisi yarat.",
+ru:"🎨 Создай анимированный индикатор загрузки с помощью CSS.",
+en:"🎨 Create an animated loading indicator using CSS."
+},
+
+{
+uz:"🖱️ Sichqoncha harakatini kuzatadigan va koordinatalarni ko‘rsatadigan dastur yarat.",
+ru:"🖱️ Создай программу, которая отслеживает движение мыши и показывает координаты.",
+en:"🖱️ Build a program that tracks mouse movement and displays coordinates."
+},
+
+{
+uz:"⌨️ Klaviaturadagi bosilgan tugmani ekranda ko‘rsatadigan dastur yarat.",
+ru:"⌨️ Создай программу, показывающую на экране нажатую клавишу.",
+en:"⌨️ Build a program that displays the pressed keyboard key."
+},
+
+{
+uz:"🎯 Reaksiya tezligini o‘lchaydigan o‘yin yarat.",
+ru:"🎯 Создай игру для измерения скорости реакции.",
+en:"🎯 Build a reaction-speed game."
+},
+
+{
+uz:"🧠 Xotira o‘yinida 10 ta juftlik bo‘lsin va eng kam yurishlar sonini saqla.",
+ru:"🧠 В игре на память сделай 10 пар и сохраняй лучший результат по количеству ходов.",
+en:"🧠 Create a memory game with 10 pairs and save the best move count."
+},
+
+{
+uz:"📈 Oddiy diagramma yarat va foydalanuvchi kiritgan ma’lumotlarni unda ko‘rsat.",
+ru:"📈 Создай простую диаграмму и показывай на ней введённые пользователем данные.",
+en:"📈 Build a simple chart displaying user-entered data."
+},
+
+{
+uz:"🔢 Foydalanuvchi son kiritganda uning tub son ekanligini tekshir.",
+ru:"🔢 Проверяй, является ли введённое число простым.",
+en:"🔢 Check whether an entered number is prime."
+},
+
+{
+uz:"🧮 Tub sonlarni 1 dan 10 000 gacha topadigan dastur yarat.",
+ru:"🧮 Создай программу, находящую простые числа от 1 до 10 000.",
+en:"🧮 Build a program that finds prime numbers from 1 to 10,000."
+},
+
+{
+uz:"🔤 Matn palindrom ekanligini aniqlaydigan dastur yarat.",
+ru:"🔤 Создай программу, определяющую, является ли строка палиндромом.",
+en:"🔤 Build a program that checks whether a string is a palindrome."
+},
+
+{
+uz:"🔢 Fibonacci ketma-ketligining dastlabki 50 ta sonini chiqar.",
+ru:"🔢 Выведи первые 50 чисел последовательности Фибоначчи.",
+en:"🔢 Print the first 50 Fibonacci numbers."
+},
+
+{
+uz:"🧠 Fibonacci sonlarini rekursiya yordamida hisobla.",
+ru:"🧠 Вычисли числа Фибоначчи с помощью рекурсии.",
+en:"🧠 Calculate Fibonacci numbers using recursion."
+},
+
+{
+uz:"🔍 Saralash algoritmini kutubxonasiz o‘zing yoz.",
+ru:"🔍 Напиши алгоритм сортировки самостоятельно, без библиотек.",
+en:"🔍 Implement a sorting algorithm yourself without libraries."
+},
+
+{
+uz:"⚡ Massivni tez saralash uchun Quick Sort algoritmini o‘zing yoz.",
+ru:"⚡ Самостоятельно реализуй алгоритм быстрой сортировки Quick Sort.",
+en:"⚡ Implement Quick Sort yourself."
+},
+
+{
+uz:"🔎 Binary Search algoritmini o‘zing yoz va tekshir.",
+ru:"🔎 Самостоятельно реализуй и протестируй бинарный поиск.",
+en:"🔎 Implement and test binary search yourself."
+},
+
+{
+uz:"🧩 100 ta tasodifiy son yarat, ularni sarala va medianasini top.",
+ru:"🧩 Создай 100 случайных чисел, отсортируй их и найди медиану.",
+en:"🧩 Generate 100 random numbers, sort them, and find the median."
+},
+
+{
+uz:"💾 localStorage yordamida foydalanuvchi profilini saqlaydigan tizim yarat.",
+ru:"💾 Создай систему сохранения профиля пользователя через localStorage.",
+en:"💾 Build a user profile system using localStorage."
+},
+
+{
+uz:"🌐 Saytga 3 til qo‘sh va barcha matnlarni til tugmasi orqali almashtir.",
+ru:"🌐 Добавь на сайт 3 языка и переключение всех текстов кнопками.",
+en:"🌐 Add 3 languages and switch all text using language buttons."
+},
+
+{
+uz:"🎲 Tasodifiy missiya tizimini yarat: missiya takrorlanmasin.",
+ru:"🎲 Создай систему случайных заданий, в которой задания не повторяются.",
+en:"🎲 Build a random challenge system where challenges do not repeat."
+},
+
+{
+uz:"🔥 100 ta topshiriqli random tizim yarat va har bir topshiriq 3 tilda bo‘lsin.",
+ru:"🔥 Создай систему из 100 случайных заданий, каждое на 3 языках.",
+en:"🔥 Build a random system with 100 challenges, each available in 3 languages."
+},
+
+{
+uz:"💀 Hech qanday tayyor kodni ko‘chirmasdan kichik o‘yin yarat.",
+ru:"💀 Создай небольшую игру, не копируя готовый код.",
+en:"💀 Build a small game without copying ready-made code."
+},
+
+{
+uz:"🧠 O‘zing yangi algoritm o‘ylab top va uning ishlashini kodda ko‘rsat.",
+ru:"🧠 Придумай собственный алгоритм и покажи его работу в коде.",
+en:"🧠 Invent your own algorithm and demonstrate it in code."
+},
+
+{
+uz:"💻 Bitta HTML fayl ichida HTML, CSS va JavaScript yordamida to‘liq mini-loyiha yarat.",
+ru:"💻 Создай полноценный мини-проект в одном HTML-файле с HTML, CSS и JavaScript.",
+en:"💻 Build a complete mini-project in one HTML file using HTML, CSS, and JavaScript."
+},
+
+{
+uz:"🔥 Internetdan kod ko‘chirmasdan 1 soat ichida ishlaydigan mini-sayt yarat.",
+ru:"🔥 Создай работающий мини-сайт за 1 час без копирования кода из интернета.",
+en:"🔥 Build a working mini-website in 1 hour without copying code from the internet."
+},
+
+{
+uz:"💀 3 til, qorong‘i rejim, localStorage, qidiruv va tasodifiy tizimni bitta loyihaga birlashtir.",
+ru:"💀 Объедини 3 языка, тёмную тему, localStorage, поиск и случайную систему в одном проекте.",
+en:"💀 Combine 3 languages, dark mode, localStorage, search, and a random system into one project."
+},
+
+{
+uz:"🏆 To‘liq viktorina yarat: 30 ta savol, vaqt, ball, rekord, 3 til va qayta boshlash funksiyasi bo‘lsin.",
+ru:"🏆 Создай полноценную викторину: 30 вопросов, таймер, баллы, рекорд, 3 языка и перезапуск.",
+en:"🏆 Build a complete quiz with 30 questions, timer, score, high score, 3 languages, and restart."
+},
+
+{
+uz:"🔥 To‘liq vazifalar tizimi yarat: qo‘shish, o‘chirish, qidirish, saralash, bajarish va localStorage.",
+ru:"🔥 Создай полноценную систему задач: добавление, удаление, поиск, сортировка, выполнение и localStorage.",
+en:"🔥 Build a complete task system with adding, deleting, searching, sorting, completion, and localStorage."
+},
+
+{
+uz:"💀 MUTLAQ SINOV: hech qanday kutubxonasiz mini-o‘yin yarat, rekordni saqla, 3 til qo‘sh va telefon uchun moslashtir.",
+ru:"💀 АБСОЛЮТНОЕ ИСПЫТАНИЕ: создай мини-игру без библиотек, сохраняй рекорд, добавь 3 языка и адаптацию под телефон.",
+en:"💀 ULTIMATE CHALLENGE: build a mini-game without libraries, save the high score, add 3 languages, and make it mobile-friendly."
+},
+
+{
+uz:"🔥 YAKUNIY SINOV: noldan to‘liq sayt yarat — kamida 5 sahifa, 3 til, qorong‘i rejim, localStorage, qidiruv va tasodifiy tizim ishlasin.",
+ru:"🔥 ФИНАЛЬНОЕ ИСПЫТАНИЕ: создай полноценный сайт с нуля — минимум 5 страниц, 3 языка, тёмная тема, localStorage, поиск и случайная система.",
+en:"🔥 FINAL CHALLENGE: build a complete website from scratch with at least 5 pages, 3 languages, dark mode, localStorage, search, and a random system."
+}
+
+];
+
+
+let language =
+    localStorage.getItem("randomMissionLanguage") || "uz";
+
+let mode = "normal";
+let completed = 0;
+
+
+/* =========================
+   TIL
+========================= */
+
+function changeLanguage(lang) {
+
+    language = lang;
+
+    localStorage.setItem(
+        "randomMissionLanguage",
+        lang
+    );
+
+    document.querySelectorAll(".lang").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    document
+        .querySelector(
+            `.lang[onclick="changeLanguage('${lang}')"]`
+        )
+        .classList.add("active");
+
+    updateInterface();
+}
+
+
+/* =========================
+   INTERFEYS
+========================= */
+
+function updateInterface() {
+
+    const t = translations[language];
+
+    document.getElementById("homeBtn").textContent =
+        t.home;
+
+    document.getElementById("subtitle").textContent =
+        t.subtitle;
+
+    document.getElementById("normalBtn").textContent =
+        t.normal;
+
+    document.getElementById("hardBtn").textContent =
+        t.hard;
+
+    document.getElementById("newBtn").textContent =
+        t.newMission;
+
+    document.getElementById("modeName").textContent =
+        mode === "normal"
+            ? t.normalMission
+            : t.hardMission;
+
+    document.getElementById("counterText").textContent =
+        t.counter + completed;
+}
+
+
+/* =========================
+   REJIM
+========================= */
+
+function setMode(selectedMode) {
+
+    mode = selectedMode;
+
+    document
+        .getElementById("normalBtn")
+        .classList.toggle(
+            "active",
+            mode === "normal"
+        );
+
+    document
+        .getElementById("hardBtn")
+        .classList.toggle(
+            "active",
+            mode === "hard"
+        );
+
+    completed = 0;
+
+    updateInterface();
+
+    newChallenge();
+}
+
+
+/* =========================
+   TASODIFIY TOPSHIRIQ
+========================= */
+
+function newChallenge() {
+
+    const missions =
+        mode === "normal"
+            ? normalMissions
+            : hardMissions;
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * missions.length
+        );
+
+    const mission =
+        missions[randomIndex];
+
+    document.getElementById("mission").textContent =
+        mission[language];
+
+    completed++;
+
+    const t = translations[language];
+
+    document.getElementById("counterText").textContent =
+        t.counter + completed;
+}
+
+
+/* =========================
+   BOSHLANISH
+========================= */
+
+updateInterface();
+newChallenge();
+
+</script>
+
+</body>
+</html>

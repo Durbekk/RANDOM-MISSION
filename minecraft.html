@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Mission - Minecraft</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0b12;
+            color: white;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 7%;
+            border-bottom: 1px solid #252532;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .home {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .home:hover {
+            color: white;
+        }
+
+        .languages {
+            display: flex;
+            gap: 5px;
+        }
+
+        .languages button {
+            padding: 7px 9px;
+            border: 1px solid #333341;
+            border-radius: 7px;
+            background: #151520;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .languages button.active,
+        .languages button:hover {
+            background: white;
+            color: black;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 44px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #999;
+            margin-bottom: 40px;
+        }
+
+        .modes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .mode {
+            background: #151520;
+            border: 1px solid #292936;
+            border-radius: 18px;
+            padding: 25px 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .mode:hover {
+            transform: translateY(-4px);
+            border-color: #666;
+        }
+
+        .mode.active {
+            background: #1d1d2a;
+            border-color: white;
+        }
+
+        .mode-icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .mode h2 {
+            margin-bottom: 8px;
+        }
+
+        .mode p {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .challenge-box {
+            background: #151520;
+            border: 1px solid #292936;
+            border-radius: 22px;
+            padding: 50px 25px;
+            min-height: 280px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mode-label {
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        #challenge {
+            max-width: 780px;
+            font-size: 29px;
+            font-weight: bold;
+            line-height: 1.45;
+        }
+
+        #timer {
+            display: none;
+            margin-top: 22px;
+            font-size: 38px;
+            font-weight: bold;
+        }
+
+        #timer.danger {
+            color: #ff5555;
+        }
+
+        #timeUp {
+            display: none;
+            margin-top: 15px;
+            color: #ff5555;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .action {
+            margin-top: 30px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .action:hover {
+            opacity: 0.85;
+        }
+
+        .counter {
+            margin-top: 17px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            padding: 35px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                padding: 18px 15px;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .header-right {
+                gap: 8px;
+            }
+
+            .home {
+                font-size: 13px;
+            }
+
+            .languages button {
+                padding: 6px 7px;
+                font-size: 11px;
+            }
+
+            .title {
+                font-size: 34px;
+            }
+
+            .modes {
+                grid-template-columns: 1fr;
+            }
+
+            #challenge {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Random Mission
+    </div>
+
+    <div class="header-right">
+
+        <a href="index.html" class="home" id="home">
+            ← Bosh sahifa
+        </a>
+
+        <div class="languages">
+            <button id="uzBtn" onclick="changeLanguage('uz')">🇺🇿</button>
+            <button id="ruBtn" onclick="changeLanguage('ru')">🇷🇺</button>
+            <button id="enBtn" onclick="changeLanguage('en')">🇬🇧</button>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <h1 class="title" id="title">⛏️ Minecraft</h1>
+
+    <p class="subtitle" id="subtitle">
+        Tasodifiy topshiriqni tanlang va bajaring!
+    </p>
+
+
+    <div class="modes">
+
+        <div class="mode active"
+             id="normalMode"
+             onclick="setMode('normal')">
+
+            <div class="mode-icon">🎯</div>
+
+            <h2 id="normalTitle">Oddiy</h2>
+
+            <p id="normalText">
+                Oddiy topshiriqlar
+            </p>
+
+        </div>
+
+
+        <div class="mode"
+             id="speedMode"
+             onclick="setMode('speed')">
+
+            <div class="mode-icon">⚡</div>
+
+            <h2 id="speedTitle">Tezkor</h2>
+
+            <p id="speedText">
+                Vaqt bilan topshiriqlar
+            </p>
+
+        </div>
+
+
+        <div class="mode"
+             id="hardMode"
+             onclick="setMode('hard')">
+
+            <div class="mode-icon">💀</div>
+
+            <h2 id="hardTitle">Qiyin</h2>
+
+            <p id="hardText">
+                Juda qiyin topshiriqlar
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="challenge-box">
+
+        <div class="mode-label" id="modeLabel">
+            Oddiy topshiriq
+        </div>
+
+        <div id="challenge">
+            20 ta yog‘och yig‘ing
+        </div>
+
+        <div id="timer">
+            00:00
+        </div>
+
+        <div id="timeUp">
+            VAQT TUGADI!
+        </div>
+
+        <button class="action"
+                id="newButton"
+                onclick="newChallenge()">
+            🎲 Yangi topshiriq
+        </button>
+
+        <div class="counter" id="counter">
+            0 ta topshiriq
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer id="footer">
+    © 2026 Random Mission
+</footer>
+
+
+<script>
+
+/* =====================================================
+   ODDIY TOPSHIRIQLAR
+===================================================== */
+
+const normalMissions = [
+
+    {
+        uz: "🌳 20 ta yog‘och yig‘ing",
+        ru: "🌳 Соберите 20 блоков дерева",
+        en: "🌳 Collect 20 wood blocks"
+    },
+
+    {
+        uz: "⛏️ 16 ta temir ruda qazib oling",
+        ru: "⛏️ Добудьте 16 железной руды",
+        en: "⛏️ Mine 16 iron ore"
+    },
+
+    {
+        uz: "💎 1 ta olmos toping",
+        ru: "💎 Найдите 1 алмаз",
+        en: "💎 Find 1 diamond"
+    },
+
+    {
+        uz: "🪨 64 ta tosh yig‘ing",
+        ru: "🪨 Соберите 64 камня",
+        en: "🪨 Collect 64 stone"
+    },
+
+    {
+        uz: "🥖 10 ta non tayyorlang",
+        ru: "🥖 Приготовьте 10 хлебов",
+        en: "🥖 Make 10 pieces of bread"
+    },
+
+    {
+        uz: "🐄 Sigir toping",
+        ru: "🐄 Найдите корову",
+        en: "🐄 Find a cow"
+    },
+
+    {
+        uz: "🐑 Qo‘y toping",
+        ru: "🐑 Найдите овцу",
+        en: "🐑 Find a sheep"
+    },
+
+    {
+        uz: "🐔 Tovuq toping",
+        ru: "🐔 Найдите курицу",
+        en: "🐔 Find a chicken"
+    },
+
+    {
+        uz: "🐺 Bo‘ri topib, uni o‘rgating",
+        ru: "🐺 Найдите и приручите волка",
+        en: "🐺 Find and tame a wolf"
+    },
+
+    {
+        uz: "🐱 Mushukni o‘rgating",
+        ru: "🐱 Приручите кошку",
+        en: "🐱 Tame a cat"
+    },
+
+    {
+        uz: "🐴 Ot toping",
+        ru: "🐴 Найдите лошадь",
+        en: "🐴 Find a horse"
+    },
+
+    {
+        uz: "🌾 Bug‘doy yetishtiring",
+        ru: "🌾 Вырастите пшеницу",
+        en: "🌾 Grow wheat"
+    },
+
+    {
+        uz: "🥕 Sabzi yetishtiring",
+        ru: "🥕 Вырастите морковь",
+        en: "🥕 Grow carrots"
+    },
+
+    {
+        uz: "🥔 Kartoshka yetishtiring",
+        ru: "🥔 Вырастите картофель",
+        en: "🥔 Grow potatoes"
+    },
+
+    {
+        uz: "🍎 Olma toping",
+        ru: "🍎 Найдите яблоко",
+        en: "🍎 Find an apple"
+    },
+
+    {
+        uz: "🏠 Kichik uy quring",
+        ru: "🏠 Постройте маленький дом",
+        en: "🏠 Build a small house"
+    },
+
+    {
+        uz: "🛏️ Karavot yasang",
+        ru: "🛏️ Сделайте кровать",
+        en: "🛏️ Make a bed"
+    },
+
+    {
+        uz: "🔥 Pechka yasang",
+        ru: "🔥 Сделайте печь",
+        en: "🔥 Make a furnace"
+    },
+
+    {
+        uz: "🛡️ Qalqon yasang",
+        ru: "🛡️ Сделайте щит",
+        en: "🛡️ Make a shield"
+    },
+
+    {
+        uz: "⚔️ Temir qilich yasang",
+        ru: "⚔️ Сделайте железный меч",
+        en: "⚔️ Make an iron sword"
+    },
+
+    {
+        uz: "⛏️ Temir kirka yasang",
+        ru: "⛏️ Сделайте железную кирку",
+        en: "⛏️ Make an iron pickaxe"
+    },
+
+    {
+        uz: "🪣 Chelak yasang",
+        ru: "🪣 Сделайте ведро",
+        en: "🪣 Make a bucket"
+    },
+
+    {
+        uz: "📦 Sanduq yasang",
+        ru: "📦 Сделайте сундук",
+        en: "📦 Make a chest"
+    },
+
+    {
+        uz: "🏘️ Qishloq toping",
+        ru: "🏘️ Найдите деревню",
+        en: "🏘️ Find a village"
+    },
+
+    {
+        uz: "🏜️ Cho‘l biomini toping",
+        ru: "🏜️ Найдите пустынный биом",
+        en: "🏜️ Find a desert biome"
+    },
+
+    {
+        uz: "❄️ Qorli biomni toping",
+        ru: "❄️ Найдите снежный биом",
+        en: "❄️ Find a snowy biome"
+    },
+
+    {
+        uz: "🌴 Jungle biomini toping",
+        ru: "🌴 Найдите биом джунглей",
+        en: "🌴 Find a jungle biome"
+    },
+
+    {
+        uz: "🌊 Okeanni toping",
+        ru: "🌊 Найдите океан",
+        en: "🌊 Find an ocean"
+    },
+
+    {
+        uz: "🏔️ Tog‘ toping",
+        ru: "🏔️ Найдите гору",
+        en: "🏔️ Find a mountain"
+    },
+
+    {
+        uz: "🟨 Oltin ruda toping",
+        ru: "🟨 Найдите золотую руду",
+        en: "🟨 Find gold ore"
+    },
+
+    {
+        uz: "🔴 Redstone toping",
+        ru: "🔴 Найдите редстоун",
+        en: "🔴 Find redstone"
+    },
+
+    {
+        uz: "🔵 Lapis Lazuli toping",
+        ru: "🔵 Найдите лазурит",
+        en: "🔵 Find lapis lazuli"
+    },
+
+    {
+        uz: "🟢 Zumrad toping",
+        ru: "🟢 Найдите изумруд",
+        en: "🟢 Find an emerald"
+    },
+
+    {
+        uz: "🎣 Baliq tuting",
+        ru: "🎣 Поймайте рыбу",
+        en: "🎣 Catch a fish"
+    },
+
+    {
+        uz: "🏹 Kamon yasang",
+        ru: "🏹 Сделайте лук",
+        en: "🏹 Make a bow"
+    },
+
+    {
+        uz: "🏹 10 ta o‘q yasang",
+        ru: "🏹 Сделайте 10 стрел",
+        en: "🏹 Make 10 arrows"
+    },
+
+    {
+        uz: "📚 Kitob yasang",
+        ru: "📚 Сделайте книгу",
+        en: "📚 Make a book"
+    },
+
+    {
+        uz: "🎣 Qarmoq yasang",
+        ru: "🎣 Сделайте удочку",
+        en: "🎣 Make a fishing rod"
+    },
+
+    {
+        uz: "🌱 10 ta daraxt eking",
+        ru: "🌱 Посадите 10 деревьев",
+        en: "🌱 Plant 10 trees"
+    },
+
+    {
+        uz: "🎃 Qovoq toping",
+        ru: "🎃 Найдите тыкву",
+        en: "🎃 Find a pumpkin"
+    },
+
+    {
+        uz: "🍉 Tarvuz toping",
+        ru: "🍉 Найдите арбуз",
+        en: "🍉 Find a watermelon"
+    },
+
+    {
+        uz: "🍯 Asal yig‘ing",
+        ru: "🍯 Соберите мёд",
+        en: "🍯 Collect honey"
+    },
+
+    {
+        uz: "🧭 Kompas yasang",
+        ru: "🧭 Сделайте компас",
+        en: "🧭 Make a compass"
+    },
+
+    {
+        uz: "⛏️ 32 ta ko‘mir qazib oling",
+        ru: "⛏️ Добудьте 32 угля",
+        en: "⛏️ Mine 32 coal"
+    },
+
+    {
+        uz: "🍖 10 ta pishirilgan go‘sht tayyorlang",
+        ru: "🍖 Приготовьте 10 кусков мяса",
+        en: "🍖 Cook 10 pieces of meat"
+    },
+
+    {
+        uz: "💚 Villager bilan savdo qiling",
+        ru: "💚 Торгуйтесь с жителем",
+        en: "💚 Trade with a villager"
+    },
+
+    {
+        uz: "🏹 Skeletonni kamon bilan o‘ldiring",
+        ru: "🏹 Убейте скелета из лука",
+        en: "🏹 Kill a skeleton with a bow"
+    },
+
+    {
+        uz: "💥 Creeperni o‘ldiring",
+        ru: "💥 Убейте крипера",
+        en: "💥 Kill a creeper"
+    },
+
+    {
+        uz: "🧟 Zombie o‘ldiring",
+        ru: "🧟 Убейте зомби",
+        en: "🧟 Kill a zombie"
+    },
+
+    {
+        uz: "🧰 Anvil yasang",
+        ru: "🧰 Сделайте наковальню",
+        en: "🧰 Make an anvil"
+    },
+
+    {
+        uz: "📖 Enchantment Table yasang",
+        ru: "📖 Сделайте стол зачарований",
+        en: "📖 Make an enchanting table"
+    },
+
+    {
+        uz: "🪣 Lava toping",
+        ru: "🪣 Найдите лаву",
+        en: "🪣 Find lava"
+    },
+
+    {
+        uz: "🌋 Nether portal yasang",
+        ru: "🌋 Сделайте портал в Нижний мир",
+        en: "🌋 Make a Nether portal"
+    },
+
+    {
+        uz: "🔥 Netherga kiring",
+        ru: "🔥 Войдите в Нижний мир",
+        en: "🔥 Enter the Nether"
+    }
+
+];
+
+
+/* =====================================================
+   TEZKOR TOPSHIRIQLAR
+===================================================== */
+
+const speedMissions = [
+
+    {
+        uz: "⚡ 5 daqiqada temir toping",
+        ru: "⚡ Найдите железо за 5 минут",
+        en: "⚡ Find iron in 5 minutes"
+    },
+
+    {
+        uz: "⚡ 5 daqiqada karavot yasang",
+        ru: "⚡ Сделайте кровать за 5 минут",
+        en: "⚡ Make a bed in 5 minutes"
+    },
+
+    {
+        uz: "⚡ 5 daqiqada qalqon yasang",
+        ru: "⚡ Сделайте щит за 5 минут",
+        en: "⚡ Make a shield in 5 minutes"
+    },
+
+    {
+        uz: "⚡ 10 daqiqada qishloq toping",
+        ru: "⚡ Найдите деревню за 10 минут",
+        en: "⚡ Find a village in 10 minutes"
+    },
+
+    {
+        uz: "⚡ 10 daqiqada 3 ta temir toping",
+        ru: "⚡ Найдите 3 железа за 10 минут",
+        en: "⚡ Find 3 iron in 10 minutes"
+    },
+
+    {
+        uz: "⚡ 10 daqiqada 1 ta olmos toping",
+        ru: "⚡ Найдите 1 алмаз за 10 минут",
+        en: "⚡ Find 1 diamond in 10 minutes"
+    },
+
+    {
+        uz: "⚡ 10 daqiqada uy quring",
+        ru: "⚡ Постройте дом за 10 минут",
+        en: "⚡ Build a house in 10 minutes"
+    },
+
+    {
+        uz: "⚡ 10 daqiqada temir qilich va qalqon yasang",
+        ru: "⚡ Сделайте железный меч и щит за 10 минут",
+        en: "⚡ Make an iron sword and shield in 10 minutes"
+    },
+
+    {
+        uz: "⚡ 15 daqiqada Nether portal oching",
+        ru: "⚡ Откройте портал в Нижний мир за 15 минут",
+        en: "⚡ Enter the Nether in 15 minutes"
+    },
+
+    {
+        uz: "⚡ 15 daqiqada 5 ta olmos toping",
+        ru: "⚡ Найдите 5 алмазов за 15 минут",
+        en: "⚡ Find 5 diamonds in 15 minutes"
+    },
+
+    {
+        uz: "⚡ 10 daqiqada to‘liq temir zirh yasang",
+        ru: "⚡ Сделайте полный железный комплект за 10 минут",
+        en: "⚡ Make full iron armor in 10 minutes"
+    },
+
+    {
+        uz: "⚡ 20 daqiqada Nether Fortress toping",
+        ru: "⚡ Найдите крепость Нижнего мира за 20 минут",
+        en: "⚡ Find a Nether Fortress in 20 minutes"
+    },
+
+    {
+        uz: "⚡ 20 daqiqada Blaze Rod toping",
+        ru: "⚡ Найдите стержень ифрита за 20 минут",
+        en: "⚡ Find a Blaze Rod in 20 minutes"
+    },
+
+    {
+        uz: "⚡ 20 daqiqada 10 ta Ender Pearl yig‘ing",
+        ru: "⚡ Соберите 10 жемчугов Края за 20 минут",
+        en: "⚡ Collect 10 Ender Pearls in 20 minutes"
+    },
+
+    {
+        uz: "⚡ 20 daqiqada Netherite Scrap toping",
+        ru: "⚡ Найдите незеритовый обломок за 20 минут",
+        en: "⚡ Find Netherite Scrap in 20 minutes"
+    },
+
+    {
+        uz: "⚡ 30 daqiqada Ancient City toping",
+        ru: "⚡ Найдите Древний город за 30 минут",
+        en: "⚡ Find an Ancient City in 30 minutes"
+    },
+
+    {
+        uz: "⚡ 30 daqiqada Bastion toping",
+        ru: "⚡ Найдите бастион за 30 минут",
+        en: "⚡ Find a Bastion in 30 minutes"
+    },
+
+    {
+        uz: "⚡ 30 daqiqada to‘liq diamond zirhga ega bo‘ling",
+        ru: "⚡ Получите полный алмазный комплект за 30 минут",
+        en: "⚡ Get full diamond armor in 30 minutes"
+    }
+
+];
+
+
+/* =====================================================
+   QIYIN TOPSHIRIQLAR
+===================================================== */
+
+const hardMissions = [
+
+    {
+        uz: "💀 Ancient Cityni toping va Warden paydo bo‘lgandan keyin tirik qayting",
+        ru: "💀 Найдите Древний город и вернитесь живым после появления Вардена",
+        en: "💀 Find an Ancient City and return alive after summoning the Warden"
+    },
+
+    {
+        uz: "💀 Wardenni o‘ldiring va Ancient Citydan tirik chiqing",
+        ru: "💀 Убейте Вардена и выберитесь из Древнего города живым",
+        en: "💀 Kill a Warden and escape the Ancient City alive"
+    },
+
+    {
+        uz: "💀 Witherni yenging",
+        ru: "💀 Победите Иссушителя",
+        en: "💀 Defeat the Wither"
+    },
+
+    {
+        uz: "💀 Witherni Netherite zirhsiz yenging",
+        ru: "💀 Победите Иссушителя без незеритовой брони",
+        en: "💀 Defeat the Wither without Netherite armor"
+    },
+
+    {
+        uz: "💀 Witherni hech qanday o‘limsiz yenging",
+        ru: "💀 Победите Иссушителя без смертей",
+        en: "💀 Defeat the Wither without dying"
+    },
+
+    {
+        uz: "💀 Ender Dragonni hech qanday o‘limsiz yenging",
+        ru: "💀 Победите Эндер-дракона без смертей",
+        en: "💀 Defeat the Ender Dragon without dying"
+    },
+
+    {
+        uz: "💀 Ender Dragonni faqat qilich bilan yenging",
+        ru: "💀 Победите Эндер-дракона только мечом",
+        en: "💀 Defeat the Ender Dragon using only a sword"
+    },
+
+    {
+        uz: "💀 Ender Dragon jangida kamondan foydalanmang",
+        ru: "💀 Не используйте лук в битве с Эндер-драконом",
+        en: "💀 Do not use a bow during the Ender Dragon fight"
+    },
+
+    {
+        uz: "💀 Bastiondan oltin olib, tirik chiqib keting",
+        ru: "💀 Возьмите золото из бастиона и выберитесь живым",
+        en: "💀 Take gold from a Bastion and escape alive"
+    },
+
+    {
+        uz: "💀 Netherite zirhsiz Bastionni tozalang",
+        ru: "💀 Зачистите бастион без незеритовой брони",
+        en: "💀 Clear a Bastion without Netherite armor"
+    },
+
+    {
+        uz: "💀 Qalqonsiz Nether Fortressni tozalang",
+        ru: "💀 Зачистите крепость Нижнего мира без щита",
+        en: "💀 Clear a Nether Fortress without a shield"
+    },
+
+    {
+        uz: "💀 3 ta Wither Skeleton boshini toping",
+        ru: "💀 Получите 3 головы скелетов-иссушителей",
+        en: "💀 Obtain 3 Wither Skeleton skulls"
+    },
+
+    {
+        uz: "💀 5 ta Blaze Rod yig‘ing",
+        ru: "💀 Соберите 5 стержней ифрита",
+        en: "💀 Collect 5 Blaze Rods"
+    },
+
+    {
+        uz: "💀 10 ta Ender Pearl yig‘ing",
+        ru: "💀 Соберите 10 жемчугов Края",
+        en: "💀 Collect 10 Ender Pearls"
+    },
+
+    {
+        uz: "💀 End Portalni toping",
+        ru: "💀 Найдите портал в Край",
+        en: "💀 Find the End Portal"
+    },
+
+    {
+        uz: "💀 End Citydan Elytra toping",
+        ru: "💀 Найдите элитры в городе Края",
+        en: "💀 Find an Elytra in an End City"
+    },
+
+    {
+        uz: "💀 Elytra bilan 1000 blok uching",
+        ru: "💀 Пролетите 1000 блоков на элитрах",
+        en: "💀 Fly 1000 blocks with an Elytra"
+    },
+
+    {
+        uz: "💀 10 ta Shulker o‘ldiring",
+        ru: "💀 Убейте 10 шалкеров",
+        en: "💀 Kill 10 Shulkers"
+    },
+
+    {
+        uz: "💀 Ocean Monumentni toping va Elder Guardianni yenging",
+        ru: "💀 Найдите океанский монумент и победите Древнего стража",
+        en: "💀 Find an Ocean Monument and defeat an Elder Guardian"
+    },
+
+    {
+        uz: "💀 Woodland Mansion toping",
+        ru: "💀 Найдите лесной особняк",
+        en: "💀 Find a Woodland Mansion"
+    },
+
+    {
+        uz: "💀 Woodland Mansiondan tirik chiqib keting",
+        ru: "💀 Выйдите из лесного особняка живым",
+        en: "💀 Escape a Woodland Mansion alive"
+    },
+
+    {
+        uz: "💀 Raidni barcha Villagerlar tirik qolgan holda yenging",
+        ru: "💀 Победите в рейде так, чтобы все жители остались живы",
+        en: "💀 Win a raid while keeping all villagers alive"
+    },
+
+    {
+        uz: "💀 Raidni qalqonsiz yenging",
+        ru: "💀 Победите в рейде без щита",
+        en: "💀 Win a raid without a shield"
+    },
+
+    {
+        uz: "💀 3 ta Totem of Undying oling",
+        ru: "💀 Получите 3 тотема бессмертия",
+        en: "💀 Obtain 3 Totems of Undying"
+    },
+
+    {
+        uz: "💀 To‘liq Netherite zirh yasang",
+        ru: "💀 Сделайте полный незеритовый комплект брони",
+        en: "💀 Make a full Netherite armor set"
+    },
+
+    {
+        uz: "💀 Netherite qurol va asboblarning to‘liq to‘plamini yasang",
+        ru: "💀 Сделайте полный комплект незеритового оружия и инструментов",
+        en: "💀 Make a full set of Netherite weapons and tools"
+    },
+
+    {
+        uz: "💀 10 ta Ancient Debris qazib oling",
+        ru: "💀 Добудьте 10 древних обломков",
+        en: "💀 Mine 10 Ancient Debris"
+    },
+
+    {
+        uz: "💀 32 ta olmosni Fortune ishlatmasdan qazib oling",
+        ru: "💀 Добудьте 32 алмаза без Fortune",
+        en: "💀 Mine 32 diamonds without Fortune"
+    },
+
+    {
+        uz: "💀 To‘liq diamond zirhni faqat o‘zingiz qazigan olmoslardan yasang",
+        ru: "💀 Сделайте полный алмазный комплект только из самостоятельно добытых алмазов",
+        en: "💀 Make full diamond armor using only diamonds you mined"
+    },
+
+    {
+        uz: "💀 Netherda 30 daqiqa yotoqsiz yashang",
+        ru: "💀 Выживите 30 минут в Нижнем мире без кровати",
+        en: "💀 Survive 30 minutes in the Nether without a bed"
+    },
+
+    {
+        uz: "💀 Netherda 1000 blok piyoda yuring",
+        ru: "💀 Пройдите 1000 блоков пешком в Нижнем мире",
+        en: "💀 Walk 1000 blocks in the Nether"
+    },
+
+    {
+        uz: "💀 3 ta turli Nether biomini toping",
+        ru: "💀 Найдите 3 разных биома Нижнего мира",
+        en: "💀 Find 3 different Nether biomes"
+    },
+
+    {
+        uz: "💀 5 ta turli biomni toping",
+        ru: "💀 Найдите 5 разных биомов",
+        en: "💀 Find 5 different biomes"
+    },
+
+    {
+        uz: "💀 3 ta turli qishloq toping",
+        ru: "💀 Найдите 3 разные деревни",
+        en: "💀 Find 3 different villages"
+    },
+
+    {
+        uz: "💀 5 ta qishloq toping va bittasini to‘liq himoya qiling",
+        ru: "💀 Найдите 5 деревень и полностью защитите одну из них",
+        en: "💀 Find 5 villages and fully protect one"
+    },
+
+    {
+        uz: "💀 Zombie Villagerni davolang",
+        ru: "💀 Вылечите зомби-жителя",
+        en: "💀 Cure a zombie villager"
+    },
+
+    {
+        uz: "💀 10 ta Villager bilan savdo qiling",
+        ru: "💀 Торгуйтесь с 10 жителями",
+        en: "💀 Trade with 10 villagers"
+    },
+
+    {
+        uz: "💀 30-darajali enchantment qiling",
+        ru: "💀 Сделайте зачарование 30-го уровня",
+        en: "💀 Perform a level 30 enchantment"
+    },
+
+    {
+        uz: "💀 Mending enchantmentli buyum toping",
+        ru: "💀 Получите предмет с зачарованием Починка",
+        en: "💀 Obtain an item with Mending"
+    },
+
+    {
+        uz: "💀 5 ta turli potion tayyorlang",
+        ru: "💀 Приготовьте 5 разных зелий",
+        en: "💀 Make 5 different potions"
+    },
+
+    {
+        uz: "💀 3 ta potion effektini bir vaqtda oling",
+        ru: "💀 Получите 3 эффекта зелий одновременно",
+        en: "💀 Have 3 potion effects at once"
+    },
+
+    {
+        uz: "💀 20 ta Creeperni o‘ldiring",
+        ru: "💀 Убейте 20 криперов",
+        en: "💀 Kill 20 Creepers"
+    },
+
+    {
+        uz: "💀 20 ta Skeletonni o‘ldiring",
+        ru: "💀 Убейте 20 скелетов",
+        en: "💀 Kill 20 Skeletons"
+    },
+
+    {
+        uz: "💀 20 ta Zombie o‘ldiring",
+        ru: "💀 Убейте 20 зомби",
+        en: "💀 Kill 20 Zombies"
+    },
+
+    {
+        uz: "💀 10 ta Endermanni o‘ldiring",
+        ru: "💀 Убейте 10 эндерменов",
+        en: "💀 Kill 10 Endermen"
+    },
+
+    {
+        uz: "💀 Warden bilan jang qilib, uni yenging",
+        ru: "💀 Сразитесь с Варденом и победите его",
+        en: "💀 Fight and defeat a Warden"
+    },
+
+    {
+        uz: "💀 Wardenni o‘ldirib, Ancient Citydan tirik chiqing",
+        ru: "💀 Убейте Вардена и выберитесь из Древнего города живым",
+        en: "💀 Kill a Warden and escape the Ancient City alive"
+    },
+
+    {
+        uz: "💀 Ancient City, Bastion va Nether Fortressning uchalasini toping",
+        ru: "💀 Найдите Древний город, бастион и крепость Нижнего мира",
+        en: "💀 Find an Ancient City, Bastion and Nether Fortress"
+    },
+
+    {
+        uz: "💀 Ender Dragonni yengib, End City toping",
+        ru: "💀 Победите Эндер-дракона и найдите город Края",
+        en: "💀 Defeat the Ender Dragon and find an End City"
+    },
+
+    {
+        uz: "💀 End Citydan Elytra va Shulker Shell oling",
+        ru: "💀 Получите элитры и панцири шалкеров в городе Края",
+        en: "💀 Get an Elytra and Shulker Shells from an End City"
+    },
+
+    {
+        uz: "💀 1000 ta blokni yer ostida qazib chiqing",
+        ru: "💀 Добудьте 1000 блоков под землёй",
+        en: "💀 Mine 1000 blocks underground"
+    },
+
+    {
+        uz: "💀 O‘limsiz 5000 blok uzoqlikka boring va qayting",
+        ru: "💀 Отправьтесь на 5000 блоков и вернитесь без смерти",
+        en: "💀 Travel 5000 blocks away and return without dying"
+    },
+
+    {
+        uz: "💀 Uy qurmasdan 5 Minecraft kunini omon o‘tkazing",
+        ru: "💀 Выживите 5 игровых дней без строительства дома",
+        en: "💀 Survive 5 Minecraft days without building a house"
+    },
+
+    {
+        uz: "💀 3 ta bossni yenging",
+        ru: "💀 Победите 3 разных босса",
+        en: "💀 Defeat 3 different bosses"
+    },
+
+    {
+        uz: "💀 Netherite zirhsiz Witherni yenging",
+        ru: "💀 Победите Иссушителя без незеритовой брони",
+        en: "💀 Defeat the Wither without Netherite armor"
+    },
+
+    {
+        uz: "💀 Ender Dragon jangida yotoqdan foydalanmang",
+        ru: "💀 Не используйте кровати в битве с Эндер-драконом",
+        en: "💀 Do not use beds during the Ender Dragon fight"
+    },
+
+    {
+        uz: "💀 Ender Dragonni faqat kamon va qilich bilan yenging",
+        ru: "💀 Победите Эндер-дракона только луком и мечом",
+        en: "💀 Defeat the Ender Dragon using only a bow and sword"
+    },
+
+    {
+        uz: "💀 5 ta Ancient Debris toping",
+        ru: "💀 Найдите 5 древних обломков",
+        en: "💀 Find 5 Ancient Debris"
+    },
+
+    {
+        uz: "💀 10 ta Netherite Scrap yig‘ing",
+        ru: "💀 Соберите 10 незеритовых обломков",
+        en: "💀 Collect 10 Netherite Scraps"
+    },
+
+    {
+        uz: "💀 Ocean Monument ichidan oltin bloklarini olib chiqing",
+        ru: "💀 Заберите золотые блоки из океанского монумента",
+        en: "💀 Take the gold blocks from an Ocean Monument"
+    },
+
+    {
+        uz: "💀 Raidni barcha Villagerlar tirik qolgan holda yenging",
+        ru: "💀 Победите в рейде, сохранив всех жителей",
+        en: "💀 Win a raid while keeping all villagers alive"
+    },
+
+    {
+        uz: "💀 Woodland Mansiondan barcha qimmatbaho narsalarni oling va tirik chiqing",
+        ru: "💀 Заберите все ценные предметы из лесного особняка и выйдите живым",
+        en: "💀 Loot a Woodland Mansion and escape alive"
+    },
+
+    {
+        uz: "💀 Hardcore rejimida 100 kun yashang",
+        ru: "💀 Проживите 100 дней в режиме Hardcore",
+        en: "💀 Survive 100 days in Hardcore mode"
+    }
+
+];
+
+
+/* =====================================================
+   TARJIMALAR
+===================================================== */
+
+const translations = {
+
+    uz: {
+        home: "← Bosh sahifa",
+        title: "⛏️ Minecraft",
+        subtitle: "Tasodifiy topshiriqni tanlang va bajaring!",
+
+        normalTitle: "Oddiy",
+        normalText: "Oddiy topshiriqlar",
+
+        speedTitle: "Tezkor",
+        speedText: "Vaqt bilan topshiriqlar",
+
+        hardTitle: "Qiyin",
+        hardText: "Haqiqiy qiyin topshiriqlar",
+
+        normalLabel: "Oddiy topshiriq",
+        speedLabel: "Tezkor topshiriq",
+        hardLabel: "Qiyin topshiriq",
+
+        newMission: "🎲 Yangi topshiriq",
+
+        timeUp: "VAQT TUGADI!",
+
+        missionCount: "ta topshiriq",
+
+        minute: "daq."
+    },
+
+    ru: {
+        home: "← Главная",
+        title: "⛏️ Minecraft",
+        subtitle: "Выберите случайное задание и выполните его!",
+
+        normalTitle: "Обычные",
+        normalText: "Обычные задания",
+
+        speedTitle: "На время",
+        speedText: "Задания с ограничением времени",
+
+        hardTitle: "Сложные",
+        hardText: "Действительно сложные задания",
+
+        normalLabel: "Обычное задание",
+        speedLabel: "Задание на время",
+        hardLabel: "Сложное задание",
+
+        newMission: "🎲 Новое задание",
+
+        timeUp: "ВРЕМЯ ВЫШЛО!",
+
+        missionCount: "заданий",
+
+        minute: "мин."
+    },
+
+    en: {
+        home: "← Home",
+        title: "⛏️ Minecraft",
+        subtitle: "Choose a random mission and complete it!",
+
+        normalTitle: "Normal",
+        normalText: "Normal missions",
+
+        speedTitle: "Speed",
+        speedText: "Timed missions",
+
+        hardTitle: "Hard",
+        hardText: "Actually difficult missions",
+
+        normalLabel: "Normal mission",
+        speedLabel: "Timed mission",
+        hardLabel: "Hard mission",
+
+        newMission: "🎲 New mission",
+
+        timeUp: "TIME'S UP!",
+
+        missionCount: "missions",
+
+        minute: "min."
+    }
+
+};
+
+
+/* =====================================================
+   O'ZGARUVCHILAR
+===================================================== */
+
+let currentMode = "normal";
+
+let currentLanguage =
+    localStorage.getItem("randomMissionLanguage") || "uz";
+
+let currentMission = null;
+
+let timerInterval = null;
+
+let timeLeft = 0;
+
+
+/* =====================================================
+   TASODIFIY TOPSHIRIQ
+===================================================== */
+
+function getRandomMission() {
+
+    let missions;
+
+    if (currentMode === "normal") {
+        missions = normalMissions;
+    }
+
+    else if (currentMode === "speed") {
+        missions = speedMissions;
+    }
+
+    else {
+        missions = hardMissions;
+    }
+
+    const randomIndex =
+        Math.floor(Math.random() * missions.length);
+
+    currentMission = missions[randomIndex];
+
+    document.getElementById("challenge").textContent =
+        currentMission[currentLanguage];
+
+}
+
+
+/* =====================================================
+   TILNI ALMASHTIRISH
+===================================================== */
+
+function changeLanguage(language) {
+
+    currentLanguage = language;
+
+    localStorage.setItem(
+        "randomMissionLanguage",
+        language
+    );
+
+    applyLanguage();
+
+}
+
+
+/* =====================================================
+   TILNI QO'LLASH
+===================================================== */
+
+function applyLanguage() {
+
+    const t = translations[currentLanguage];
+
+    document.documentElement.lang =
+        currentLanguage;
+
+    document.getElementById("home").textContent =
+        t.home;
+
+    document.getElementById("title").textContent =
+        t.title;
+
+    document.getElementById("subtitle").textContent =
+        t.subtitle;
+
+    document.getElementById("normalTitle").textContent =
+        t.normalTitle;
+
+    document.getElementById("normalText").textContent =
+        t.normalText;
+
+    document.getElementById("speedTitle").textContent =
+        t.speedTitle;
+
+    document.getElementById("speedText").textContent =
+        t.speedText;
+
+    document.getElementById("hardTitle").textContent =
+        t.hardTitle;
+
+    document.getElementById("hardText").textContent =
+        t.hardText;
+
+    document.getElementById("newButton").textContent =
+        t.newMission;
+
+    document.getElementById("timeUp").textContent =
+        t.timeUp;
+
+
+    document.getElementById("uzBtn")
+        .classList.remove("active");
+
+    document.getElementById("ruBtn")
+        .classList.remove("active");
+
+    document.getElementById("enBtn")
+        .classList.remove("active");
+
+
+    document.getElementById(
+        currentLanguage + "Btn"
+    ).classList.add("active");
+
+
+    updateModeLabel();
+
+    updateCounter();
+
+
+    if (currentMission !== null) {
+
+        document.getElementById("challenge").textContent =
+            currentMission[currentLanguage];
+
+    }
+
+    updateTimer();
+
+}
+
+
+/* =====================================================
+   REJIM NOMI
+===================================================== */
+
+function updateModeLabel() {
+
+    const t = translations[currentLanguage];
+
+    if (currentMode === "normal") {
+
+        document.getElementById("modeLabel").textContent =
+            t.normalLabel;
+
+    }
+
+    else if (currentMode === "speed") {
+
+        document.getElementById("modeLabel").textContent =
+            t.speedLabel;
+
+    }
+
+    else {
+
+        document.getElementById("modeLabel").textContent =
+            t.hardLabel;
+
+    }
+
+}
+
+
+/* =====================================================
+   TOPSHIRIQLAR SONI
+===================================================== */
+
+function updateCounter() {
+
+    const t = translations[currentLanguage];
+
+    let amount;
+
+    if (currentMode === "normal") {
+        amount = normalMissions.length;
+    }
+
+    else if (currentMode === "speed") {
+        amount = speedMissions.length;
+    }
+
+    else {
+        amount = hardMissions.length;
+    }
+
+    document.getElementById("counter").textContent =
+        amount + " " + t.missionCount;
+
+}
+
+
+/* =====================================================
+   REJIMNI ALMASHTIRISH
+===================================================== */
+
+function setMode(mode) {
+
+    currentMode = mode;
+
+    stopTimer();
+
+    document.getElementById("timeUp")
+        .style.display = "none";
+
+    document.getElementById("timer")
+        .style.display = "none";
+
+
+    document.getElementById("normalMode")
+        .classList.remove("active");
+
+    document.getElementById("speedMode")
+        .classList.remove("active");
+
+    document.getElementById("hardMode")
+        .classList.remove("active");
+
+
+    if (mode === "normal") {
+
+        document.getElementById("normalMode")
+            .classList.add("active");
+
+    }
+
+    else if (mode === "speed") {
+
+        document.getElementById("speedMode")
+            .classList.add("active");
+
+    }
+
+    else {
+
+        document.getElementById("hardMode")
+            .classList.add("active");
+
+    }
+
+
+    updateModeLabel();
+
+    updateCounter();
+
+    newChallenge();
+
+}
+
+
+/* =====================================================
+   YANGI TOPSHIRIQ
+===================================================== */
+
+function newChallenge() {
+
+    stopTimer();
+
+    document.getElementById("timeUp")
+        .style.display = "none";
+
+    document.getElementById("timer")
+        .style.display = "none";
+
+    document.getElementById("timer")
+        .classList.remove("danger");
+
+
+    getRandomMission();
+
+
+    if (currentMode === "speed") {
+
+        startTimer();
+
+    }
+
+}
+
+
+/* =====================================================
+   TEZKOR REJIM TAYMERI
+===================================================== */
+
+function startTimer() {
+
+    const min = 2;
+    const max = 30;
+
+
+    timeLeft =
+        Math.floor(
+            Math.random() * (max - min + 1)
+        ) + min;
+
+
+    document.getElementById("timer")
+        .style.display = "block";
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(function() {
+
+            timeLeft--;
+
+            updateTimer();
+
+
+            if (timeLeft <= 0) {
+
+                stopTimer();
+
+                document.getElementById("timeUp")
+                    .style.display = "block";
+
+            }
+
+        }, 60000);
+
+}
+
+
+/* =====================================================
+   TAYMER
+===================================================== */
+
+function updateTimer() {
+
+    const timer =
+        document.getElementById("timer");
+
+    if (currentMode !== "speed") {
+        return;
+    }
+
+
+    const t =
+        translations[currentLanguage];
+
+
+    timer.textContent =
+        timeLeft + " " + t.minute;
+
+
+    if (timeLeft <= 1) {
+
+        timer.classList.add("danger");
+
+    }
+
+    else {
+
+        timer.classList.remove("danger");
+
+    }
+
+}
+
+
+/* =====================================================
+   TAYMERNI TO'XTATISH
+===================================================== */
+
+function stopTimer() {
+
+    if (timerInterval !== null) {
+
+        clearInterval(timerInterval);
+
+        timerInterval = null;
+
+    }
+
+}
+
+
+/* =====================================================
+   BOSHLANG'ICH ISHGA TUSHIRISH
+===================================================== */
+
+applyLanguage();
+
+newChallenge();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,6635 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Mission — Questions</title>
+
+<style>
+:root{
+  --bg:#070b16;
+  --card:#101728;
+  --card2:#151d31;
+  --border:rgba(255,255,255,.09);
+  --text:#f5f7ff;
+  --muted:#9ba7c0;
+  --blue:#5b8cff;
+  --purple:#9b6cff;
+  --green:#36d98b;
+  --red:#ff5d72;
+  --yellow:#ffc857;
+  --shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(91,140,255,.13),transparent 30%),
+    radial-gradient(circle at 90% 20%,rgba(155,108,255,.12),transparent 30%),
+    linear-gradient(135deg,#060914,#0b1020 50%,#070b16);
+  color:var(--text);
+}
+
+button,
+select,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(1180px,94%);
+  margin:auto;
+  padding:24px 0 50px;
+}
+
+/* ================= HEADER ================= */
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:28px;
+}
+
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  box-shadow:0 10px 30px rgba(91,140,255,.25);
+}
+
+.logo-text h1{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.5px;
+}
+
+.logo-text p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
+}
+
+.lang-box{
+  display:flex;
+  gap:6px;
+  padding:5px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(15px);
+}
+
+.lang-btn{
+  border:0;
+  color:var(--muted);
+  background:transparent;
+  padding:8px 11px;
+  border-radius:9px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.lang-btn:hover{
+  color:white;
+  background:rgba(255,255,255,.07);
+}
+
+.lang-btn.active{
+  color:white;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+}
+
+/* ================= GENERAL CARD ================= */
+
+.card{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  border:1px solid var(--border);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
+}
+
+/* ================= SETUP ================= */
+
+.setup{
+  max-width:850px;
+  margin:30px auto 0;
+  padding:34px;
+}
+
+.setup-head{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.setup-head .icon{
+  width:72px;
+  height:72px;
+  margin:0 auto 18px;
+  display:grid;
+  place-items:center;
+  border-radius:22px;
+  font-size:34px;
+  background:linear-gradient(135deg,rgba(91,140,255,.2),rgba(155,108,255,.2));
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.setup-head h2{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.setup-head p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+.form-group label{
+  color:#cdd5e8;
+  font-size:14px;
+  font-weight:700;
+}
+
+.form-group select,
+.form-group input{
+  width:100%;
+  border:1px solid var(--border);
+  outline:none;
+  color:white;
+  background:#0c1324;
+  border-radius:13px;
+  padding:13px 14px;
+  transition:.2s;
+}
+
+.form-group select:focus,
+.form-group input:focus{
+  border-color:rgba(91,140,255,.7);
+  box-shadow:0 0 0 3px rgba(91,140,255,.1);
+}
+
+.form-group select option{
+  background:#0c1324;
+  color:white;
+}
+
+.teams-box{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.team-input{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.team-number{
+  min-width:32px;
+  height:32px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:800;
+  background:rgba(91,140,255,.14);
+  color:#8eafff;
+}
+
+.team-input input{
+  flex:1;
+}
+
+.lucky-row{
+  margin-top:20px;
+  padding:15px 16px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  background:rgba(255,255,255,.025);
+}
+
+.lucky-info{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.lucky-icon{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:rgba(255,200,87,.12);
+  font-size:21px;
+}
+
+.lucky-info strong{
+  display:block;
+  margin-bottom:3px;
+}
+
+.lucky-info span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.switch{
+  position:relative;
+  width:50px;
+  height:28px;
+  flex-shrink:0;
+}
+
+.switch input{
+  opacity:0;
+  width:0;
+  height:0;
+}
+
+.slider{
+  position:absolute;
+  inset:0;
+  border-radius:30px;
+  background:#252d40;
+  transition:.25s;
+}
+
+.slider:before{
+  content:"";
+  position:absolute;
+  width:20px;
+  height:20px;
+  left:4px;
+  top:4px;
+  border-radius:50%;
+  background:white;
+  transition:.25s;
+}
+
+.switch input:checked + .slider{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+}
+
+.switch input:checked + .slider:before{
+  transform:translateX(22px);
+}
+
+.start-btn{
+  width:100%;
+  margin-top:25px;
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  color:white;
+  font-weight:800;
+  font-size:16px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  box-shadow:0 12px 30px rgba(91,140,255,.22);
+  transition:.2s;
+}
+
+.start-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 35px rgba(91,140,255,.3);
+}
+
+.start-btn:active{
+  transform:translateY(0);
+}
+
+/* ================= GAME ================= */
+
+.hidden{
+  display:none !important;
+}
+
+.game-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.game-title h2{
+  font-size:24px;
+}
+
+.game-title p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+}
+
+.restart-btn{
+  border:1px solid var(--border);
+  color:#dce4f8;
+  background:rgba(255,255,255,.045);
+  padding:10px 15px;
+  border-radius:12px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.restart-btn:hover{
+  background:rgba(255,255,255,.09);
+}
+
+/* ================= SCOREBOARD ================= */
+
+.scoreboard{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.team-card{
+  position:relative;
+  overflow:hidden;
+  padding:14px;
+  min-height:82px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:rgba(255,255,255,.035);
+  transition:.25s;
+}
+
+.team-card.active{
+  border-color:rgba(91,140,255,.7);
+  background:rgba(91,140,255,.09);
+  box-shadow:0 0 25px rgba(91,140,255,.12);
+}
+
+.team-card.active:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:linear-gradient(var(--blue),var(--purple));
+}
+
+.team-name{
+  color:#bdc7dc;
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.team-score{
+  font-size:24px;
+  font-weight:900;
+  margin-top:7px;
+}
+
+/* ================= BOARD ================= */
+
+.board-card{
+  padding:22px;
+  margin-bottom:18px;
+}
+
+.board-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px;
+}
+
+.board-header h3{
+  font-size:17px;
+}
+
+.turn-label{
+  color:#8eafff;
+  font-size:13px;
+  font-weight:700;
+}
+
+.board{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+}
+
+.board-item{
+  aspect-ratio:1;
+  border:1px solid rgba(91,140,255,.18);
+  border-radius:15px;
+  color:white;
+  background:
+    linear-gradient(145deg,#141d32,#0e1527);
+  font-size:20px;
+  font-weight:900;
+  transition:.2s;
+  position:relative;
+  overflow:hidden;
+}
+
+.board-item:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(91,140,255,.08),transparent);
+  pointer-events:none;
+}
+
+.board-item:hover:not(.used){
+  transform:translateY(-3px) scale(1.02);
+  border-color:rgba(91,140,255,.7);
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.board-item.used{
+  opacity:.22;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/*
+  MUHIM:
+  Lucky Prize uchun alohida rang, ikonka yoki
+  .prize class berilmaydi.
+  Shuning uchun oldindan qaysi slot prize ekanini
+  ko'rib bo'lmaydi.
+*/
+
+/* ================= QUESTION PANEL ================= */
+
+.question-card{
+  padding:25px;
+  margin-bottom:18px;
+}
+
+.question-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.question-number{
+  color:#8eafff;
+  font-weight:800;
+  font-size:13px;
+}
+
+.question-points{
+  padding:6px 10px;
+  border-radius:9px;
+  background:rgba(54,217,139,.1);
+  color:var(--green);
+  font-size:12px;
+  font-weight:800;
+}
+
+.question-text{
+  font-size:21px;
+  line-height:1.55;
+  font-weight:750;
+  margin-bottom:22px;
+}
+
+.options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.option{
+  text-align:left;
+  padding:15px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.035);
+  color:#e9edfa;
+  transition:.2s;
+}
+
+.option:hover{
+  border-color:rgba(91,140,255,.5);
+  background:rgba(91,140,255,.07);
+}
+
+.option.selected{
+  border-color:var(--blue);
+  background:rgba(91,140,255,.13);
+}
+
+.option.correct{
+  border-color:var(--green);
+  background:rgba(54,217,139,.12);
+}
+
+.option.wrong{
+  border-color:var(--red);
+  background:rgba(255,93,114,.12);
+}
+
+.option-letter{
+  display:inline-grid;
+  place-items:center;
+  width:27px;
+  height:27px;
+  border-radius:8px;
+  background:rgba(255,255,255,.07);
+  margin-right:9px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.question-actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.check-btn,
+.next-btn{
+  flex:1;
+  padding:13px;
+  border:0;
+  border-radius:13px;
+  color:white;
+  font-weight:800;
+}
+
+.check-btn{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+}
+
+.next-btn{
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--border);
+}
+
+.result{
+  margin-top:16px;
+  padding:13px 15px;
+  border-radius:12px;
+  line-height:1.5;
+  font-size:14px;
+}
+
+.result.success{
+  background:rgba(54,217,139,.1);
+  border:1px solid rgba(54,217,139,.2);
+  color:#8af0bc;
+}
+
+.result.error{
+  background:rgba(255,93,114,.1);
+  border:1px solid rgba(255,93,114,.2);
+  color:#ff9baa;
+}
+
+/* ================= PRIZE ================= */
+
+.prize-card{
+  padding:35px;
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.prize-big-icon{
+  width:90px;
+  height:90px;
+  margin:0 auto 20px;
+  border-radius:27px;
+  display:grid;
+  place-items:center;
+  font-size:43px;
+  background:linear-gradient(
+    135deg,
+    rgba(255,200,87,.15),
+    rgba(155,108,255,.15)
+  );
+  border:1px solid rgba(255,200,87,.18);
+}
+
+.prize-card h2{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.prize-card p{
+  color:#c3cce0;
+  line-height:1.6;
+}
+
+.prize-effect{
+  margin:22px auto 0;
+  max-width:550px;
+  padding:18px;
+  border-radius:15px;
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--border);
+  font-size:18px;
+  font-weight:800;
+}
+
+.prize-actions{
+  margin-top:20px;
+}
+
+.collect-btn{
+  border:0;
+  padding:13px 25px;
+  border-radius:13px;
+  color:white;
+  font-weight:800;
+  background:linear-gradient(135deg,#f0a72f,#d96c42);
+}
+
+/* ================= FINISH ================= */
+
+.finish-card{
+  padding:40px;
+  text-align:center;
+}
+
+.finish-card .finish-icon{
+  font-size:55px;
+  margin-bottom:15px;
+}
+
+.finish-card h2{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.finish-card p{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.final-ranking{
+  display:grid;
+  gap:10px;
+  max-width:650px;
+  margin:0 auto 25px;
+}
+
+.rank-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 17px;
+  border-radius:13px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.035);
+}
+
+.rank-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.rank-number{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:rgba(255,255,255,.07);
+  font-weight:900;
+}
+
+.rank-score{
+  font-weight:900;
+  color:#9eb8ff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:800px){
+  .scoreboard{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .board{
+    grid-template-columns:repeat(5,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-group.full{
+    grid-column:auto;
+  }
+}
+
+@media(max-width:560px){
+  .container{
+    width:96%;
+    padding-top:15px;
+  }
+
+  header{
+    align-items:flex-start;
+  }
+
+  .logo-text h1{
+    font-size:18px;
+  }
+
+  .lang-btn{
+    padding:7px 8px;
+    font-size:12px;
+  }
+
+  .setup{
+    padding:22px 17px;
+  }
+
+  .setup-head h2{
+    font-size:25px;
+  }
+
+  .teams-box{
+    grid-template-columns:1fr;
+  }
+
+  .scoreboard{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .board{
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+  }
+
+  .board-item{
+    border-radius:12px;
+    font-size:17px;
+  }
+
+  .options{
+    grid-template-columns:1fr;
+  }
+
+  .question-text{
+    font-size:18px;
+  }
+
+  .question-actions{
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <div class="logo-area">
+    <div class="logo">🎯</div>
+
+    <div class="logo-text">
+      <h1>Random Mission</h1>
+      <p id="headerSubtitle">Savollar va omad</p>
+    </div>
+  </div>
+
+  <div class="lang-box">
+    <button class="lang-btn active" data-lang="uz">UZ</button>
+    <button class="lang-btn" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</header>
+
+<section id="setup" class="card setup">
+
+  <div class="setup-head">
+    <div class="icon">🧠</div>
+
+    <h2 id="setupTitle">Savollar</h2>
+
+    <p id="setupSubtitle">
+      Mavzuni tanlang, jamoalarni sozlang va o‘yinni boshlang.
+    </p>
+  </div>
+
+  <div class="form-grid">
+
+    <div class="form-group">
+      <label id="topicLabel" for="topic">
+        Mavzu
+      </label>
+
+      <select id="topic"></select>
+    </div>
+
+    <div class="form-group">
+      <label id="countLabel" for="questionCount">
+        Slotlar soni
+      </label>
+
+      <select id="questionCount">
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30" selected>30</option>
+      </select>
+    </div>
+
+    <div class="form-group full">
+      <label id="teamCountLabel" for="teamCount">
+        Jamoalar soni
+      </label>
+
+      <select id="teamCount">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4" selected>4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+    </div>
+
+    <div class="form-group full">
+      <label id="teamNamesLabel">
+        Jamoa nomlari
+      </label>
+
+      <div class="teams-box" id="teamInputs"></div>
+    </div>
+
+  </div>
+
+  <div class="lucky-row">
+
+    <div class="lucky-info">
+      <div class="lucky-icon">🎁</div>
+
+      <div>
+        <strong id="luckyTitle">Lucky Prize</strong>
+
+        <span id="luckySubtitle">
+          Omadli slotlar savollar orasida yashirinadi
+        </span>
+      </div>
+    </div>
+
+    <label class="switch">
+      <input type="checkbox" id="luckyToggle" checked>
+      <span class="slider"></span>
+    </label>
+
+  </div>
+
+  <button class="start-btn" id="startBtn">
+    🚀 O‘yinni boshlash
+  </button>
+
+</section>
+
+<section id="game" class="hidden">
+
+  <div class="game-top">
+
+    <div class="game-title">
+      <h2 id="gameTitle">Savollar o‘yini</h2>
+
+      <p id="gameSubtitle">
+        Raqamni tanlang va yashiringan topshiriqni oching.
+      </p>
+    </div>
+
+    <button class="restart-btn" id="restartBtn">
+      ↻ Qayta boshlash
+    </button>
+
+  </div>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="card board-card">
+
+    <div class="board-header">
+
+      <h3 id="boardTitle">
+        Slotlar
+      </h3>
+
+      <div class="turn-label" id="turnLabel"></div>
+
+    </div>
+
+    <div class="board" id="board"></div>
+
+  </div>
+
+  <div id="questionPanel" class="card question-card hidden">
+
+    <div class="question-meta">
+
+      <span class="question-number" id="questionNumber"></span>
+
+      <span class="question-points" id="questionPoints"></span>
+
+    </div>
+
+    <div class="question-text" id="questionText"></div>
+
+    <div class="options" id="options"></div>
+
+    <div class="question-actions">
+
+      <button class="check-btn" id="checkBtn">
+        ✓ Tekshirish
+      </button>
+
+      <button class="next-btn hidden" id="nextBtn">
+        → Keyingi
+      </button>
+
+    </div>
+
+    <div id="result" class="result hidden"></div>
+
+  </div>
+
+  <div id="prizePanel" class="card prize-card hidden">
+
+    <div class="prize-big-icon">
+      🎁
+    </div>
+
+    <h2 id="prizeTitle">
+      Lucky Prize!
+    </h2>
+
+    <p id="prizeSubtitle">
+      Omad sizga kulib boqdi!
+    </p>
+
+    <div class="prize-effect" id="prizeEffect"></div>
+
+    <div class="prize-actions">
+
+      <button class="collect-btn" id="collectPrizeBtn">
+        🎁 Qabul qilish
+      </button>
+
+    </div>
+
+  </div>
+
+  <div id="finishPanel" class="card finish-card hidden">
+
+    <div class="finish-icon">🏆</div>
+
+    <h2 id="finishTitle">O‘yin tugadi!</h2>
+
+    <p id="finishSubtitle">
+      Natijalar
+    </p>
+
+    <div class="final-ranking" id="finalRanking"></div>
+
+    <button class="start-btn" id="newMatchBtn">
+      🔄 Yangi match
+    </button>
+
+  </div>
+
+</section>
+
+<!--
+  ==========================================================
+  1-QISM SHU YERDA ATAYLAB TUGAYDI.
+  2-QISMDA SCRIPT VA QOLGAN LOGIKA DAVOM ETADI.
+  ==========================================================
+-->
+  <script>
+/* =========================================================
+   RANDOM MISSION — QUESTIONS
+   2-QISM: LOGIKA + SAVOL BANKI + O'YIN
+   ========================================================= */
+
+const LANG_KEY = "siteLanguage";
+
+let lang =
+  localStorage.getItem("siteLanguage") ||
+  localStorage.getItem("language") ||
+  localStorage.getItem("lang") ||
+  "uz";
+
+const $ = id => document.getElementById(id);
+
+let teams = [];
+let currentTeam = 0;
+
+let boardData = [];
+let currentItem = null;
+let selectedOption = null;
+let answered = false;
+let currentPrize = null;
+
+
+/* =========================================================
+   15 TA TOPIC
+   ========================================================= */
+
+const TOPICS = {
+  gaming: {
+    uz: "Gaming",
+    ru: "Игры",
+    en: "Gaming"
+  },
+
+  coding: {
+    uz: "Dasturlash",
+    ru: "Программирование",
+    en: "Coding"
+  },
+
+  web: {
+    uz: "Web Development",
+    ru: "Веб-разработка",
+    en: "Web Development"
+  },
+
+  math: {
+    uz: "Matematika",
+    ru: "Математика",
+    en: "Mathematics"
+  },
+
+  science: {
+    uz: "Fan",
+    ru: "Наука",
+    en: "Science"
+  },
+
+  geography: {
+    uz: "Geografiya",
+    ru: "География",
+    en: "Geography"
+  },
+
+  history: {
+    uz: "Tarix",
+    ru: "История",
+    en: "History"
+  },
+
+  english: {
+    uz: "Ingliz tili",
+    ru: "Английский язык",
+    en: "English"
+  },
+
+  literature: {
+    uz: "Adabiyot",
+    ru: "Литература",
+    en: "Literature"
+  },
+
+  movies: {
+    uz: "Kino",
+    ru: "Кино",
+    en: "Movies"
+  },
+
+  music: {
+    uz: "Musiqa",
+    ru: "Музыка",
+    en: "Music"
+  },
+
+  football: {
+    uz: "Futbol",
+    ru: "Футбол",
+    en: "Football"
+  },
+
+  sports: {
+    uz: "Sport",
+    ru: "Спорт",
+    en: "Sports"
+  },
+
+  logic: {
+    uz: "Mantiq",
+    ru: "Логика",
+    en: "Logic"
+  },
+
+  general: {
+    uz: "Umumiy bilim",
+    ru: "Общие знания",
+    en: "General Knowledge"
+  }
+};
+
+
+/* =========================================================
+   20 TA SAVOL HAR BIR TOPIC UCHUN
+   ========================================================= */
+
+const QUESTION_BANK = {
+
+gaming: [
+  {
+    q:{
+      uz:"Minecraft Java Edition'da villager savdo tizimida zombiga aylantirilib qayta davolangan villager nega juda katta chegirma berishi mumkin?",
+      ru:"Почему вылеченный после превращения в зомби-жителя житель Minecraft Java Edition может дать очень большую скидку?",
+      en:"Why can a villager cured after being turned into a zombie villager give a very large discount in Minecraft Java Edition?"
+    },
+    o:{
+      uz:["Zombi uni qo‘rqitganligi uchun","Davolashdan keyin reputation/discount mexanikasi ishlagani uchun","Villager darajasi avtomatik oshgani uchun","Emeraldlar qiymati ikki baravar bo‘lgani uchun"],
+      ru:["Потому что зомби его напугал","Из-за механики скидки после лечения","Потому что уровень жителя автоматически повышается","Потому что изумруды становятся вдвое ценнее"],
+      en:["Because the zombie scared it","Because of the discount mechanic after curing","Because the villager's level automatically increases","Because emeralds become twice as valuable"]
+    },
+    a:1,p:15
+  },
+
+  {
+    q:{
+      uz:"PUBG'da 'circle' mexanikasining asosiy vazifasi nima?",
+      ru:"Какова основная функция механики круга в PUBG?",
+      en:"What is the main purpose of the circle mechanic in PUBG?"
+    },
+    o:{
+      uz:["O‘yinchilarni xaritaning xavfsiz hududiga asta-sekin majburlash","Qurollarni avtomatik kuchaytirish","Faqat loot joylarini belgilash","Transport vositalarini yo‘q qilish"],
+      ru:["Постепенно заставлять игроков двигаться в безопасную зону","Автоматически усиливать оружие","Только отмечать места с добычей","Уничтожать транспорт"],
+      en:["Gradually force players toward the safe zone","Automatically upgrade weapons","Only mark loot locations","Destroy vehicles"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Valorant'da Spike nima?",
+      ru:"Что такое Spike в Valorant?",
+      en:"What is the Spike in Valorant?"
+    },
+    o:{
+      uz:["Snayper quroli","Raund maqsadidagi qurilma","Agent abilitysi","Xarita nomi"],
+      ru:["Снайперская винтовка","Устройство, связанное с целью раунда","Способность агента","Название карты"],
+      en:["A sniper weapon","The objective device of the round","An agent ability","A map name"]
+    },
+    a:1,p:10
+  },
+
+  {
+    q:{
+      uz:"Fortnite Battle Royale'da Storm nega muhim?",
+      ru:"Почему Storm важен в Fortnite Battle Royale?",
+      en:"Why is the Storm important in Fortnite Battle Royale?"
+    },
+    o:{
+      uz:["O‘yin maydonini qisqartirib, o‘yinchilarni bir-biriga yaqinlashtiradi","Faqat qurollarni almashtiradi","XP beradi","Faqat transportni tezlashtiradi"],
+      ru:["Он уменьшает игровую зону и сближает игроков","Он только меняет оружие","Он даёт XP","Он только ускоряет транспорт"],
+      en:["It shrinks the playable area and brings players closer","It only changes weapons","It gives XP","It only speeds up vehicles"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Roblox o‘yinlarida Lua/Luau asosan nima uchun ishlatiladi?",
+      ru:"Для чего в основном используется Lua/Luau в играх Roblox?",
+      en:"What is Lua/Luau mainly used for in Roblox games?"
+    },
+    o:{
+      uz:["O‘yin logikasi va skriptlar yaratish","Grafik kartani boshqarish","Internet tezligini oshirish","Faqat ovoz yozish"],
+      ru:["Для создания игровой логики и скриптов","Для управления видеокартой","Для увеличения скорости интернета","Только для записи звука"],
+      en:["Creating game logic and scripts","Controlling the graphics card","Increasing internet speed","Only recording audio"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Among Us'da Emergency Meeting tugmasi odatda nima uchun ishlatiladi?",
+      ru:"Для чего обычно используется Emergency Meeting в Among Us?",
+      en:"What is the Emergency Meeting button generally used for in Among Us?"
+    },
+    o:{
+      uz:["Darhol muhokama va ovoz berish bosqichini boshlash","Xaritani almashtirish","O‘yinni saqlash","Barcha vazifalarni bajarish"],
+      ru:["Для немедленного начала обсуждения и голосования","Для смены карты","Для сохранения игры","Для выполнения всех заданий"],
+      en:["To immediately start discussion and voting","To change the map","To save the game","To complete all tasks"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Rocket League'da 'aerial' nimani anglatadi?",
+      ru:"Что означает «aerial» в Rocket League?",
+      en:"What does an 'aerial' mean in Rocket League?"
+    },
+    o:{
+      uz:["Havoda sakrab to‘pga yetish va zarba berish","Faqat yerda tez yurish","Darvozabon almashtirish","Mashina rangini o‘zgartirish"],
+      ru:["Прыжок в воздух и удар по мячу в воздухе","Только быстрое движение по земле","Замена вратаря","Изменение цвета машины"],
+      en:["Jumping into the air to reach and hit the ball","Only moving quickly on the ground","Changing the goalkeeper","Changing the car color"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Terraria'dagi Moon Lord qanday turdagi obyekt?",
+      ru:"Кем является Moon Lord в Terraria?",
+      en:"What is the Moon Lord in Terraria?"
+    },
+    o:{
+      uz:["Asosiy endgame bosslardan biri","Oddiy NPC","Crafting stansiyasi","Biome"],
+      ru:["Один из главных боссов поздней игры","Обычный NPC","Станция крафта","Биом"],
+      en:["One of the main endgame bosses","A regular NPC","A crafting station","A biome"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"GTA V hikoya rejimining asosiy uchta qahramoni kimlar?",
+      ru:"Кто является тремя главными героями сюжетного режима GTA V?",
+      en:"Who are the three main protagonists of GTA V?"
+    },
+    o:{
+      uz:["Michael, Franklin, Trevor","CJ, Niko, Tommy","Arthur, John, Dutch","Franklin, Lamar, Lester"],
+      ru:["Майкл, Франклин, Тревор","СиДжей, Нико, Томми","Артур, Джон, Датч","Франклин, Ламар, Лестер"],
+      en:["Michael, Franklin, Trevor","CJ, Niko, Tommy","Arthur, John, Dutch","Franklin, Lamar, Lester"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Brawl Stars'da brawlerning Super abilitysi qanday olinadi?",
+      ru:"Как в Brawl Stars обычно заряжается Super бойца?",
+      en:"How is a brawler's Super generally charged in Brawl Stars?"
+    },
+    o:{
+      uz:["Raqiblarga zarar yetkazish orqali","Faqat raund boshida","Faqat gem yig‘ish orqali","Faqat vaqt tugaganda"],
+      ru:["Нанося урон противникам","Только в начале раунда","Только собирая гемы","Только по истечении времени"],
+      en:["By dealing damage to opponents","Only at the start of a round","Only by collecting gems","Only when time expires"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Free Fire'dagi 'Booyah' nimani bildiradi?",
+      ru:"Что означает «Booyah» в Free Fire?",
+      en:"What does 'Booyah' mean in Free Fire?"
+    },
+    o:{
+      uz:["G‘alaba","Mag‘lubiyat","Yangi xarita","Maxsus qurol"],
+      ru:["Победа","Поражение","Новая карта","Особое оружие"],
+      en:["Victory","Defeat","A new map","A special weapon"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Clash Royale'da Elixir asosan nima uchun sarflanadi?",
+      ru:"Для чего в основном используется Elixir в Clash Royale?",
+      en:"What is Elixir mainly spent on in Clash Royale?"
+    },
+    o:{
+      uz:["Kartalarni maydonga joylashtirish","Minorani ta'mirlash","Xaritani ochish","Emote sotib olish"],
+      ru:["Для размещения карт на арене","Для ремонта башни","Для открытия карты","Для покупки эмоций"],
+      en:["Deploying cards onto the arena","Repairing a tower","Unlocking the map","Buying emotes"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Counter-Strike'da Terroristlar raundni qanday asosiy yo‘llardan biri bilan yutishi mumkin?",
+      ru:"Каким одним из основных способов террористы могут выиграть раунд в Counter-Strike?",
+      en:"What is one main way Terrorists can win a round in Counter-Strike?"
+    },
+    o:{
+      uz:["Bombani o‘rnatib portlatish yoki barcha Counter-Terroristlarni yo‘q qilish","Faqat barcha qurollarni tashlash","Faqat vaqtni kutish","Faqat xaritadan chiqish"],
+      ru:["Установить и взорвать бомбу или уничтожить всех контртеррористов","Только выбросить всё оружие","Только ждать время","Только покинуть карту"],
+      en:["Plant and detonate the bomb or eliminate all Counter-Terrorists","Only drop all weapons","Only wait for the timer","Only leave the map"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"League of Legends'da Baron Nashor odatda nima uchun muhim?",
+      ru:"Почему Baron Nashor важен в League of Legends?",
+      en:"Why is Baron Nashor important in League of Legends?"
+    },
+    o:{
+      uz:["Jamoaga kuchli vaqtinchalik buff berishi uchun","Faqat kosmetik reward berishi uchun","Xaritani almashtirgani uchun","O‘yinni avtomatik tugatgani uchun"],
+      ru:["Потому что даёт команде сильный временный бафф","Потому что даёт только косметическую награду","Потому что меняет карту","Потому что автоматически заканчивает игру"],
+      en:["Because it gives the team a powerful temporary buff","Because it only gives a cosmetic reward","Because it changes the map","Because it automatically ends the game"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Call of Duty: Warzone'dagi Gulag mexanikasining asosiy g‘oyasi nima?",
+      ru:"Какова основная идея механики Gulag в Call of Duty: Warzone?",
+      en:"What is the main idea of the Gulag mechanic in Call of Duty: Warzone?"
+    },
+    o:{
+      uz:["Yo‘q qilingan o‘yinchiga qaytish imkoniyati uchun jang qilish imkonini berish","Yangi qurol yasash","Xaritani kichraytirish","Squadni avtomatik tiklash"],
+      ru:["Дать уничтоженному игроку шанс сразиться за возвращение","Создание нового оружия","Уменьшение карты","Автоматическое восстановление отряда"],
+      en:["Give an eliminated player a chance to fight for a return","Crafting a new weapon","Shrinking the map","Automatically restoring the squad"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Elden Ring'da o‘yinchi boshqaradigan asosiy qahramon qanday ataladi?",
+      ru:"Как называется главный персонаж, которым управляет игрок в Elden Ring?",
+      en:"What is the player character called in Elden Ring?"
+    },
+    o:{
+      uz:["Tarnished","Hunter","Ashen One","Dragonborn"],
+      ru:["Погасший (Tarnished)","Охотник","Пепельный","Драконорождённый"],
+      en:["Tarnished","Hunter","Ashen One","Dragonborn"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Red Dead Redemption 2 hikoyasining asosiy qahramoni kim?",
+      ru:"Кто является главным героем основной истории Red Dead Redemption 2?",
+      en:"Who is the main protagonist of Red Dead Redemption 2?"
+    },
+    o:{
+      uz:["Arthur Morgan","John Marston","Dutch van der Linde","Micah Bell"],
+      ru:["Артур Морган","Джон Марстон","Датч ван дер Линде","Майка Белл"],
+      en:["Arthur Morgan","John Marston","Dutch van der Linde","Micah Bell"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"FC Mobile'da OVR nimani ifodalaydi?",
+      ru:"Что обозначает OVR в FC Mobile?",
+      en:"What does OVR represent in FC Mobile?"
+    },
+    o:{
+      uz:["Overall reyting","Faqat pace","Faqat shooting","Faqat market narxi"],
+      ru:["Общий рейтинг","Только скорость","Только удар","Только цена на рынке"],
+      en:["Overall rating","Only pace","Only shooting","Only market price"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Genshin Impact'da Archonlar nima?",
+      ru:"Кто такие Архонты в Genshin Impact?",
+      en:"What are the Archons in Genshin Impact?"
+    },
+    o:{
+      uz:["Teyvatdagi yetti elementar hukmdor","Oddiy dushmanlar","Faqat qurollar","NPC savdogarlar"],
+      ru:["Семь элементальных правителей Тейвата","Обычные враги","Только оружие","NPC-торговцы"],
+      en:["The seven elemental rulers of Teyvat","Ordinary enemies","Only weapons","NPC merchants"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Minecraft'da Nether Portal qaysi materialning ramkasidan quriladi?",
+      ru:"Из какого материала строится рамка Nether Portal в Minecraft?",
+      en:"What material is used to build the frame of a Nether Portal in Minecraft?"
+    },
+    o:{
+      uz:["Obsidian","Bedrock","Stone","Crying Obsidian"],
+      ru:["Обсидиан","Бедрок","Камень","Плачущий обсидиан"],
+      en:["Obsidian","Bedrock","Stone","Crying Obsidian"]
+    },
+    a:0,p:5
+  }
+],
+
+
+coding: [
+  {
+    q:{
+      uz:"JavaScript'da `===` operatorining `==` dan asosiy farqi nima?",
+      ru:"Какое основное отличие `===` от `==` в JavaScript?",
+      en:"What is the main difference between `===` and `==` in JavaScript?"
+    },
+    o:{
+      uz:["=== qiymat va turini ham tekshiradi","=== faqat sonlarni tekshiradi","== hech qachon type conversion qilmaydi","Ular mutlaqo bir xil"],
+      ru:["=== проверяет и значение, и тип","=== проверяет только числа","== никогда не приводит типы","Они полностью одинаковы"],
+      en:["=== checks both value and type","=== checks only numbers","== never performs type conversion","They are completely identical"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Big-O notation nimani ifodalash uchun ishlatiladi?",
+      ru:"Для чего используется нотация Big-O?",
+      en:"What is Big-O notation used to describe?"
+    },
+    o:{
+      uz:["Algoritm murakkabligining input hajmiga bog‘liqligini","Kod ranglarini","Disk hajmini","Monitor o‘lchamini"],
+      ru:["Зависимость сложности алгоритма от размера входных данных","Цвета кода","Размер диска","Размер монитора"],
+      en:["How algorithm complexity grows with input size","Code colors","Disk capacity","Monitor size"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Binary Search ishlashi uchun sorted array nega kerak?",
+      ru:"Почему Binary Search требует отсортированный массив?",
+      en:"Why does Binary Search require a sorted array?"
+    },
+    o:{
+      uz:["Har qadamda qaysi yarmini tashlab yuborishni aniqlash uchun","Xotirani kamaytirish uchun","Kod qisqaroq bo‘lishi uchun","Faqat JavaScript talab qilgani uchun"],
+      ru:["Чтобы на каждом шаге определить, какую половину отбросить","Чтобы уменьшить память","Чтобы код был короче","Потому что этого требует только JavaScript"],
+      en:["To determine which half can be discarded at each step","To reduce memory","To make the code shorter","Because only JavaScript requires it"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Recursion'da base case nima uchun kerak?",
+      ru:"Зачем нужен base case в рекурсии?",
+      en:"Why is a base case needed in recursion?"
+    },
+    o:{
+      uz:["Rekursiyani to‘xtatish uchun","Kod rangini o‘zgartirish uchun","Internetni tezlashtirish uchun","Arrayni sort qilish uchun"],
+      ru:["Чтобы остановить рекурсию","Чтобы изменить цвет кода","Чтобы ускорить интернет","Чтобы отсортировать массив"],
+      en:["To stop the recursion","To change code color","To speed up the internet","To sort an array"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Hash table'ning o‘rtacha lookup murakkabligi odatda qancha?",
+      ru:"Какова обычно средняя сложность поиска в hash table?",
+      en:"What is the typical average lookup complexity of a hash table?"
+    },
+    o:{
+      uz:["O(1)","O(n)","O(n²)","O(log n!)"],
+      ru:["O(1)","O(n)","O(n²)","O(log n!)"],
+      en:["O(1)","O(n)","O(n²)","O(log n!)"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Stack qaysi prinsip asosida ishlaydi?",
+      ru:"По какому принципу работает stack?",
+      en:"What principle does a stack use?"
+    },
+    o:{
+      uz:["LIFO","FIFO","Random access only","Priority only"],
+      ru:["LIFO","FIFO","Только случайный доступ","Только приоритет"],
+      en:["LIFO","FIFO","Random access only","Priority only"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Queue qaysi prinsip asosida ishlaydi?",
+      ru:"По какому принципу работает queue?",
+      en:"What principle does a queue use?"
+    },
+    o:{
+      uz:["FIFO","LIFO","Binary only","Recursive only"],
+      ru:["FIFO","LIFO","Только бинарный","Только рекурсивный"],
+      en:["FIFO","LIFO","Binary only","Recursive only"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Git'da commit nimani bildiradi?",
+      ru:"Что означает commit в Git?",
+      en:"What does a commit represent in Git?"
+    },
+    o:{
+      uz:["Repository tarixidagi saqlangan o‘zgarishlar to‘plami","Internet serveri","Branchni o‘chirish","Faqat fayl yuklash"],
+      ru:["Зафиксированный набор изменений в истории репозитория","Интернет-сервер","Удаление ветки","Только загрузка файла"],
+      en:["A recorded set of changes in repository history","An internet server","Deleting a branch","Only uploading a file"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"API qisqartmasi nimani anglatadi?",
+      ru:"Что означает сокращение API?",
+      en:"What does API stand for?"
+    },
+    o:{
+      uz:["Application Programming Interface","Advanced Program Internet","Application Page Index","Automatic Programming Input"],
+      ru:["Application Programming Interface","Advanced Program Internet","Application Page Index","Automatic Programming Input"],
+      en:["Application Programming Interface","Advanced Program Internet","Application Page Index","Automatic Programming Input"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Python'da list va tuple orasidagi asosiy farqlardan biri nima?",
+      ru:"Какое одно из основных различий между list и tuple в Python?",
+      en:"What is one key difference between a list and a tuple in Python?"
+    },
+    o:{
+      uz:["List mutable, tuple esa immutable","Tuple har doim tezroq CPU ishlatadi","List faqat string saqlaydi","Ular bir xil"],
+      ru:["List изменяемый, а tuple неизменяемый","Tuple всегда быстрее использует CPU","List хранит только строки","Они одинаковы"],
+      en:["A list is mutable, while a tuple is immutable","A tuple always uses CPU faster","A list stores only strings","They are identical"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"SQL'dagi JOIN operatori asosan nima qiladi?",
+      ru:"Для чего в основном используется JOIN в SQL?",
+      en:"What is JOIN mainly used for in SQL?"
+    },
+    o:{
+      uz:["Jadvallardagi bog‘liq ma'lumotlarni birlashtirish","Database yaratish","Serverni o‘chirish","Faqat ustun nomini almashtirish"],
+      ru:["Объединяет связанные данные из таблиц","Создаёт базу данных","Выключает сервер","Только переименовывает столбец"],
+      en:["Combines related data from tables","Creates a database","Shuts down a server","Only renames a column"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"HTTP 404 status kodi odatda nimani bildiradi?",
+      ru:"Что обычно означает HTTP-код 404?",
+      en:"What does HTTP status code 404 usually mean?"
+    },
+    o:{
+      uz:["Resurs topilmadi","Server muvaffaqiyatli ishladi","Ruxsat berildi","Server o‘chirildi"],
+      ru:["Ресурс не найден","Сервер успешно обработал запрос","Доступ разрешён","Сервер выключен"],
+      en:["Resource not found","The server successfully processed the request","Access granted","The server is offline"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"HTTP 500 status kodi qaysi turdagi muammoni bildiradi?",
+      ru:"Какую проблему обычно означает HTTP 500?",
+      en:"What type of problem does HTTP 500 usually indicate?"
+    },
+    o:{
+      uz:["Server tomoni ichki xatosi","Foydalanuvchi paroli noto‘g‘ri","Sahifa topilmadi","Internet juda tez"],
+      ru:["Внутренняя ошибка сервера","Неверный пароль пользователя","Страница не найдена","Слишком быстрый интернет"],
+      en:["An internal server error","Wrong user password","Page not found","Internet is too fast"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Compiler va interpreter orasidagi asosiy farq nima?",
+      ru:"Какое основное различие между compiler и interpreter?",
+      en:"What is a key difference between a compiler and an interpreter?"
+    },
+    o:{
+      uz:["Compiler odatda kodni oldindan tarjima qiladi, interpreter esa bajarish jarayonida talqin qiladi","Interpreter faqat HTML bilan ishlaydi","Compiler faqat CSS bilan ishlaydi","Ular har doim bir xil ishlaydi"],
+      ru:["Компилятор обычно заранее переводит код, а интерпретатор интерпретирует его во время выполнения","Интерпретатор работает только с HTML","Компилятор работает только с CSS","Они всегда работают одинаково"],
+      en:["A compiler generally translates code ahead of execution, while an interpreter interprets it during execution","An interpreter only works with HTML","A compiler only works with CSS","They always work identically"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Binary tree'da har bir node ko‘pi bilan nechta childga ega bo‘lishi mumkin?",
+      ru:"Сколько максимум детей может иметь один узел бинарного дерева?",
+      en:"How many children can a node in a binary tree have at most?"
+    },
+    o:{
+      uz:["2","1","3","Cheksiz"],
+      ru:["2","1","3","Бесконечно"],
+      en:["2","1","3","Unlimited"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Dijkstra algoritmi odatda nima uchun ishlatiladi?",
+      ru:"Для чего обычно используется алгоритм Дейкстры?",
+      en:"What is Dijkstra's algorithm commonly used for?"
+    },
+    o:{
+      uz:["Og‘irliklari manfiy bo‘lmagan grafda eng qisqa yo‘lni topish","Stringni alphabet bo‘yicha sort qilish","Rasmni siqish","Parol yaratish"],
+      ru:["Для поиска кратчайшего пути в графе без отрицательных весов","Для сортировки строк по алфавиту","Для сжатия изображений","Для создания паролей"],
+      en:["Finding shortest paths in graphs with non-negative edge weights","Sorting strings alphabetically","Compressing images","Creating passwords"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"OOP'dagi inheritance nima?",
+      ru:"Что такое inheritance в ООП?",
+      en:"What is inheritance in OOP?"
+    },
+    o:{
+      uz:["Bir class boshqa class xususiyat va metodlarini meros olishi","Objectni o‘chirish","Faqat database yaratish","Kodlarni avtomatik shifrlash"],
+      ru:["Получение классом свойств и методов другого класса","Удаление объекта","Только создание базы данных","Автоматическое шифрование кода"],
+      en:["A class receiving properties and methods from another class","Deleting an object","Only creating a database","Automatically encrypting code"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Time complexity O(log n) nimani anglatadi?",
+      ru:"Что означает временная сложность O(log n)?",
+      en:"What does O(log n) time complexity mean?"
+    },
+    o:{
+      uz:["Input oshganda ishlash bosqichlari logarifmik sur'atda oshadi","Har bir element ikki marta tekshiriladi","Har doim O(n²) bo‘ladi","Input ta'sir qilmaydi"],
+      ru:["Количество шагов растёт логарифмически при увеличении входа","Каждый элемент проверяется дважды","Всегда получается O(n²)","Размер входа не влияет"],
+      en:["The number of steps grows logarithmically as input grows","Every element is checked twice","It is always O(n²)","Input size has no effect"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"JSON ma'lumot formatining asosiy afzalligi nima?",
+      ru:"Какое основное преимущество формата JSON?",
+      en:"What is a key advantage of JSON?"
+    },
+    o:{
+      uz:["Inson o‘qishi oson va dasturlar orasida ma'lumot almashish uchun qulay","Faqat rasmlar saqlaydi","Faqat Windows'da ishlaydi","CPU tezligini oshiradi"],
+      ru:["Он легко читается человеком и удобен для обмена данными между программами","Он хранит только изображения","Он работает только в Windows","Он ускоряет CPU"],
+      en:["It is human-readable and convenient for data exchange between programs","It stores only images","It works only on Windows","It increases CPU speed"]
+    },
+    a:0,p:10
+  }
+],
+
+
+web: [
+  {
+    q:{
+      uz:"CSS'da `position: absolute` elementi qaysi reference pointga nisbatan joylashishi mumkin?",
+      ru:"Относительно чего может позиционироваться элемент с `position: absolute` в CSS?",
+      en:"What can an element with `position: absolute` be positioned relative to in CSS?"
+    },
+    o:{
+      uz:["Eng yaqin positioned ancestor yoki initial containing block","Faqat body","Faqat html","Faqat viewport"],
+      ru:["Ближайшего positioned ancestor или initial containing block","Только body","Только html","Только viewport"],
+      en:["The nearest positioned ancestor or the initial containing block","Only body","Only html","Only the viewport"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Flexbox'dagi `justify-content` asosiy o‘qda nimani boshqaradi?",
+      ru:"Что управляет `justify-content` на главной оси Flexbox?",
+      en:"What does `justify-content` control on the main axis in Flexbox?"
+    },
+    o:{
+      uz:["Elementlar orasidagi va atrofidagi taqsimotni","Element balandligini","Fontni","Border rangini"],
+      ru:["Распределение элементов вдоль главной оси","Высоту элементов","Шрифт","Цвет границы"],
+      en:["Distribution of items along the main axis","Element height","Font","Border color"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"CSS Grid'da `grid-template-columns: repeat(3, 1fr)` nimani yaratadi?",
+      ru:"Что создаёт `grid-template-columns: repeat(3, 1fr)` в CSS Grid?",
+      en:"What does `grid-template-columns: repeat(3, 1fr)` create?"
+    },
+    o:{
+      uz:["3 ta teng flexibli ustun","3 ta fixed 1px ustun","1 ta ustun va 3 ta qator","Faqat 3px gap"],
+      ru:["3 гибкие равные колонки","3 фиксированные колонки по 1px","1 колонку и 3 строки","Только gap 3px"],
+      en:["Three equal flexible columns","Three fixed 1px columns","One column and three rows","Only a 3px gap"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Semantic HTML'dagi `<main>` elementi nima uchun ishlatiladi?",
+      ru:"Для чего используется элемент `<main>` в семантическом HTML?",
+      en:"What is the `<main>` element used for in semantic HTML?"
+    },
+    o:{
+      uz:["Sahifaning asosiy mazmunini belgilash","Faqat navigatsiya","Footer yaratish","Faqat rasm joylash"],
+      ru:["Для обозначения основного содержимого страницы","Только для навигации","Для создания footer","Только для размещения изображений"],
+      en:["To identify the main content of the page","Only for navigation","To create a footer","Only for images"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Responsive design'da media query nima uchun kerak?",
+      ru:"Для чего нужны media queries в responsive design?",
+      en:"Why are media queries used in responsive design?"
+    },
+    o:{
+      uz:["Ekran sharoitiga qarab CSS qoidalarini o‘zgartirish uchun","JavaScriptni ishga tushirish uchun","Server yaratish uchun","Rasm formatini o‘zgartirish uchun"],
+      ru:["Чтобы менять CSS-правила в зависимости от условий экрана","Чтобы запускать JavaScript","Чтобы создавать сервер","Чтобы менять формат изображения"],
+      en:["To change CSS rules based on screen conditions","To run JavaScript","To create a server","To change image format"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"DOM nimaning qisqartmasi?",
+      ru:"Что означает DOM?",
+      en:"What does DOM stand for?"
+    },
+    o:{
+      uz:["Document Object Model","Data Object Method","Design Output Manager","Document Order Map"],
+      ru:["Document Object Model","Data Object Method","Design Output Manager","Document Order Map"],
+      en:["Document Object Model","Data Object Method","Design Output Manager","Document Order Map"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"JavaScript'da `addEventListener` nima uchun ishlatiladi?",
+      ru:"Для чего используется `addEventListener` в JavaScript?",
+      en:"What is `addEventListener` used for in JavaScript?"
+    },
+    o:{
+      uz:["Element hodisasiga handler bog‘lash","CSS fayl yaratish","HTMLni serverga yuborish","Database ochish"],
+      ru:["Для привязки обработчика к событию элемента","Для создания CSS-файла","Для отправки HTML на сервер","Для открытия базы данных"],
+      en:["To attach an event handler to an element","To create a CSS file","To send HTML to a server","To open a database"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"`localStorage` ma'lumotni odatda qayerda saqlaydi?",
+      ru:"Где обычно хранит данные `localStorage`?",
+      en:"Where does `localStorage` usually store data?"
+    },
+    o:{
+      uz:["Brauzerning lokal storage'ida","Faqat server RAM'ida","GPU'da","HTML faylining ichida avtomatik"],
+      ru:["В локальном хранилище браузера","Только в RAM сервера","В GPU","Автоматически внутри HTML-файла"],
+      en:["In the browser's local storage","Only in server RAM","In the GPU","Automatically inside the HTML file"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"HTTPS'dagi 'S' nimani bildiradi?",
+      ru:"Что означает буква 'S' в HTTPS?",
+      en:"What does the 'S' in HTTPS stand for?"
+    },
+    o:{
+      uz:["Secure","System","Server","Source"],
+      ru:["Secure","System","Server","Source"],
+      en:["Secure","System","Server","Source"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"CSS specificity'da ID selector odatda class selector'dan kuchliroqmi?",
+      ru:"В CSS specificity ID-селектор обычно сильнее class-селектора?",
+      en:"In CSS specificity, is an ID selector generally stronger than a class selector?"
+    },
+    o:{
+      uz:["Ha","Yo‘q","Faqat Firefox'da","Faqat inline CSS bo‘lmasa"],
+      ru:["Да","Нет","Только в Firefox","Только без inline CSS"],
+      en:["Yes","No","Only in Firefox","Only when there is no inline CSS"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"`alt` atributi `<img>` uchun nima sababdan muhim?",
+      ru:"Почему атрибут `alt` важен для `<img>`?",
+      en:"Why is the `alt` attribute important for `<img>`?"
+    },
+    o:{
+      uz:["Rasm yuklanmasa matn beradi va accessibility'ni yaxshilaydi","Rasmni avtomatik kattalashtiradi","Rasmni serverga yuklaydi","Faqat rang beradi"],
+      ru:["Даёт текстовое описание при проблеме с изображением и улучшает доступность","Автоматически увеличивает изображение","Загружает изображение на сервер","Только задаёт цвет"],
+      en:["Provides text when an image cannot load and improves accessibility","Automatically enlarges the image","Uploads the image to the server","Only sets a color"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"CSS'da `z-index` odatda nimani boshqaradi?",
+      ru:"Что обычно управляет `z-index` в CSS?",
+      en:"What does `z-index` generally control in CSS?"
+    },
+    o:{
+      uz:["Elementlarning stacking tartibini","Element kengligini","Font o‘lchamini","Scroll tezligini"],
+      ru:["Порядок наложения элементов","Ширину элемента","Размер шрифта","Скорость прокрутки"],
+      en:["The stacking order of elements","Element width","Font size","Scroll speed"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"`display: none` berilgan element odatda layout'da joy egallaydimi?",
+      ru:"Занимает ли элемент с `display: none` место в layout?",
+      en:"Does an element with `display: none` normally occupy layout space?"
+    },
+    o:{
+      uz:["Yo‘q","Ha","Faqat Chrome'da","Faqat mobile'da"],
+      ru:["Нет","Да","Только в Chrome","Только на мобильных"],
+      en:["No","Yes","Only in Chrome","Only on mobile"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"CSS'da `box-sizing: border-box` nima qiladi?",
+      ru:"Что делает `box-sizing: border-box`?",
+      en:"What does `box-sizing: border-box` do?"
+    },
+    o:{
+      uz:["Width/height hisobiga padding va borderni ham kiritadi","Borderni olib tashlaydi","Elementni yashiradi","Faqat marginni hisoblaydi"],
+      ru:["Включает padding и border в заданные width/height","Удаляет border","Скрывает элемент","Учитывает только margin"],
+      en:["Includes padding and border within the declared width/height","Removes the border","Hides the element","Only counts margin"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"CSS Grid Flexbox'dan qaysi holatda ayniqsa qulay?",
+      ru:"В каком случае CSS Grid особенно удобен по сравнению с Flexbox?",
+      en:"When is CSS Grid especially useful compared with Flexbox?"
+    },
+    o:{
+      uz:["Ikki o‘lchamli qator va ustun layoutlarida","Faqat bitta tugmada","Faqat matn rangida","Faqat animationda"],
+      ru:["Для двумерных layout с рядами и колонками","Только для одной кнопки","Только для цвета текста","Только для анимаций"],
+      en:["For two-dimensional row-and-column layouts","Only for one button","Only for text color","Only for animations"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"JavaScript'dagi Promise odatda nimani ifodalaydi?",
+      ru:"Что обычно представляет Promise в JavaScript?",
+      en:"What does a Promise generally represent in JavaScript?"
+    },
+    o:{
+      uz:["Kelajakda yakunlanadigan yoki rad etiladigan asynchronous operatsiya natijasini","CSS classni","HTML tagni","Database jadvalini"],
+      ru:["Результат асинхронной операции, которая завершится или будет отклонена","CSS-класс","HTML-тег","Таблицу базы данных"],
+      en:["The eventual result of an asynchronous operation that may fulfill or reject","A CSS class","An HTML tag","A database table"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"CORS asosan qaysi muammo bilan bog‘liq?",
+      ru:"С какой проблемой в основном связан CORS?",
+      en:"What problem is CORS mainly related to?"
+    },
+    o:{
+      uz:["Turli originlar orasidagi browser request xavfsizlik qoidalari","CSS animation","Rasm sifati","CPU tezligi"],
+      ru:["С политиками безопасности браузера для запросов между разными origin","С CSS-анимациями","С качеством изображений","Со скоростью CPU"],
+      en:["Browser security rules for requests between different origins","CSS animation","Image quality","CPU speed"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Cookie va localStorage orasidagi muhim farqlardan biri nima?",
+      ru:"Какое важное различие между cookie и localStorage?",
+      en:"What is one important difference between cookies and localStorage?"
+    },
+    o:{
+      uz:["Cookie requestlar bilan serverga yuborilishi mumkin, localStorage esa odatda avtomatik yuborilmaydi","localStorage faqat serverda bo‘ladi","Cookie faqat rasm saqlaydi","Ular har doim bir xil"],
+      ru:["Cookie могут отправляться с запросами на сервер, а localStorage обычно автоматически не отправляется","localStorage хранится только на сервере","Cookie хранят только изображения","Они всегда одинаковы"],
+      en:["Cookies can be sent with requests to a server, while localStorage is not automatically sent","localStorage exists only on the server","Cookies store only images","They are always identical"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Viewport meta tag mobil responsive sahifada nima uchun kerak?",
+      ru:"Зачем нужен viewport meta tag на responsive мобильной странице?",
+      en:"Why is the viewport meta tag useful for responsive mobile pages?"
+    },
+    o:{
+      uz:["Brauzer viewport o‘lchamini qurilma ekraniga mos talqin qilishga yordam beradi","CSSni o‘chiradi","JavaScriptni tezlashtiradi","Serverni ishga tushiradi"],
+      ru:["Помогает браузеру правильно интерпретировать ширину viewport под экран устройства","Отключает CSS","Ускоряет JavaScript","Запускает сервер"],
+      en:["It helps the browser interpret the viewport width appropriately for the device screen","It disables CSS","It speeds up JavaScript","It starts a server"]
+    },
+    a:0,p:10
+  }
+],
+
+
+math: [
+  {
+    q:{
+      uz:"Agar 2x + 7 = 19 bo‘lsa, x nechaga teng?",
+      ru:"Если 2x + 7 = 19, чему равен x?",
+      en:"If 2x + 7 = 19, what is x?"
+    },
+    o:{
+      uz:["6","5","7","12"],
+      ru:["6","5","7","12"],
+      en:["6","5","7","12"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"x² − 5x + 6 = 0 tenglamaning ildizlari qaysilar?",
+      ru:"Каковы корни уравнения x² − 5x + 6 = 0?",
+      en:"What are the roots of x² − 5x + 6 = 0?"
+    },
+    o:{
+      uz:["2 va 3","1 va 6","−2 va −3","3 va 4"],
+      ru:["2 и 3","1 и 6","−2 и −3","3 и 4"],
+      en:["2 and 3","1 and 6","−2 and −3","3 and 4"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Geometrik progressiyada a₁=3, q=2 bo‘lsa, a₆ nechaga teng?",
+      ru:"Если в геометрической прогрессии a₁=3 и q=2, чему равен a₆?",
+      en:"If a₁=3 and q=2 in a geometric progression, what is a₆?"
+    },
+    o:{
+      uz:["96","48","192","24"],
+      ru:["96","48","192","24"],
+      en:["96","48","192","24"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"0.2 × 0.05 nechaga teng?",
+      ru:"Чему равно 0.2 × 0.05?",
+      en:"What is 0.2 × 0.05?"
+    },
+    o:{
+      uz:["0.01","0.1","0.001","0.25"],
+      ru:["0.01","0.1","0.001","0.25"],
+      en:["0.01","0.1","0.001","0.25"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Agar uchburchakning ikki burchagi 45° va 65° bo‘lsa, uchinchi burchak nechaga teng?",
+      ru:"Если два угла треугольника равны 45° и 65°, чему равен третий?",
+      en:"If two angles of a triangle are 45° and 65°, what is the third?"
+    },
+    o:{
+      uz:["70°","80°","60°","90°"],
+      ru:["70°","80°","60°","90°"],
+      en:["70°","80°","60°","90°"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"2⁵ × 2³ nechaga teng?",
+      ru:"Чему равно 2⁵ × 2³?",
+      en:"What is 2⁵ × 2³?"
+    },
+    o:{
+      uz:["256","64","128","512"],
+      ru:["256","64","128","512"],
+      en:["256","64","128","512"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"√144 + √81 nechaga teng?",
+      ru:"Чему равно √144 + √81?",
+      en:"What is √144 + √81?"
+    },
+    o:{
+      uz:["21","19","23","25"],
+      ru:["21","19","23","25"],
+      en:["21","19","23","25"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"f(x)=2x²−3x+1 bo‘lsa, f(2) nechaga teng?",
+      ru:"Если f(x)=2x²−3x+1, чему равно f(2)?",
+      en:"If f(x)=2x²−3x+1, what is f(2)?"
+    },
+    o:{
+      uz:["3","5","1","7"],
+      ru:["3","5","1","7"],
+      en:["3","5","1","7"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"12, 18 va 30 sonlarining EKUBi nechaga teng?",
+      ru:"Чему равен НОД чисел 12, 18 и 30?",
+      en:"What is the GCD of 12, 18, and 30?"
+    },
+    o:{
+      uz:["6","3","12","2"],
+      ru:["6","3","12","2"],
+      en:["6","3","12","2"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"12 va 18 sonlarining EKUKi nechaga teng?",
+      ru:"Чему равно НОК чисел 12 и 18?",
+      en:"What is the LCM of 12 and 18?"
+    },
+    o:{
+      uz:["36","54","72","30"],
+      ru:["36","54","72","30"],
+      en:["36","54","72","30"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"(x−3)(x+4)=0 tenglamaning yechimlari?",
+      ru:"Решения уравнения (x−3)(x+4)=0?",
+      en:"What are the solutions of (x−3)(x+4)=0?"
+    },
+    o:{
+      uz:["3 va −4","−3 va 4","3 va 4","−3 va −4"],
+      ru:["3 и −4","−3 и 4","3 и 4","−3 и −4"],
+      en:["3 and −4","−3 and 4","3 and 4","−3 and −4"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Aylananing radiusi 5 bo‘lsa, yuzi nechaga teng? π ni qoldiring.",
+      ru:"Если радиус окружности равен 5, чему равна её площадь? Оставьте π.",
+      en:"If a circle has radius 5, what is its area? Leave π in the answer."
+    },
+    o:{
+      uz:["25π","10π","5π","50π"],
+      ru:["25π","10π","5π","50π"],
+      en:["25π","10π","5π","50π"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Agar |x−4|=7 bo‘lsa, x ning qiymatlari qaysi?",
+      ru:"Если |x−4|=7, каковы значения x?",
+      en:"If |x−4|=7, what are the values of x?"
+    },
+    o:{
+      uz:["11 va −3","7 va −7","3 va 11","4 va 7"],
+      ru:["11 и −3","7 и −7","3 и 11","4 и 7"],
+      en:["11 and −3","7 and −7","3 and 11","4 and 7"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"1 dan 100 gacha bo‘lgan sonlar ichida 3 ga bo‘linadigan nechta son bor?",
+      ru:"Сколько чисел от 1 до 100 делятся на 3?",
+      en:"How many numbers from 1 to 100 are divisible by 3?"
+    },
+    o:{
+      uz:["33","34","32","30"],
+      ru:["33","34","32","30"],
+      en:["33","34","32","30"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Bir sonning 25% i 18 ga teng. Sonning o‘zi nechaga teng?",
+      ru:"25% числа равны 18. Чему равно само число?",
+      en:"25% of a number is 18. What is the number?"
+    },
+    o:{
+      uz:["72","54","90","64"],
+      ru:["72","54","90","64"],
+      en:["72","54","90","64"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"2x−3 > 9 tengsizlikning yechimi?",
+      ru:"Решение неравенства 2x−3 > 9?",
+      en:"What is the solution of 2x−3 > 9?"
+    },
+    o:{
+      uz:["x > 6","x > 3","x < 6","x ≥ 6"],
+      ru:["x > 6","x > 3","x < 6","x ≥ 6"],
+      en:["x > 6","x > 3","x < 6","x ≥ 6"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"5 ta ketma-ket natural sonning o‘rtacha qiymati 18 bo‘lsa, o‘rtadagi son nechaga teng?",
+      ru:"Если среднее пяти последовательных натуральных чисел равно 18, чему равно среднее число?",
+      en:"If the average of five consecutive natural numbers is 18, what is the middle number?"
+    },
+    o:{
+      uz:["18","17","19","20"],
+      ru:["18","17","19","20"],
+      en:["18","17","19","20"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"log₂32 nechaga teng?",
+      ru:"Чему равно log₂32?",
+      en:"What is log₂32?"
+    },
+    o:{
+      uz:["5","4","6","8"],
+      ru:["5","4","6","8"],
+      en:["5","4","6","8"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Agar a+b=10 va ab=21 bo‘lsa, a²+b² nechaga teng?",
+      ru:"Если a+b=10 и ab=21, чему равно a²+b²?",
+      en:"If a+b=10 and ab=21, what is a²+b²?"
+    },
+    o:{
+      uz:["58","79","42","100"],
+      ru:["58","79","42","100"],
+      en:["58","79","42","100"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"(3x+2)² ni yoyganda qaysi ifoda hosil bo‘ladi?",
+      ru:"Какое выражение получается при раскрытии (3x+2)²?",
+      en:"What is the expansion of (3x+2)²?"
+    },
+    o:{
+      uz:["9x²+12x+4","9x²+4","3x²+12x+4","9x²+6x+4"],
+      ru:["9x²+12x+4","9x²+4","3x²+12x+4","9x²+6x+4"],
+      en:["9x²+12x+4","9x²+4","3x²+12x+4","9x²+6x+4"]
+    },
+    a:0,p:15
+  }
+],
+
+
+science: [
+  {
+    q:{
+      uz:"Fotosintez jarayonida o‘simliklar atmosferadan asosan qaysi gazni oladi?",
+      ru:"Какой газ растения в основном поглощают из атмосферы при фотосинтезе?",
+      en:"Which gas do plants mainly take from the atmosphere during photosynthesis?"
+    },
+    o:{
+      uz:["CO₂","O₂","N₂","H₂"],
+      ru:["CO₂","O₂","N₂","H₂"],
+      en:["CO₂","O₂","N₂","H₂"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Elektr tok kuchining SI birligi nima?",
+      ru:"Какова единица силы электрического тока в СИ?",
+      en:"What is the SI unit of electric current?"
+    },
+    o:{
+      uz:["Amper","Volt","Om","Vatt"],
+      ru:["Ампер","Вольт","Ом","Ватт"],
+      en:["Ampere","Volt","Ohm","Watt"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Nyutonning ikkinchi qonuni qaysi formula bilan ifodalanadi?",
+      ru:"Как выражается второй закон Ньютона?",
+      en:"Which formula expresses Newton's second law?"
+    },
+    o:{
+      uz:["F=ma","E=mc²","V=IR","P=mv"],
+      ru:["F=ma","E=mc²","V=IR","P=mv"],
+      en:["F=ma","E=mc²","V=IR","P=mv"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"DNKning asosiy vazifalaridan biri nima?",
+      ru:"Какова одна из основных функций ДНК?",
+      en:"What is one main function of DNA?"
+    },
+    o:{
+      uz:["Genetik axborotni saqlash va uzatish","Energiya ishlab chiqarish","Qonni pompalash","Oqsilni bevosita hazm qilish"],
+      ru:["Хранение и передача генетической информации","Производство энергии","Перекачивание крови","Непосредственное переваривание белка"],
+      en:["Storing and transmitting genetic information","Producing energy","Pumping blood","Directly digesting protein"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"pH=7 odatda qanday muhitni bildiradi?",
+      ru:"Что обычно означает pH=7?",
+      en:"What does pH=7 usually indicate?"
+    },
+    o:{
+      uz:["Neytral","Kuchli kislotali","Kuchli ishqoriy","Faqat tuzli"],
+      ru:["Нейтральную среду","Сильнокислую","Сильнощелочную","Только солёную"],
+      en:["Neutral","Strongly acidic","Strongly alkaline","Only salty"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Yer atmosferasida eng ko‘p uchraydigan gaz qaysi?",
+      ru:"Какой газ наиболее распространён в атмосфере Земли?",
+      en:"Which gas is most abundant in Earth's atmosphere?"
+    },
+    o:{
+      uz:["Azot","Kislorod","Karbonat angidrid","Argon"],
+      ru:["Азот","Кислород","Углекислый газ","Аргон"],
+      en:["Nitrogen","Oxygen","Carbon dioxide","Argon"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Impuls fizikada qaysi formula bilan ifodalanadi?",
+      ru:"Как выражается импульс в физике?",
+      en:"Which formula represents momentum in physics?"
+    },
+    o:{
+      uz:["p=mv","p=ma","p=m/v","p=F/a"],
+      ru:["p=mv","p=ma","p=m/v","p=F/a"],
+      en:["p=mv","p=ma","p=m/v","p=F/a"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Mitoxondriya hujayrada asosan qanday vazifa bajaradi?",
+      ru:"Какую основную функцию выполняют митохондрии?",
+      en:"What is the main function of mitochondria?"
+    },
+    o:{
+      uz:["ATP ko‘rinishida energiya ishlab chiqarishda qatnashadi","DNKni yo‘q qiladi","Hujayra devorini hosil qiladi","Faqat suv saqlaydi"],
+      ru:["Участвуют в производстве энергии в форме ATP","Уничтожают ДНК","Создают клеточную стенку","Только хранят воду"],
+      en:["They participate in producing energy in the form of ATP","They destroy DNA","They create the cell wall","They only store water"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Gravitatsion tezlanish Yer yuzasida taxminan nechaga teng?",
+      ru:"Чему примерно равно ускорение свободного падения у поверхности Земли?",
+      en:"What is the approximate gravitational acceleration near Earth's surface?"
+    },
+    o:{
+      uz:["9.8 m/s²","98 m/s²","0.98 m/s²","9.8 km/s"],
+      ru:["9,8 м/с²","98 м/с²","0,98 м/с²","9,8 км/с"],
+      en:["9.8 m/s²","98 m/s²","0.98 m/s²","9.8 km/s"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Atom yadrosida qaysi zarralar joylashadi?",
+      ru:"Какие частицы находятся в атомном ядре?",
+      en:"Which particles are found in an atomic nucleus?"
+    },
+    o:{
+      uz:["Proton va neytronlar","Elektron va protonlar","Faqat elektronlar","Faqat neytronlar"],
+      ru:["Протоны и нейтроны","Электроны и протоны","Только электроны","Только нейтроны"],
+      en:["Protons and neutrons","Electrons and protons","Only electrons","Only neutrons"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Elektr qarshiligining SI birligi nima?",
+      ru:"Какова единица электрического сопротивления в СИ?",
+      en:"What is the SI unit of electrical resistance?"
+    },
+    o:{
+      uz:["Om","Volt","Amper","Joul"],
+      ru:["Ом","Вольт","Ампер","Джоуль"],
+      en:["Ohm","Volt","Ampere","Joule"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Suvning kimyoviy formulasi nima?",
+      ru:"Какова химическая формула воды?",
+      en:"What is the chemical formula of water?"
+    },
+    o:{
+      uz:["H₂O","CO₂","O₂","H₂"],
+      ru:["H₂O","CO₂","O₂","H₂"],
+      en:["H₂O","CO₂","O₂","H₂"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi organ qon tarkibidagi kislorodni butun tanaga yetkazishda bevosita markaziy rol o‘ynaydi?",
+      ru:"Какой орган играет центральную роль в перекачивании крови с кислородом по организму?",
+      en:"Which organ plays the central role in pumping oxygenated blood through the body?"
+    },
+    o:{
+      uz:["Yurak","O‘pka","Jigar","Buyrak"],
+      ru:["Сердце","Лёгкие","Печень","Почки"],
+      en:["Heart","Lungs","Liver","Kidneys"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Yorug‘lik vakuumda taxminan qanday tezlikda tarqaladi?",
+      ru:"С какой примерно скоростью распространяется свет в вакууме?",
+      en:"Approximately how fast does light travel in vacuum?"
+    },
+    o:{
+      uz:["3×10⁸ m/s","3×10⁶ m/s","3×10⁵ km/s²","3×10⁹ m/s"],
+      ru:["3×10⁸ м/с","3×10⁶ м/с","3×10⁵ км/с²","3×10⁹ м/с"],
+      en:["3×10⁸ m/s","3×10⁶ m/s","3×10⁵ km/s²","3×10⁹ m/s"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Genetikada dominant allel odatda qanday belgilanadi?",
+      ru:"Как обычно обозначается доминантный аллель в генетике?",
+      en:"How is a dominant allele usually represented in genetics?"
+    },
+    o:{
+      uz:["Katta harf bilan","Kichik harf bilan","Raqam bilan","Faqat yunon harfi bilan"],
+      ru:["Заглавной буквой","Строчной буквой","Числом","Только греческой буквой"],
+      en:["With a capital letter","With a lowercase letter","With a number","Only with a Greek letter"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Entropiya termodinamikada odatda nimani tavsiflash bilan bog‘liq?",
+      ru:"С чем обычно связана энтропия в термодинамике?",
+      en:"What is entropy in thermodynamics generally associated with?"
+    },
+    o:{
+      uz:["Tizimdagi energiya tarqalishi va mumkin bo‘lgan mikroholatlar soni bilan","Faqat harorat bilan","Faqat bosim bilan","Faqat hajm bilan"],
+      ru:["С распределением энергии и числом возможных микросостояний системы","Только с температурой","Только с давлением","Только с объёмом"],
+      en:["Energy distribution and the number of possible microstates","Only temperature","Only pressure","Only volume"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Molekulaning eng kichik kimyoviy xususiyatlarini saqlaydigan birligi nima?",
+      ru:"Какая единица сохраняет основные химические свойства вещества на молекулярном уровне?",
+      en:"What unit retains the essential chemical properties of a molecular substance?"
+    },
+    o:{
+      uz:["Molekula","Proton","Elektron","Yadro"],
+      ru:["Молекула","Протон","Электрон","Ядро"],
+      en:["Molecule","Proton","Electron","Nucleus"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Kuchning bajargan ishi fizikada qaysi birlikda o‘lchanadi?",
+      ru:"В каких единицах измеряется работа силы?",
+      en:"In what unit is mechanical work measured?"
+    },
+    o:{
+      uz:["Joul","Vatt","Nyuton","Pascal"],
+      ru:["Джоуль","Ватт","Ньютон","Паскаль"],
+      en:["Joule","Watt","Newton","Pascal"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Osmos nima?",
+      ru:"Что такое осмос?",
+      en:"What is osmosis?"
+    },
+    o:{
+      uz:["Erituvchining yarim o‘tkazuvchan membrana orqali konsentratsiya farqi bilan harakatlanishi","Elektronlarning metall bo‘ylab oqishi","Yorug‘likning qaytishi","Gazning yonishi"],
+      ru:["Движение растворителя через полупроницаемую мембрану из-за разницы концентраций","Движение электронов по металлу","Отражение света","Горение газа"],
+      en:["Movement of a solvent through a semipermeable membrane due to a concentration difference","Flow of electrons through metal","Reflection of light","Combustion of gas"]
+    },
+    a:0,p:20
+  }
+],
+
+
+geography: [
+  {
+    q:{
+      uz:"Yer yuzidagi eng katta okean qaysi?",
+      ru:"Какой океан является крупнейшим на Земле?",
+      en:"What is the largest ocean on Earth?"
+    },
+    o:{
+      uz:["Tinch okeani","Atlantika","Hind okeani","Shimoliy Muz okeani"],
+      ru:["Тихий океан","Атлантический","Индийский","Северный Ледовитый"],
+      en:["Pacific Ocean","Atlantic Ocean","Indian Ocean","Arctic Ocean"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Dunyodagi eng katta qit'a qaysi?",
+      ru:"Какой континент является крупнейшим?",
+      en:"Which continent is the largest?"
+    },
+    o:{
+      uz:["Osiyo","Afrika","Shimoliy Amerika","Yevropa"],
+      ru:["Азия","Африка","Северная Америка","Европа"],
+      en:["Asia","Africa","North America","Europe"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Amazonka daryosi asosan qaysi qit'ada joylashgan?",
+      ru:"На каком континенте в основном находится Амазонка?",
+      en:"On which continent is the Amazon River mainly located?"
+    },
+    o:{
+      uz:["Janubiy Amerika","Afrika","Osiyo","Shimoliy Amerika"],
+      ru:["Южная Америка","Африка","Азия","Северная Америка"],
+      en:["South America","Africa","Asia","North America"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi davlat hududi ikki qit'ada joylashgan?",
+      ru:"Какая страна расположена на двух континентах?",
+      en:"Which country lies on two continents?"
+    },
+    o:{
+      uz:["Turkiya","Yaponiya","Misr","Avstraliya"],
+      ru:["Турция","Япония","Египет","Австралия"],
+      en:["Turkey","Japan","Egypt","Australia"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Everest qaysi tog‘ tizmasida joylashgan?",
+      ru:"В какой горной системе находится Эверест?",
+      en:"In which mountain range is Everest located?"
+    },
+    o:{
+      uz:["Himolay","And","Alp","Kavkaz"],
+      ru:["Гималаи","Анды","Альпы","Кавказ"],
+      en:["Himalayas","Andes","Alps","Caucasus"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Sahroi Kabir qaysi qit'ada?",
+      ru:"На каком континенте находится Сахара?",
+      en:"On which continent is the Sahara?"
+    },
+    o:{
+      uz:["Afrika","Osiyo","Avstraliya","Janubiy Amerika"],
+      ru:["Африка","Азия","Австралия","Южная Америка"],
+      en:["Africa","Asia","Australia","South America"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Ekvator Yer sharini qaysi ikki yarim sharga ajratadi?",
+      ru:"На какие два полушария делит Землю экватор?",
+      en:"Which two hemispheres does the Equator divide Earth into?"
+    },
+    o:{
+      uz:["Shimoliy va Janubiy","Sharqiy va G‘arbiy","Yevropa va Osiyo","Quruqlik va suv"],
+      ru:["Северное и Южное","Восточное и Западное","Европу и Азию","Сушу и воду"],
+      en:["Northern and Southern","Eastern and Western","Europe and Asia","Land and water"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Grenlandiya geografik jihatdan qaysi qit'a bilan bog‘liq?",
+      ru:"С каким континентом географически связана Гренландия?",
+      en:"Geographically, which continent is Greenland associated with?"
+    },
+    o:{
+      uz:["Shimoliy Amerika","Yevropa","Osiyo","Afrika"],
+      ru:["Северная Америка","Европа","Азия","Африка"],
+      en:["North America","Europe","Asia","Africa"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Dunyodagi eng chuqur ko‘l qaysi?",
+      ru:"Какое озеро является самым глубоким в мире?",
+      en:"What is the deepest lake in the world?"
+    },
+    o:{
+      uz:["Baykal","Viktoriya","Kaspiy","Tanganika"],
+      ru:["Байкал","Виктория","Каспийское","Танганьика"],
+      en:["Baikal","Victoria","Caspian","Tanganyika"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Kaspiy dengizi aslida geografik nuqtai nazardan nima?",
+      ru:"Чем является Каспийское море с географической точки зрения?",
+      en:"What is the Caspian Sea geographically?"
+    },
+    o:{
+      uz:["Dunyodagi eng katta yopiq ichki suv havzasi","Okean qo‘ltig‘i","Oddiy daryo","Muzlik ko‘li"],
+      ru:["Крупнейший в мире замкнутый внутренний водоём","Залив океана","Обычная река","Ледниковое озеро"],
+      en:["The world's largest enclosed inland body of water","An ocean bay","An ordinary river","A glacial lake"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Uzbekistan nechta davlat bilan quruqlik chegarasiga ega?",
+      ru:"Со сколькими странами Узбекистан имеет сухопутную границу?",
+      en:"How many countries share a land border with Uzbekistan?"
+    },
+    o:{
+      uz:["5","4","6","3"],
+      ru:["5","4","6","3"],
+      en:["5","4","6","3"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Qaysi davlat Janubiy Amerikadagi eng katta hududga ega?",
+      ru:"Какая страна имеет крупнейшую территорию в Южной Америке?",
+      en:"Which country has the largest territory in South America?"
+    },
+    o:{
+      uz:["Braziliya","Argentina","Peru","Kolumbiya"],
+      ru:["Бразилия","Аргентина","Перу","Колумбия"],
+      en:["Brazil","Argentina","Peru","Colombia"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Nil daryosi qaysi qit'ada?",
+      ru:"На каком континенте находится Нил?",
+      en:"On which continent is the Nile River?"
+    },
+    o:{
+      uz:["Afrika","Osiyo","Yevropa","Janubiy Amerika"],
+      ru:["Африка","Азия","Европа","Южная Америка"],
+      en:["Africa","Asia","Europe","South America"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi mamlakat orollar davlatining klassik misoli?",
+      ru:"Какая страна является классическим примером островного государства?",
+      en:"Which country is a classic example of an island nation?"
+    },
+    o:{
+      uz:["Yaponiya","Shveytsariya","Nepal","Mongoliya"],
+      ru:["Япония","Швейцария","Непал","Монголия"],
+      en:["Japan","Switzerland","Nepal","Mongolia"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi cho‘l Janubiy Amerikadagi juda quruq cho‘llardan biri?",
+      ru:"Какая пустыня является одной из самых сухих в Южной Америке?",
+      en:"Which desert is one of the driest in South America?"
+    },
+    o:{
+      uz:["Atakama","Gobi","Sahara","Kalahari"],
+      ru:["Атакама","Гоби","Сахара","Калахари"],
+      en:["Atacama","Gobi","Sahara","Kalahari"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Qaysi davlatda 'Land Down Under' laqabi keng ishlatiladi?",
+      ru:"Какая страна известна прозвищем «Land Down Under»?",
+      en:"Which country is commonly known as the 'Land Down Under'?"
+    },
+    o:{
+      uz:["Avstraliya","Yangi Zelandiya","Janubiy Afrika","Kanada"],
+      ru:["Австралия","Новая Зеландия","Южная Африка","Канада"],
+      en:["Australia","New Zealand","South Africa","Canada"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi kanal Atlantika va Tinch okeanlarini bog‘laydi?",
+      ru:"Какой канал соединяет Атлантический и Тихий океаны?",
+      en:"Which canal connects the Atlantic and Pacific Oceans?"
+    },
+    o:{
+      uz:["Panama kanali","Suveys kanali","Kiel kanali","Korinf kanali"],
+      ru:["Панамский канал","Суэцкий канал","Кильский канал","Коринфский канал"],
+      en:["Panama Canal","Suez Canal","Kiel Canal","Corinth Canal"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Suveys kanali qaysi ikki dengizni bog‘laydi?",
+      ru:"Какие два моря соединяет Суэцкий канал?",
+      en:"Which two seas does the Suez Canal connect?"
+    },
+    o:{
+      uz:["O‘rta Yer dengizi va Qizil dengiz","Qora dengiz va Kaspiy","Arab dengizi va Qora dengiz","Boltiq va Shimoliy dengiz"],
+      ru:["Средиземное и Красное моря","Чёрное и Каспийское","Аравийское и Чёрное","Балтийское и Северное"],
+      en:["Mediterranean Sea and Red Sea","Black Sea and Caspian Sea","Arabian Sea and Black Sea","Baltic Sea and North Sea"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Meridianlar asosan nimani o‘lchash uchun ishlatiladigan geografik koordinata tizimining qismidir?",
+      ru:"Меридианы являются частью системы координат, связанной с измерением чего?",
+      en:"Meridians are part of the geographic coordinate system used to measure what?"
+    },
+    o:{
+      uz:["Uzunlikni","Kenglikni","Balandlikni","Haroratni"],
+      ru:["Долготы","Широты","Высоты","Температуры"],
+      en:["Longitude","Latitude","Elevation","Temperature"]
+    },
+    a:0,p:10
+  }
+],
+
+
+history: [
+  {
+    q:{
+      uz:"Qadimgi Misr piramidalari asosan nima uchun qurilgan?",
+      ru:"Для чего в основном строились пирамиды Древнего Египта?",
+      en:"What were the pyramids of Ancient Egypt mainly built for?"
+    },
+    o:{
+      uz:["Fir'avnlar uchun dafn majmualari sifatida","Harbiy qal'a sifatida","Bozor sifatida","Observatoriya sifatida"],
+      ru:["Как погребальные комплексы для фараонов","Как военные крепости","Как рынки","Как обсерватории"],
+      en:["As burial complexes for pharaohs","As military fortresses","As markets","As observatories"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Rim imperiyasi G‘arbiy qismi an'anaviy ravishda qaysi yilda qulagan deb hisoblanadi?",
+      ru:"В каком году традиционно считают падение Западной Римской империи?",
+      en:"In what year is the fall of the Western Roman Empire traditionally dated?"
+    },
+    o:{
+      uz:["476","410","395","1453"],
+      ru:["476","410","395","1453"],
+      en:["476","410","395","1453"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Magna Carta 1215-yilda qaysi mamlakat tarixida muhim hujjat bo‘lgan?",
+      ru:"В истории какой страны важным документом была Magna Carta 1215 года?",
+      en:"In the history of which country was the 1215 Magna Carta an important document?"
+    },
+    o:{
+      uz:["Angliya","Fransiya","Ispaniya","Italiya"],
+      ru:["Англии","Франции","Испании","Италии"],
+      en:["England","France","Spain","Italy"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Fransuz inqilobi qaysi yilda boshlangan?",
+      ru:"В каком году началась Французская революция?",
+      en:"In what year did the French Revolution begin?"
+    },
+    o:{
+      uz:["1789","1776","1812","1804"],
+      ru:["1789","1776","1812","1804"],
+      en:["1789","1776","1812","1804"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"AQSh Mustaqillik deklaratsiyasi qaysi yilda qabul qilingan?",
+      ru:"В каком году была принята Декларация независимости США?",
+      en:"In what year was the U.S. Declaration of Independence adopted?"
+    },
+    o:{
+      uz:["1776","1789","1815","1750"],
+      ru:["1776","1789","1815","1750"],
+      en:["1776","1789","1815","1750"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Birinchi jahon urushi qaysi yillarda davom etgan?",
+      ru:"В какие годы продолжалась Первая мировая война?",
+      en:"When did World War I take place?"
+    },
+    o:{
+      uz:["1914–1918","1939–1945","1905–1910","1920–1924"],
+      ru:["1914–1918","1939–1945","1905–1910","1920–1924"],
+      en:["1914–1918","1939–1945","1905–1910","1920–1924"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Ikkinchi jahon urushi qaysi yillarda davom etgan?",
+      ru:"В какие годы продолжалась Вторая мировая война?",
+      en:"When did World War II take place?"
+    },
+    o:{
+      uz:["1939–1945","1914–1918","1941–1949","1929–1935"],
+      ru:["1939–1945","1914–1918","1941–1949","1929–1935"],
+      en:["1939–1945","1914–1918","1941–1949","1929–1935"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Buyuk Ipak yo‘li asosan nimani bog‘lagan?",
+      ru:"Что в основном соединял Великий шёлковый путь?",
+      en:"What did the Silk Road mainly connect?"
+    },
+    o:{
+      uz:["Sharqiy Osiyo va Yevropa/yaqin hududlarni","Faqat Afrika davlatlarini","Faqat Amerikani","Faqat Avstraliyani"],
+      ru:["Восточную Азию с Европой и соседними регионами","Только страны Африки","Только Америку","Только Австралию"],
+      en:["East Asia with Europe and neighboring regions","Only African countries","Only the Americas","Only Australia"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Aleksandr Makedonskiy qaysi qadimgi davlat hukmdori bo‘lgan?",
+      ru:"Правителем какого древнего государства был Александр Македонский?",
+      en:"Which ancient kingdom did Alexander the Great rule?"
+    },
+    o:{
+      uz:["Makedoniya","Misr","Rim","Fors"],
+      ru:["Македония","Египет","Рим","Персия"],
+      en:["Macedonia","Egypt","Rome","Persia"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Qadimgi Rimda Kolizey asosan qanday inshoot bo‘lgan?",
+      ru:"Чем в основном был Колизей в Древнем Риме?",
+      en:"What was the Colosseum mainly used for in Ancient Rome?"
+    },
+    o:{
+      uz:["Ommaviy tomoshalar arenasi","Qirollik saroyi","Kutubxona","Harbiy port"],
+      ru:["Ареной для массовых зрелищ","Королевским дворцом","Библиотекой","Военным портом"],
+      en:["An arena for public spectacles","A royal palace","A library","A military port"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Ipak yo‘lining Markaziy Osiyo orqali o‘tishida Samarqandning roli qanday bo‘lgan?",
+      ru:"Какова была роль Самарканда в торговле по Шёлковому пути?",
+      en:"What role did Samarkand play along the Silk Road?"
+    },
+    o:{
+      uz:["Muhim savdo va madaniy markaz bo‘lgan","Faqat harbiy baza bo‘lgan","Faqat port bo‘lgan","Hech qanday roli bo‘lmagan"],
+      ru:["Он был важным торговым и культурным центром","Только военной базой","Только портом","Не играл роли"],
+      en:["It was an important trade and cultural center","It was only a military base","It was only a port","It played no role"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Renessans dastlab qaysi hududda kuchli rivojlangan?",
+      ru:"Где первоначально особенно сильно развивалось Возрождение?",
+      en:"Where did the Renaissance initially develop strongly?"
+    },
+    o:{
+      uz:["Italiya","Skandinaviya","Markaziy Osiyo","Shimoliy Amerika"],
+      ru:["Италия","Скандинавия","Центральная Азия","Северная Америка"],
+      en:["Italy","Scandinavia","Central Asia","North America"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Gutenbergning asosiy tarixiy hissasi nimaga bog‘liq?",
+      ru:"С чем связан главный исторический вклад Гутенберга?",
+      en:"What is Gutenberg's major historical contribution associated with?"
+    },
+    o:{
+      uz:["Mexanik bosma matbaa texnologiyasining rivoji","Bug‘ dvigateli","Elektr lampasi","Telegraf"],
+      ru:["Развитием механического книгопечатания","Паровым двигателем","Электрической лампой","Телеграфом"],
+      en:["Development of mechanical movable-type printing","The steam engine","The electric lamp","The telegraph"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Berlin devori qaysi yilda qulagan?",
+      ru:"В каком году пала Берлинская стена?",
+      en:"In what year did the Berlin Wall fall?"
+    },
+    o:{
+      uz:["1989","1991","1979","1961"],
+      ru:["1989","1991","1979","1961"],
+      en:["1989","1991","1979","1961"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"BMT qaysi yilda tashkil etilgan?",
+      ru:"В каком году была создана ООН?",
+      en:"In what year was the United Nations founded?"
+    },
+    o:{
+      uz:["1945","1919","1955","1939"],
+      ru:["1945","1919","1955","1939"],
+      en:["1945","1919","1955","1939"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Usmonli imperiyasining poytaxtlaridan biri bo‘lgan Konstantinopol qaysi zamonaviy shaharga mos keladi?",
+      ru:"Какому современному городу соответствует Константинополь?",
+      en:"Which modern city corresponds to Constantinople?"
+    },
+    o:{
+      uz:["Istanbul","Anqara","Afina","Qohira"],
+      ru:["Стамбул","Анкара","Афины","Каир"],
+      en:["Istanbul","Ankara","Athens","Cairo"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Napoleon Bonapart qaysi davlat tarixida muhim harbiy-siyosiy shaxs bo‘lgan?",
+      ru:"В истории какой страны Наполеон Бонапарт был важной военной и политической фигурой?",
+      en:"In the history of which country was Napoleon Bonaparte a major military and political figure?"
+    },
+    o:{
+      uz:["Fransiya","Angliya","Rossiya","Ispaniya"],
+      ru:["Франции","Англии","России","Испании"],
+      en:["France","England","Russia","Spain"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Sovuq urush asosan qaysi ikki superdavlat o‘rtasidagi geosiyosiy raqobat bilan bog‘liq?",
+      ru:"С каким соперничеством в основном связана Холодная война?",
+      en:"Which rivalry was the Cold War mainly associated with?"
+    },
+    o:{
+      uz:["AQSh va SSSR","Fransiya va Germaniya","Xitoy va Yaponiya","Italiya va Ispaniya"],
+      ru:["США и СССР","Франция и Германия","Китай и Япония","Италия и Испания"],
+      en:["The United States and USSR","France and Germany","China and Japan","Italy and Spain"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Qadimgi yunon demokratiyasining mashhur markazi qaysi shahar edi?",
+      ru:"Какой город был известным центром древнегреческой демократии?",
+      en:"Which city was a famous center of ancient Greek democracy?"
+    },
+    o:{
+      uz:["Afina","Sparta","Korinf","Troy"],
+      ru:["Афины","Спарта","Коринф","Троя"],
+      en:["Athens","Sparta","Corinth","Troy"]
+    },
+    a:0,p:10
+  }
+],
+
+
+english: [
+  {
+    q:{
+      uz:"Qaysi gap grammatik jihatdan to‘g‘ri?",
+      ru:"Какое предложение грамматически правильное?",
+      en:"Which sentence is grammatically correct?"
+    },
+    o:{
+      uz:["She has lived here for five years.","She live here for five years.","She has live here for five years.","She living here for five years."],
+      ru:["She has lived here for five years.","She live here for five years.","She has live here for five years.","She living here for five years."],
+      en:["She has lived here for five years.","She live here for five years.","She has live here for five years.","She living here for five years."]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Although' so‘zi qanday ma'noni beradi?",
+      ru:"Какое значение имеет слово 'although'?",
+      en:"What does 'although' mean?"
+    },
+    o:{
+      uz:["Garchi / bo‘lsa ham","Shuning uchun","Agar","Qachon"],
+      ru:["Хотя / несмотря на то что","Поэтому","Если","Когда"],
+      en:["Although / even though","Therefore","If","When"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi variant Present Perfect uchun to‘g‘ri?",
+      ru:"Какой вариант правильно использует Present Perfect?",
+      en:"Which option correctly uses the Present Perfect?"
+    },
+    o:{
+      uz:["I have finished my homework.","I finished my homework yesterday.","I am finish my homework.","I has finished my homework."],
+      ru:["I have finished my homework.","I finished my homework yesterday.","I am finish my homework.","I has finished my homework."],
+      en:["I have finished my homework.","I finished my homework yesterday.","I am finish my homework.","I has finished my homework."]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Despite' dan keyin odatda nima keladi?",
+      ru:"Что обычно следует после 'despite'?",
+      en:"What usually follows 'despite'?"
+    },
+    o:{
+      uz:["Ot yoki gerund (-ing)","Faqat infinitive with to","Faqat past simple","Faqat adjective"],
+      ru:["Существительное или герундий (-ing)","Только infinitive с to","Только past simple","Только прилагательное"],
+      en:["A noun or gerund (-ing)","Only an infinitive with to","Only past simple","Only an adjective"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'If I had known, I would have helped' qaysi conditional?",
+      ru:"Какой это conditional: 'If I had known, I would have helped'?",
+      en:"Which conditional is 'If I had known, I would have helped'?"
+    },
+    o:{
+      uz:["Third conditional","First conditional","Second conditional","Zero conditional"],
+      ru:["Third conditional","First conditional","Second conditional","Zero conditional"],
+      en:["Third conditional","First conditional","Second conditional","Zero conditional"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'Much' va 'many' orasidagi farq nima?",
+      ru:"В чём разница между 'much' и 'many'?",
+      en:"What is the difference between 'much' and 'many'?"
+    },
+    o:{
+      uz:["Much — uncountable, many — countable plural","Much — plural, many — uncountable","Ikkalasi faqat singular","Farqi yo‘q"],
+      ru:["Much — неисчисляемые, many — исчисляемые во множественном числе","Much — множественное число, many — неисчисляемые","Оба только для единственного числа","Разницы нет"],
+      en:["Much is for uncountable nouns; many is for plural countable nouns","Much is plural; many is uncountable","Both are only singular","There is no difference"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Neither of them is ready' gapida 'neither' qanday ma'no beradi?",
+      ru:"Что означает 'neither' в 'Neither of them is ready'?",
+      en:"What does 'neither' mean in 'Neither of them is ready'?"
+    },
+    o:{
+      uz:["Ikkalasidan hech biri","Ikkalasi ham","Ulardan biri","Ko‘pchiligi"],
+      ru:["Ни один из двух","Оба","Один из них","Большинство"],
+      en:["Not either of the two","Both","One of them","Most of them"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Had been working' qaysi zamon?",
+      ru:"Какое время используется в 'had been working'?",
+      en:"What tense is 'had been working'?"
+    },
+    o:{
+      uz:["Past Perfect Continuous","Present Perfect Continuous","Past Continuous","Future Perfect"],
+      ru:["Past Perfect Continuous","Present Perfect Continuous","Past Continuous","Future Perfect"],
+      en:["Past Perfect Continuous","Present Perfect Continuous","Past Continuous","Future Perfect"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'The book was written by Orwell' qaysi voice?",
+      ru:"Какой залог используется в 'The book was written by Orwell'?",
+      en:"Which voice is used in 'The book was written by Orwell'?"
+    },
+    o:{
+      uz:["Passive voice","Active voice","Reflexive voice","Indirect voice"],
+      ru:["Пассивный залог","Активный залог","Возвратный залог","Косвенный залог"],
+      en:["Passive voice","Active voice","Reflexive voice","Indirect voice"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Hardly had I arrived when it started raining' gapidagi inversion nima uchun ishlatilgan?",
+      ru:"Почему используется инверсия в 'Hardly had I arrived when it started raining'?",
+      en:"Why is inversion used in 'Hardly had I arrived when it started raining'?"
+    },
+    o:{
+      uz:["Emphasis va formal uslub uchun","Savol berish uchun","Future tense yaratish uchun","Passive qilish uchun"],
+      ru:["Для усиления и формального стиля","Чтобы задать вопрос","Чтобы создать Future tense","Чтобы сделать Passive"],
+      en:["For emphasis and formal style","To ask a question","To create future tense","To form the passive"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"'I used to play' nimani anglatadi?",
+      ru:"Что означает 'I used to play'?",
+      en:"What does 'I used to play' mean?"
+    },
+    o:{
+      uz:["Ilgari odat bo‘lgan, hozir esa shart emas","Hozir aynan o‘ynayapman","Kelajakda o‘ynayman","O‘ynashga majburman"],
+      ru:["Раньше это было привычкой, но сейчас уже нет","Я играю прямо сейчас","Я буду играть в будущем","Я обязан играть"],
+      en:["It was a past habit that is not necessarily true now","I am playing now","I will play in the future","I must play"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Would rather' dan keyin odatda qanday fe'l shakli keladi?",
+      ru:"Какая форма глагола обычно следует после 'would rather'?",
+      en:"What verb form usually follows 'would rather'?"
+    },
+    o:{
+      uz:["Bare infinitive","To-infinitive","Past participle","Gerund har doim"],
+      ru:["Инфинитив без to","Инфинитив с to","Причастие","Всегда герундий"],
+      en:["Bare infinitive","To-infinitive","Past participle","Always a gerund"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'The more you practice, the better you become' qanday konstruktsiya?",
+      ru:"Что за конструкция: 'The more you practice, the better you become'?",
+      en:"What construction is 'The more you practice, the better you become'?"
+    },
+    o:{
+      uz:["Correlative comparative","First conditional","Passive","Reported speech"],
+      ru:["Сравнительная коррелятивная конструкция","First conditional","Пассив","Косвенная речь"],
+      en:["Correlative comparative","First conditional","Passive","Reported speech"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"'Unless' odatda qanday ma'no beradi?",
+      ru:"Какое значение обычно имеет 'unless'?",
+      en:"What does 'unless' usually mean?"
+    },
+    o:{
+      uz:["If not","Because","Although","While"],
+      ru:["Если не","Потому что","Хотя","Пока"],
+      en:["If not","Because","Although","While"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'By the time' ko‘pincha qanday vaqt munosabatini bildiradi?",
+      ru:"Какое временное отношение часто выражает 'by the time'?",
+      en:"What time relationship does 'by the time' often express?"
+    },
+    o:{
+      uz:["Bir hodisa boshqa hodisagacha sodir bo‘lganini","Ikki hodisa aynan bir vaqtda","Faqat kelajakni","Faqat odatni"],
+      ru:["Что одно событие произошло к моменту другого","Что два события происходят одновременно","Только будущее","Только привычку"],
+      en:["That one event happened by the time of another","That two events happen at exactly the same time","Only the future","Only a habit"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'I wish I had studied harder' nimani bildiradi?",
+      ru:"Что выражает 'I wish I had studied harder'?",
+      en:"What does 'I wish I had studied harder' express?"
+    },
+    o:{
+      uz:["O‘tmishdagi pushaymonlik","Kelajak rejasi","Hozirgi odat","Buyruq"],
+      ru:["Сожаление о прошлом","План на будущее","Настоящую привычку","Приказ"],
+      en:["Regret about the past","A future plan","A present habit","A command"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'Despite being tired, he continued' grammatik jihatdan nima sababli to‘g‘ri?",
+      ru:"Почему 'Despite being tired, he continued' грамматически правильно?",
+      en:"Why is 'Despite being tired, he continued' grammatically correct?"
+    },
+    o:{
+      uz:["Despite'dan keyin gerund kelishi mumkin","Despite faqat fe'l bilan keladi","Being noto‘g‘ri ishlatilgan","Despite faqat savollarda ishlatiladi"],
+      ru:["После despite может использоваться герундий","После despite всегда нужен глагол","Being использован неправильно","Despite используется только в вопросах"],
+      en:["A gerund can follow despite","A verb must always follow despite","Being is used incorrectly","Despite is only used in questions"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'Could have gone' nimani anglatishi mumkin?",
+      ru:"Что может означать 'could have gone'?",
+      en:"What can 'could have gone' express?"
+    },
+    o:{
+      uz:["O‘tmishda mumkin bo‘lgan, ammo sodir bo‘lmagan harakat","Hozirgi majburiyat","Aniq kelajak","Buyruq"],
+      ru:["Возможное действие в прошлом, которое не произошло","Обязанность в настоящем","Точное будущее","Приказ"],
+      en:["A possible past action that did not happen","A present obligation","A definite future","A command"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"'Few' va 'a few' orasidagi farq nimada?",
+      ru:"В чём разница между 'few' и 'a few'?",
+      en:"What is the difference between 'few' and 'a few'?"
+    },
+    o:{
+      uz:["Few — deyarli yo‘q; a few — oz bo‘lsa ham bor","Ikkalasi ham aynan bir xil","Few uncountable uchun","A few faqat singular uchun"],
+      ru:["Few — почти нет; a few — несколько, но есть","Они полностью одинаковы","Few используется с неисчисляемыми","A few только с единственным числом"],
+      en:["Few means almost none; a few means some, though not many","They are exactly the same","Few is for uncountable nouns","A few is only singular"]
+    },
+    a:0,p:20
+  }
+],
+
+
+literature: [
+  {
+    q:{
+      uz:"George Orwellning '1984' asari qaysi janrga yaqin?",
+      ru:"К какому жанру ближе роман Джорджа Оруэлла «1984»?",
+      en:"What genre is George Orwell's '1984' primarily associated with?"
+    },
+    o:{
+      uz:["Distopiya","Komediya","Biografiya","Detektiv"],
+      ru:["Антиутопия","Комедия","Биография","Детектив"],
+      en:["Dystopian fiction","Comedy","Biography","Detective fiction"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"William Shakespeare qaysi davlat adabiyotining eng mashhur vakillaridan biri?",
+      ru:"Представителем литературы какой страны является Уильям Шекспир?",
+      en:"William Shakespeare is one of the most famous figures of which country's literature?"
+    },
+    o:{
+      uz:["Angliya","Fransiya","Italiya","Ispaniya"],
+      ru:["Англии","Франции","Италии","Испании"],
+      en:["England","France","Italy","Spain"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"'Romeo and Juliet' asosan qaysi janrga mansub?",
+      ru:"К какому жанру в основном относится «Ромео и Джульетта»?",
+      en:"What genre is 'Romeo and Juliet' primarily?"
+    },
+    o:{
+      uz:["Tragediya","Komediya","Satira","Detektiv"],
+      ru:["Трагедия","Комедия","Сатира","Детектив"],
+      en:["Tragedy","Comedy","Satire","Detective"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Alisher Navoiyning mashhur 'Xamsa'si nechta dostondan iborat?",
+      ru:"Из скольких поэм состоит знаменитая «Хамса» Алишера Навои?",
+      en:"How many epics make up Alisher Navoi's famous 'Khamsa'?"
+    },
+    o:{
+      uz:["5","4","6","3"],
+      ru:["5","4","6","3"],
+      en:["5","4","6","3"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Epitet badiiy san'atining asosiy vazifasi nima?",
+      ru:"Какова основная функция эпитета?",
+      en:"What is the main function of an epithet?"
+    },
+    o:{
+      uz:["Obraz yoki predmetning muhim belgisini badiiy ta'kidlash","Faqat dialog yaratish","Matnni qisqartirish","Faqat qofiya yaratish"],
+      ru:["Художественно подчеркнуть характерный признак образа или предмета","Только создавать диалог","Сокращать текст","Только создавать рифму"],
+      en:["Artistically emphasize a characteristic feature of an image or object","Only create dialogue","Shorten text","Only create rhyme"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Metafora nima?",
+      ru:"Что такое метафора?",
+      en:"What is a metaphor?"
+    },
+    o:{
+      uz:["Bir narsani boshqa narsa bilan obrazli o‘xshatish orqali ifodalash","So‘zlarni teskari yozish","Faqat qofiyalash","Faqat tarixiy fakt"],
+      ru:["Образное переносное выражение через сопоставление одного с другим","Запись слов наоборот","Только рифма","Только исторический факт"],
+      en:["A figurative comparison or transfer of meaning between things","Writing words backwards","Only rhyme","Only a historical fact"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Homerga an'anaviy ravishda qaysi ikki epik asar nisbat beriladi?",
+      ru:"Какие два эпических произведения традиционно приписывают Гомеру?",
+      en:"Which two epics are traditionally attributed to Homer?"
+    },
+    o:{
+      uz:["Iliada va Odisseya","Eneida va Komediya","Xamsa va Shohnoma","Faust va Hamlet"],
+      ru:["Илиада и Одиссея","Энеида и Комедия","Хамса и Шахнаме","Фауст и Гамлет"],
+      en:["The Iliad and The Odyssey","The Aeneid and Comedy","Khamsa and Shahnameh","Faust and Hamlet"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Narrator nima?",
+      ru:"Что такое narrator?",
+      en:"What is a narrator?"
+    },
+    o:{
+      uz:["Voqeani hikoya qiluvchi ovoz yoki shaxs","Faqat bosh qahramon","Faqat muallif","Faqat yovuz qahramon"],
+      ru:["Голос или персонаж, рассказывающий историю","Только главный герой","Только автор","Только злодей"],
+      en:["The voice or person telling the story","Only the main character","Only the author","Only the villain"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Ironiya nimaga asoslanadi?",
+      ru:"На чём обычно основана ирония?",
+      en:"What is irony generally based on?"
+    },
+    o:{
+      uz:["Kutilgan ma'no va aytilgan/ko‘rsatilgan ma'no o‘rtasidagi qarama-qarshilikka","Faqat qofiyaga","Faqat uzun jumlalarga","Faqat tarixiy sanalarga"],
+      ru:["На несоответствии между ожидаемым и выраженным смыслом","Только на рифме","Только на длинных предложениях","Только на исторических датах"],
+      en:["A contrast between expected meaning and expressed meaning","Only rhyme","Only long sentences","Only historical dates"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Fabula va syujet orasidagi farq nimaga bog‘liq?",
+      ru:"В чём различие между фабулой и сюжетом?",
+      en:"What is the distinction between fabula and plot?"
+    },
+    o:{
+      uz:["Fabula voqealarning tabiiy xronologiyasi, syujet esa asarda berilish tartibi","Ular doim bir xil","Fabula faqat dialog, syujet faqat monolog","Syujet faqat tarixiy fakt"],
+      ru:["Фабула — хронологический порядок событий, сюжет — их подача в произведении","Они всегда одинаковы","Фабула — только диалог, сюжет — только монолог","Сюжет — только исторический факт"],
+      en:["Fabula is the chronological sequence; plot is how events are arranged in the work","They are always identical","Fabula is only dialogue; plot is only monologue","Plot is only historical fact"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Sonet odatda nechta qatordan iborat bo‘ladi?",
+      ru:"Сколько строк обычно содержит сонет?",
+      en:"How many lines does a sonnet usually contain?"
+    },
+    o:{
+      uz:["14","12","16","10"],
+      ru:["14","12","16","10"],
+      en:["14","12","16","10"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Drama asarida stage directions nima uchun kerak?",
+      ru:"Для чего нужны stage directions в драматическом произведении?",
+      en:"What are stage directions used for in drama?"
+    },
+    o:{
+      uz:["Sahna harakati, holat va ijroga oid ko‘rsatmalar berish uchun","Faqat qofiya yaratish uchun","Faqat muallif tarjimai holi uchun","Faqat reklama uchun"],
+      ru:["Для указаний по сценическому действию, обстановке и исполнению","Только для рифмы","Только для биографии автора","Только для рекламы"],
+      en:["To provide directions about action, setting, and performance","Only to create rhyme","Only for the author's biography","Only for advertising"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Allegoriya nima?",
+      ru:"Что такое аллегория?",
+      en:"What is allegory?"
+    },
+    o:{
+      uz:["Abstrakt g‘oyani obraz yoki ramz orqali ifodalash","Faqat mubolag‘a","Faqat qofiya","Faqat savol"],
+      ru:["Выражение абстрактной идеи через образ или символ","Только гипербола","Только рифма","Только вопрос"],
+      en:["Expressing an abstract idea through an image or symbol","Only hyperbole","Only rhyme","Only a question"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Satira odatda qanday maqsadga xizmat qiladi?",
+      ru:"Какую цель обычно преследует сатира?",
+      en:"What is satire generally used for?"
+    },
+    o:{
+      uz:["Kamchiliklarni kulgi va tanqid orqali ochib berish","Faqat romantikani tasvirlash","Faqat tarixiy sanalarni berish","Faqat tabiatni tasvirlash"],
+      ru:["Выявление недостатков через юмор и критику","Только описание романтики","Только исторические даты","Только описание природы"],
+      en:["Exposing flaws through humor and criticism","Only describing romance","Only giving historical dates","Only describing nature"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'Foreshadowing' adabiyotda nimani anglatadi?",
+      ru:"Что означает 'foreshadowing' в литературе?",
+      en:"What does 'foreshadowing' mean in literature?"
+    },
+    o:{
+      uz:["Kelajakdagi voqeaga oldindan ishora qilish","Voqeani orqaga qaytarish","Qahramonni o‘zgartirish","Faqat dialog"],
+      ru:["Предварительный намёк на будущие события","Возврат к прошлому","Изменение героя","Только диалог"],
+      en:["Giving an early hint about future events","Returning to the past","Changing a character","Only dialogue"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Konflikt adabiy asarda nima uchun muhim?",
+      ru:"Почему конфликт важен в литературном произведении?",
+      en:"Why is conflict important in literature?"
+    },
+    o:{
+      uz:["Syujet harakati va dramatik kuchni yuzaga keltiradi","Faqat matn hajmini oshiradi","Faqat qofiya yaratadi","Faqat joy nomlarini beradi"],
+      ru:["Он создаёт движение сюжета и драматическое напряжение","Только увеличивает объём текста","Только создаёт рифму","Только даёт названия мест"],
+      en:["It drives the plot and creates dramatic tension","Only increases text length","Only creates rhyme","Only provides place names"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Tragediyaning klassik xususiyatlaridan biri nima?",
+      ru:"Что является одной из классических особенностей трагедии?",
+      en:"What is one classic feature of tragedy?"
+    },
+    o:{
+      uz:["Jiddiy konflikt va fojeali oqibat","Faqat kulgili vaziyat","Faqat baxtli yakun","Faqat tarixiy ma'lumot"],
+      ru:["Серьёзный конфликт и трагический исход","Только комические ситуации","Только счастливый конец","Только историческая информация"],
+      en:["Serious conflict and tragic consequences","Only comic situations","Only a happy ending","Only historical information"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Theme' adabiyotda nimani anglatadi?",
+      ru:"Что означает 'theme' в литературе?",
+      en:"What does 'theme' mean in literature?"
+    },
+    o:{
+      uz:["Asarning markaziy g‘oyasi yoki mavzusi","Faqat qahramon ismi","Faqat joy","Faqat janr"],
+      ru:["Центральная идея или тема произведения","Только имя героя","Только место","Только жанр"],
+      en:["The central idea or subject of a work","Only a character's name","Only a location","Only the genre"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Personification nima?",
+      ru:"Что такое personification?",
+      en:"What is personification?"
+    },
+    o:{
+      uz:["Jonsiz narsaga insoniy xususiyat berish","Faqat hayvon tasviri","Faqat tarixiy shaxs","Faqat taqqoslash"],
+      ru:["Наделение неодушевлённого объекта человеческими качествами","Только описание животных","Только историческая личность","Только сравнение"],
+      en:["Giving human qualities to a non-human thing","Only describing animals","Only a historical person","Only comparison"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Oxymoron nima?",
+      ru:"Что такое оксюморон?",
+      en:"What is an oxymoron?"
+    },
+    o:{
+      uz:["Bir-biriga qarama-qarshi tushunchalarni birikmada qo‘llash","Faqat qofiya","Faqat takror","Faqat metafora"],
+      ru:["Сочетание противоположных по смыслу понятий","Только рифма","Только повтор","Только метафора"],
+      en:["Combining contradictory terms in a phrase","Only rhyme","Only repetition","Only metaphor"]
+    },
+    a:0,p:20
+  }
+],
+
+
+movies: [
+  {
+    q:{
+      uz:"'The Godfather' filmi qaysi janr bilan kuchli bog‘liq?",
+      ru:"С каким жанром особенно связан фильм «Крёстный отец»?",
+      en:"What genre is strongly associated with 'The Godfather'?"
+    },
+    o:{
+      uz:["Crime drama","Fantasy","Science fiction","Animation"],
+      ru:["Криминальная драма","Фэнтези","Научная фантастика","Анимация"],
+      en:["Crime drama","Fantasy","Science fiction","Animation"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Titanic' filmini kim rejissyorlik qilgan?",
+      ru:"Кто режиссировал фильм «Титаник»?",
+      en:"Who directed 'Titanic'?"
+    },
+    o:{
+      uz:["James Cameron","Christopher Nolan","Steven Spielberg","Ridley Scott"],
+      ru:["Джеймс Кэмерон","Кристофер Нолан","Стивен Спилберг","Ридли Скотт"],
+      en:["James Cameron","Christopher Nolan","Steven Spielberg","Ridley Scott"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'The Matrix' filmida Neo rolini kim ijro etgan?",
+      ru:"Кто сыграл Нео в «Матрице»?",
+      en:"Who played Neo in 'The Matrix'?"
+    },
+    o:{
+      uz:["Keanu Reeves","Brad Pitt","Tom Cruise","Matt Damon"],
+      ru:["Киану Ривз","Брэд Питт","Том Круз","Мэтт Деймон"],
+      en:["Keanu Reeves","Brad Pitt","Tom Cruise","Matt Damon"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"'Inception' filmida rejissyor kim?",
+      ru:"Кто режиссёр фильма «Начало»?",
+      en:"Who directed 'Inception'?"
+    },
+    o:{
+      uz:["Christopher Nolan","Denis Villeneuve","James Cameron","David Fincher"],
+      ru:["Кристофер Нолан","Дени Вильнёв","Джеймс Кэмерон","Дэвид Финчер"],
+      en:["Christopher Nolan","Denis Villeneuve","James Cameron","David Fincher"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Interstellar' filmidagi asosiy ilmiy mavzulardan biri nima?",
+      ru:"Одна из основных научных тем фильма «Интерстеллар»?",
+      en:"What is one major scientific theme of 'Interstellar'?"
+    },
+    o:{
+      uz:["Nisbiylik, vaqt va kosmik sayohat","Faqat okeanlar","Faqat genetika","Faqat arxeologiya"],
+      ru:["Относительность, время и космические путешествия","Только океаны","Только генетика","Только археология"],
+      en:["Relativity, time, and space travel","Only oceans","Only genetics","Only archaeology"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'The Lord of the Rings' trilogiyasi qaysi yozuvchining asari asosida yaratilgan?",
+      ru:"По произведению какого писателя создана трилогия «Властелин колец»?",
+      en:"The 'Lord of the Rings' trilogy is based on the work of which writer?"
+    },
+    o:{
+      uz:["J. R. R. Tolkien","George R. R. Martin","C. S. Lewis","J. K. Rowling"],
+      ru:["Дж. Р. Р. Толкин","Джордж Р. Р. Мартин","К. С. Льюис","Дж. К. Роулинг"],
+      en:["J. R. R. Tolkien","George R. R. Martin","C. S. Lewis","J. K. Rowling"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Harry Potter' filmlarida Hogwarts nima?",
+      ru:"Что такое Hogwarts в фильмах о Гарри Поттере?",
+      en:"What is Hogwarts in the Harry Potter films?"
+    },
+    o:{
+      uz:["Sehrgarlar maktabi","Qal'a shahri","Sehrli hayvon","Davlat"],
+      ru:["Школа магии","Город-крепость","Магическое животное","Государство"],
+      en:["A school of magic","A fortress city","A magical animal","A country"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"'Avatar' filmidagi Pandora nima?",
+      ru:"Что такое Пандора в фильме «Аватар»?",
+      en:"What is Pandora in 'Avatar'?"
+    },
+    o:{
+      uz:["Begona sayyora/oy","Yer shahri","Kosmik kema","Robot"],
+      ru:["Инопланетная луна/мир","Город на Земле","Космический корабль","Робот"],
+      en:["An alien moon/world","A city on Earth","A spaceship","A robot"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Parasite' filmi qaysi davlat kinosiga mansub?",
+      ru:"К кинематографу какой страны относится фильм «Паразиты»?",
+      en:"Which country's cinema does 'Parasite' belong to?"
+    },
+    o:{
+      uz:["Janubiy Koreya","Yaponiya","Xitoy","Hindiston"],
+      ru:["Южная Корея","Япония","Китай","Индия"],
+      en:["South Korea","Japan","China","India"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Oscar mukofotlari qaysi soha bilan bog‘liq?",
+      ru:"С какой сферой связана премия «Оскар»?",
+      en:"What field are the Oscars associated with?"
+    },
+    o:{
+      uz:["Kino","Futbol","Adabiyot","Astronomiya"],
+      ru:["Кино","Футбол","Литература","Астрономия"],
+      en:["Film","Football","Literature","Astronomy"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"'Pulp Fiction' filmining rejissyori kim?",
+      ru:"Кто режиссёр фильма «Криминальное чтиво»?",
+      en:"Who directed 'Pulp Fiction'?"
+    },
+    o:{
+      uz:["Quentin Tarantino","Martin Scorsese","Francis Ford Coppola","Tim Burton"],
+      ru:["Квентин Тарантино","Мартин Скорсезе","Фрэнсис Форд Коппола","Тим Бёртон"],
+      en:["Quentin Tarantino","Martin Scorsese","Francis Ford Coppola","Tim Burton"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'The Dark Knight' filmida Batman rolini kim ijro etgan?",
+      ru:"Кто сыграл Бэтмена в «Тёмном рыцаре»?",
+      en:"Who played Batman in 'The Dark Knight'?"
+    },
+    o:{
+      uz:["Christian Bale","Ben Affleck","Robert Pattinson","Michael Keaton"],
+      ru:["Кристиан Бэйл","Бен Аффлек","Роберт Паттинсон","Майкл Китон"],
+      en:["Christian Bale","Ben Affleck","Robert Pattinson","Michael Keaton"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Filmda 'cinematography' asosan nimani anglatadi?",
+      ru:"Что в кино в основном означает «cinematography»?",
+      en:"What does cinematography mainly refer to in film?"
+    },
+    o:{
+      uz:["Kamera, kadr va vizual tasvirni tashkil qilish","Faqat aktyorlar dialogi","Faqat soundtrack","Faqat montaj va marketing"],
+      ru:["Работу камеры, кадрирование и визуальное изображение","Только диалоги актёров","Только саундтрек","Только монтаж и маркетинг"],
+      en:["Camera work, framing, and visual imagery","Only actor dialogue","Only the soundtrack","Only editing and marketing"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"'Montage' film ishlab chiqarishda nima bilan bog‘liq?",
+      ru:"С чем связан монтаж в кинопроизводстве?",
+      en:"What is montage/editing associated with in filmmaking?"
+    },
+    o:{
+      uz:["Kadrlarni tanlash va ketma-ket joylashtirish","Faqat kamera sotib olish","Faqat aktyor tanlash","Faqat musiqa yozish"],
+      ru:["Выбором и последовательным соединением кадров","Только покупкой камеры","Только подбором актёров","Только записью музыки"],
+      en:["Selecting and arranging shots in sequence","Only buying cameras","Only casting actors","Only recording music"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'Spirited Away' qaysi studiya bilan bog‘liq?",
+      ru:"С какой студией связан «Унесённые призраками»?",
+      en:"Which studio is associated with 'Spirited Away'?"
+    },
+    o:{
+      uz:["Studio Ghibli","Pixar","DreamWorks","Warner Bros."],
+      ru:["Studio Ghibli","Pixar","DreamWorks","Warner Bros."],
+      en:["Studio Ghibli","Pixar","DreamWorks","Warner Bros."]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"'Jaws' filmi mashhur bo‘lgan asosiy sabablaridan biri nima?",
+      ru:"Почему фильм «Челюсти» стал особенно известен?",
+      en:"Why did 'Jaws' become especially famous?"
+    },
+    o:{
+      uz:["Akula haqidagi thriller va blockbuster sifatidagi ta'siri","Faqat animatsiya bo‘lgani uchun","Faqat komediya bo‘lgani uchun","Faqat hujjatli film bo‘lgani uchun"],
+      ru:["Из-за триллера об акуле и его влияния как блокбастера","Потому что это анимация","Потому что это комедия","Потому что это документальный фильм"],
+      en:["For its shark thriller and impact as a blockbuster","Because it was animated","Because it was a comedy","Because it was a documentary"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'Whiplash' filmida asosiy musiqa turi qaysi?",
+      ru:"Какой музыкальный жанр особенно важен в «Одержимости» (Whiplash)?",
+      en:"What musical genre is central to 'Whiplash'?"
+    },
+    o:{
+      uz:["Jazz","Opera","Metal","Classical ballet"],
+      ru:["Джаз","Опера","Метал","Классический балет"],
+      en:["Jazz","Opera","Metal","Classical ballet"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Film ssenariysidagi 'plot twist' nima?",
+      ru:"Что такое plot twist в сценарии?",
+      en:"What is a plot twist?"
+    },
+    o:{
+      uz:["Tomoshabinning kutganini o‘zgartiradigan muhim syujet burilishi","Faqat yangi aktyor kelishi","Faqat musiqaning o‘zgarishi","Filmning nomi"],
+      ru:["Важный сюжетный поворот, меняющий ожидания зрителя","Только появление нового актёра","Только смена музыки","Название фильма"],
+      en:["A major plot development that changes audience expectations","Only a new actor appearing","Only a music change","The film title"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"'Mockumentary' qanday film uslubini anglatadi?",
+      ru:"Что означает стиль «mockumentary»?",
+      en:"What does the style 'mockumentary' mean?"
+    },
+    o:{
+      uz:["Hujjatli film shaklini taqlid qiladigan badiiy asar","Faqat real hujjatli film","Faqat animatsiya","Faqat silent film"],
+      ru:["Художественное произведение, имитирующее документальный фильм","Только настоящий документальный фильм","Только анимация","Только немое кино"],
+      en:["A fictional work that imitates documentary style","Only a real documentary","Only animation","Only silent film"]
+    },
+    a:0,p:20
+  }
+],
+
+
+music: [
+  {
+    q:{
+      uz:"Pianino odatda qaysi turdagi cholg‘u?",
+      ru:"К какому типу инструментов обычно относится пианино?",
+      en:"What type of instrument is the piano?"
+    },
+    o:{
+      uz:["Klaviaturali","Puflama","Faqat zarbli","Faqat torli kamonli"],
+      ru:["Клавишный","Духовой","Только ударный","Только струнный смычковый"],
+      en:["Keyboard instrument","Wind instrument","Percussion only","Bowed string only"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Nota yozuvida treble clef odatda qaysi registr bilan bog‘liq?",
+      ru:"С каким регистром обычно связан скрипичный ключ?",
+      en:"Which register is the treble clef generally associated with?"
+    },
+    o:{
+      uz:["Yuqori registr","Faqat eng past registr","Faqat percussion","Faqat bass"],
+      ru:["Высоким регистром","Только самым низким","Только ударными","Только басом"],
+      en:["Higher register","Only the lowest register","Only percussion","Only bass"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Tempo musiqada nimani bildiradi?",
+      ru:"Что обозначает tempo в музыке?",
+      en:"What does tempo indicate in music?"
+    },
+    o:{
+      uz:["Musiqa ijro tezligini","Ovoz balandligini","Asbob sonini","Tonallikni"],
+      ru:["Скорость исполнения музыки","Громкость","Количество инструментов","Тональность"],
+      en:["The speed of performance","Loudness","Number of instruments","Key"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Dinamika musiqada nimani boshqaradi?",
+      ru:"Что обозначает динамика в музыке?",
+      en:"What does dynamics control in music?"
+    },
+    o:{
+      uz:["Ovozning kuchli-pastligini","Faqat tempni","Faqat notalar sonini","Faqat ritmni"],
+      ru:["Громкость и силу звучания","Только темп","Только количество нот","Только ритм"],
+      en:["Loudness and intensity","Only tempo","Only number of notes","Only rhythm"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Octave ikki bir xil nomli notalar orasidagi qanday interval?",
+      ru:"Какой интервал представляет октава между нотами с одинаковыми названиями?",
+      en:"What interval is an octave between notes with the same letter name?"
+    },
+    o:{
+      uz:["8 pog‘ona","5 pog‘ona","6 pog‘ona","10 pog‘ona"],
+      ru:["8 ступеней","5 ступеней","6 ступеней","10 ступеней"],
+      en:["Eight scale degrees","Five","Six","Ten"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Major va minor tonalliklarning asosiy farqi nimaga bog‘liq?",
+      ru:"С чем в основном связано различие мажора и минора?",
+      en:"What is a key distinction between major and minor?"
+    },
+    o:{
+      uz:["Ularning tonal tuzilishi va uchliklarining xarakteri","Faqat asbob soni","Faqat qo‘shiq uzunligi","Faqat tempo"],
+      ru:["Их тональной структуре и характеру трезвучий","Только количеством инструментов","Только длиной песни","Только темпом"],
+      en:["Their tonal structure and chord/triad character","Only number of instruments","Only song length","Only tempo"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Jazz musiqasining muhim xususiyatlaridan biri qaysi?",
+      ru:"Какая черта является важной для джаза?",
+      en:"Which is an important feature of jazz?"
+    },
+    o:{
+      uz:["Improvisation","Faqat oldindan yozilgan ijro","Faqat elektron tovush","Faqat xor"],
+      ru:["Импровизация","Только заранее записанное исполнение","Только электронный звук","Только хор"],
+      en:["Improvisation","Only pre-written performance","Only electronic sound","Only choir"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Orkestrda conductorning asosiy vazifasi nima?",
+      ru:"Какова основная задача дирижёра в оркестре?",
+      en:"What is the main role of a conductor in an orchestra?"
+    },
+    o:{
+      uz:["Ijroni umumiy temp, ritm va ifoda bo‘yicha boshqarish","Faqat bitta asbob chalish","Faqat chiptalarni sotish","Faqat sahnani yoritish"],
+      ru:["Управлять общим темпом, ритмом и выразительностью исполнения","Только играть на одном инструменте","Только продавать билеты","Только освещать сцену"],
+      en:["Guide the overall tempo, rhythm, and expression","Only play one instrument","Only sell tickets","Only control lighting"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"BPM qisqartmasi musiqada nimani anglatadi?",
+      ru:"Что означает BPM в музыке?",
+      en:"What does BPM mean in music?"
+    },
+    o:{
+      uz:["Beats Per Minute","Bars Per Melody","Bass Per Measure","Beat Pitch Mode"],
+      ru:["Beats Per Minute","Bars Per Melody","Bass Per Measure","Beat Pitch Mode"],
+      en:["Beats Per Minute","Bars Per Melody","Bass Per Measure","Beat Pitch Mode"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Sonata atamasi klassik musiqada nimani bildirishi mumkin?",
+      ru:"Что может обозначать термин «соната» в классической музыке?",
+      en:"What can the term 'sonata' refer to in classical music?"
+    },
+    o:{
+      uz:["Muayyan instrumental asar yoki shakl","Faqat qo‘shiqchi","Faqat orkestr","Faqat ritm"],
+      ru:["Определённое инструментальное произведение или форму","Только певца","Только оркестр","Только ритм"],
+      en:["A type/form of instrumental composition","Only a singer","Only an orchestra","Only a rhythm"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Polyphony nimani anglatadi?",
+      ru:"Что означает полифония?",
+      en:"What does polyphony mean?"
+    },
+    o:{
+      uz:["Bir vaqtning o‘zida bir nechta mustaqil melodik liniyalar","Faqat bitta nota","Faqat ritm","Faqat percussion"],
+      ru:["Одновременное звучание нескольких самостоятельных мелодических линий","Только одна нота","Только ритм","Только ударные"],
+      en:["Multiple independent melodic lines sounding simultaneously","Only one note","Only rhythm","Only percussion"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Chord odatda nimadan tashkil topadi?",
+      ru:"Из чего обычно состоит аккорд?",
+      en:"What does a chord generally consist of?"
+    },
+    o:{
+      uz:["Bir vaqtda yangraydigan kamida uchta turli nota","Faqat bitta nota","Faqat baraban zarbi","Faqat ovoz yozuvi"],
+      ru:["Из как минимум трёх разных нот, звучащих одновременно","Только из одной ноты","Только из удара барабана","Только из записи голоса"],
+      en:["At least three different notes sounding together","Only one note","Only a drum hit","Only a vocal recording"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Rhythm nimani tashkil qiladi?",
+      ru:"Что организует ритм?",
+      en:"What does rhythm organize?"
+    },
+    o:{
+      uz:["Tovush va urg‘ularning vaqt bo‘yicha tartibini","Faqat pitchni","Faqat volume'ni","Faqat asbob tanlashni"],
+      ru:["Временную организацию звуков и акцентов","Только высоту тона","Только громкость","Только выбор инструмента"],
+      en:["The timing and pattern of sounds and accents","Only pitch","Only volume","Only instrument choice"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Pitch musiqada nimani anglatadi?",
+      ru:"Что означает pitch в музыке?",
+      en:"What does pitch mean in music?"
+    },
+    o:{
+      uz:["Tovushning yuqori yoki past eshitilishi","Faqat balandlik","Faqat tempo","Faqat ritm"],
+      ru:["Высоту или низкость звука","Только громкость","Только темп","Только ритм"],
+      en:["How high or low a sound is","Only loudness","Only tempo","Only rhythm"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Beethoven qaysi musiqa davri bilan ayniqsa bog‘liq?",
+      ru:"С каким музыкальным периодом особенно связан Бетховен?",
+      en:"Which musical period is Beethoven especially associated with?"
+    },
+    o:{
+      uz:["Klassik va romantik davrlar o‘rtasi","Faqat barokko","Faqat jazz","Faqat modern pop"],
+      ru:["Переходом от классического к романтическому периоду","Только барокко","Только джазом","Только современной поп-музыкой"],
+      en:["The transition from Classical to Romantic periods","Only Baroque","Only jazz","Only modern pop"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Barokko davrining mashhur kompozitorlaridan biri kim?",
+      ru:"Кто был одним из известных композиторов эпохи барокко?",
+      en:"Who was a famous Baroque composer?"
+    },
+    o:{
+      uz:["J. S. Bach","Beethoven","Chopin","Debussy"],
+      ru:["И. С. Бах","Бетховен","Шопен","Дебюсси"],
+      en:["J. S. Bach","Beethoven","Chopin","Debussy"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Chopin ko‘proq qaysi asbob bilan mashhur?",
+      ru:"С каким инструментом особенно связан Шопен?",
+      en:"Which instrument is Chopin especially associated with?"
+    },
+    o:{
+      uz:["Pianino","Truba","Skripka","Fleyta"],
+      ru:["Фортепиано","Труба","Скрипка","Флейта"],
+      en:["Piano","Trumpet","Violin","Flute"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"A cappella ijro nimani anglatadi?",
+      ru:"Что означает исполнение a cappella?",
+      en:"What does a cappella mean?"
+    },
+    o:{
+      uz:["Asbobsiz, ovoz bilan ijro","Faqat pianino bilan","Faqat orkestr bilan","Faqat elektron beat bilan"],
+      ru:["Пение без инструментального сопровождения","Только с фортепиано","Только с оркестром","Только с электронным битом"],
+      en:["Singing without instrumental accompaniment","Only with piano","Only with an orchestra","Only with electronic beat"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Musiqada key nima?",
+      ru:"Что такое key в музыке?",
+      en:"What is a musical key?"
+    },
+    o:{
+      uz:["Asarning tonal markazi va unga bog‘liq notalar tizimi","Faqat ritm","Faqat volume","Faqat tempo"],
+      ru:["Тональный центр произведения и связанная с ним система нот","Только ритм","Только громкость","Только темп"],
+      en:["The tonal center of a piece and its related note system","Only rhythm","Only volume","Only tempo"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Syncopation nima?",
+      ru:"Что такое синкопа?",
+      en:"What is syncopation?"
+    },
+    o:{
+      uz:["Urg‘uni odatiy kuchli zarbdan boshqa joyga siljitish","Faqat tezlashtirish","Faqat sekinlashtirish","Faqat nota balandligini o‘zgartirish"],
+      ru:["Смещение акцента с ожидаемой сильной доли","Только ускорение","Только замедление","Только изменение высоты ноты"],
+      en:["Shifting emphasis away from expected strong beats","Only speeding up","Only slowing down","Only changing pitch"]
+    },
+    a:0,p:20
+  }
+],
+
+
+football: [
+  {
+    q:{
+      uz:"Futbolda penalty shootout qachon ishlatiladi?",
+      ru:"Когда используется серия пенальти в футболе?",
+      en:"When is a penalty shootout used in football?"
+    },
+    o:{
+      uz:["Tenglikni buzish uchun, reglament talab qilsa","Har bir gol oldidan","Faqat guruh bosqichida","Faqat birinchi bo‘limda"],
+      ru:["Для определения победителя при равном счёте, если регламент требует","Перед каждым голом","Только на групповом этапе","Только в первом тайме"],
+      en:["To decide a winner after a draw when the rules require it","Before every goal","Only in the group stage","Only in the first half"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Offside qoidasining asosiy maqsadi nimaga bog‘liq?",
+      ru:"С чем связана основная идея правила офсайда?",
+      en:"What is the main idea behind the offside rule?"
+    },
+    o:{
+      uz:["Hujumchining raqib darvozasiga haddan tashqari ustun joylashib qolishini cheklash","Qo‘l bilan o‘ynashni taqiqlash","Faqat vaqtni boshqarish","Faqat cornerlarni cheklash"],
+      ru:["Ограничить получение чрезмерного позиционного преимущества у ворот соперника","Запретить игру рукой","Только управлять временем","Только ограничивать угловые"],
+      en:["Limit attackers from gaining an excessive positional advantage near goal","Ban handball","Only manage time","Only limit corners"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"FIFA World Cup tarixida eng ko‘p chempion bo‘lgan terma jamoa qaysi?",
+      ru:"Какая сборная чаще всего выигрывала чемпионат мира FIFA?",
+      en:"Which national team has won the FIFA World Cup the most times?"
+    },
+    o:{
+      uz:["Braziliya","Germaniya","Italiya","Argentina"],
+      ru:["Бразилия","Германия","Италия","Аргентина"],
+      en:["Brazil","Germany","Italy","Argentina"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Futbolda 'hat-trick' nimani anglatadi?",
+      ru:"Что означает «хет-трик» в футболе?",
+      en:"What does a hat-trick mean in football?"
+    },
+    o:{
+      uz:["Bir o‘yinchining bir uchrashuvda 3 gol urishi","3 ta assist","3 ta sariq karta","3 ta corner"],
+      ru:["Три гола одного игрока в одном матче","Три ассиста","Три жёлтые карточки","Три угловых"],
+      en:["Three goals by one player in one match","Three assists","Three yellow cards","Three corners"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"UEFA Champions League qaysi qit'a futboli bilan bog‘liq?",
+      ru:"С футболом какого континента связана Лига чемпионов УЕФА?",
+      en:"Which continent's football is the UEFA Champions League associated with?"
+    },
+    o:{
+      uz:["Yevropa","Osiyo","Afrika","Janubiy Amerika"],
+      ru:["Европа","Азия","Африка","Южная Америка"],
+      en:["Europe","Asia","Africa","South America"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Futbolda goalkeeper qo‘lidan to‘pni qo‘yib yuborgach, uni qayta qo‘lga olishi mumkinmi?",
+      ru:"Может ли вратарь снова взять мяч руками после того, как выпустил его?",
+      en:"Can a goalkeeper pick the ball up again after releasing it from their hands?"
+    },
+    o:{
+      uz:["Odatda yo‘q, boshqa o‘yinchi tegmasa","Har doim ha","Faqat penaltyda","Faqat cornerdan keyin"],
+      ru:["Обычно нет, если другой игрок не коснулся мяча","Всегда да","Только при пенальти","Только после углового"],
+      en:["Generally no, unless another player has touched it","Always yes","Only during a penalty","Only after a corner"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Futbolda sariq kartochka nimani bildiradi?",
+      ru:"Что означает жёлтая карточка в футболе?",
+      en:"What does a yellow card mean in football?"
+    },
+    o:{
+      uz:["Ogohlantirish","Darhol chetlatish","Gol bekor qilinishi","O‘yin tugashi"],
+      ru:["Предупреждение","Немедленное удаление","Отмена гола","Окончание матча"],
+      en:["A caution","Immediate dismissal","Goal cancellation","End of the match"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qizil kartochka olgan futbolchi bilan nima sodir bo‘ladi?",
+      ru:"Что происходит с игроком, получившим красную карточку?",
+      en:"What happens to a player who receives a red card?"
+    },
+    o:{
+      uz:["Maydondan chetlatiladi","Faqat ogohlantiriladi","Penalti tepadi","Faqat 5 daqiqa dam oladi"],
+      ru:["Удаляется с поля","Только получает предупреждение","Исполняет пенальти","Отдыхает 5 минут"],
+      en:["They are sent off","They only receive a warning","They take a penalty","They rest for five minutes"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Corner kick qachon beriladi?",
+      ru:"Когда назначается угловой?",
+      en:"When is a corner kick awarded?"
+    },
+    o:{
+      uz:["To‘p himoyalanuvchi jamoa o‘yinchisiga tegib, darvoza chizig‘idan chiqsa","To‘p yon chiziqdan chiqsa","Har bir foul uchun","Har bir offside uchun"],
+      ru:["Когда мяч, коснувшись игрока обороняющейся команды, выходит за линию ворот","Когда мяч выходит за боковую","За каждый фол","За каждый офсайд"],
+      en:["When the ball last touches a defending player and crosses the goal line","When it crosses the touchline","For every foul","For every offside"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Penalty kick nuqtasi odatda darvozadan necha metr uzoqlikda?",
+      ru:"На каком расстоянии от ворот обычно находится точка пенальти?",
+      en:"How far from the goal is the penalty mark usually?"
+    },
+    o:{
+      uz:["11 metr","9 metr","12 metr","10 metr"],
+      ru:["11 метров","9 метров","12 метров","10 метров"],
+      en:["11 meters","9 meters","12 meters","10 meters"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Futbolda 'clean sheet' nimani anglatadi?",
+      ru:"Что означает «clean sheet» в футболе?",
+      en:"What does a 'clean sheet' mean in football?"
+    },
+    o:{
+      uz:["Jamoa gol o‘tkazmagan","Jamoa gol urmagan","Futbolchi sariq olmagan","Stadion bo‘sh bo‘lgan"],
+      ru:["Команда не пропустила голов","Команда не забила","Игрок не получил жёлтую","Стадион пуст"],
+      en:["The team conceded no goals","The team scored no goals","A player got no yellow card","The stadium was empty"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Assist nima?",
+      ru:"Что такое ассист?",
+      en:"What is an assist?"
+    },
+    o:{
+      uz:["Golga olib kelgan muhim uzatma yoki harakat","Faqat corner","Faqat tackle","Faqat save"],
+      ru:["Передача или действие, непосредственно способствующее голу","Только угловой","Только отбор","Только сейв"],
+      en:["A pass or action directly contributing to a goal","Only a corner","Only a tackle","Only a save"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Futbol maydonining markazidagi doira radiusi 9.15 m atrofida bo‘lishining sababi nima?",
+      ru:"Почему радиус центрального круга футбольного поля составляет около 9,15 м?",
+      en:"Why is the center circle radius about 9.15 m?"
+    },
+    o:{
+      uz:["Standart kickoff masofasini belgilash uchun","Penalty uchun","Goal kick uchun","Corner uchun"],
+      ru:["Для определения стандартного расстояния при начальном ударе","Для пенальти","Для удара от ворот","Для углового"],
+      en:["To define the standard distance for kick-off","For penalties","For goal kicks","For corners"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Futbolda 'derby' odatda nimani anglatadi?",
+      ru:"Что обычно означает «дерби» в футболе?",
+      en:"What does a football 'derby' usually mean?"
+    },
+    o:{
+      uz:["Bir hudud/shahar yoki kuchli mahalliy raqiblar o‘rtasidagi o‘yin","Finalning boshqa nomi","Faqat milliy terma jamoalar o‘yini","Penalty seriyasi"],
+      ru:["Матч между командами из одного региона/города или местными соперниками","Другое название финала","Только матч сборных","Серия пенальти"],
+      en:["A match between teams from the same area/city or local rivals","Another name for a final","Only national-team matches","A penalty shootout"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Futbolda 'false nine' qaysi rolga yaqin?",
+      ru:"К какой роли ближе «ложная девятка»?",
+      en:"What role is a 'false nine' closest to?"
+    },
+    o:{
+      uz:["Markaziy hujumchi, lekin chuqurroq tushib o‘yin quradi","Faqat goalkeeper","Faqat fullback","Faqat defensive midfielder"],
+      ru:["Центральный нападающий, который часто опускается глубже для построения атак","Только вратарь","Только фулбек","Только опорник"],
+      en:["A central forward who drops deeper to help create play","Only a goalkeeper","Only a fullback","Only a defensive midfielder"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"'Treble' futbolda klub uchun nimani anglatishi mumkin?",
+      ru:"Что может означать «treble» для футбольного клуба?",
+      en:"What can a 'treble' mean for a football club?"
+    },
+    o:{
+      uz:["Bir mavsumda uchta yirik sovrinni qo‘lga kiritish","3 ta gol urish","3 ta futbolchi sotish","3 ta penalty tepish"],
+      ru:["Выигрыш трёх крупных трофеев за сезон","Забить три гола","Продать трёх игроков","Исполнить три пенальти"],
+      en:["Winning three major trophies in one season","Scoring three goals","Selling three players","Taking three penalties"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Futbolda 'low block' taktikasining asosiy xususiyati nima?",
+      ru:"Какова главная особенность тактики «low block»?",
+      en:"What is a key feature of a low-block tactic?"
+    },
+    o:{
+      uz:["Jamoaning chuqur himoyalanib, markaz va hududlarni zich yopishi","Jamoaning doim yuqori pressing qilishi","Faqat qanotlardan hujum","Faqat uzun pas"],
+      ru:["Глубокая оборона с плотным закрытием пространства","Постоянный высокий прессинг","Атаки только через фланги","Только длинные передачи"],
+      en:["Defending deep while compacting central spaces and areas","Constant high pressing","Attacking only through wings","Only long passes"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Futbolda 'overlap' ko‘pincha qaysi vaziyatni anglatadi?",
+      ru:"Что обычно означает «overlap» в футболе?",
+      en:"What does an 'overlap' usually mean in football?"
+    },
+    o:{
+      uz:["Orqadagi/yonidagi futbolchining to‘p egasidan tashqariga chiqib oldinga yugurishi","Darvozabonning sakrashi","Markaziy himoyachining tackle qilishi","Penalty tepish"],
+      ru:["Рывок партнёра из глубины мимо игрока с мячом во внешнюю/переднюю зону","Прыжок вратаря","Подкат центрального защитника","Удар с пенальти"],
+      en:["A teammate running beyond the ball carrier from a deeper/wider position","A goalkeeper's jump","A center-back tackle","Taking a penalty"]
+    },
+    a:0,p:20
+  }
+],
+
+
+sports: [
+  {
+    q:{
+      uz:"Basketbolda 3-point line tashqarisidan urilgan zarba nechta ochko beradi?",
+      ru:"Сколько очков даёт бросок из-за трёхочковой линии в баскетболе?",
+      en:"How many points is a shot from beyond the three-point line worth?"
+    },
+    o:{
+      uz:["3","2","1","4"],
+      ru:["3","2","1","4"],
+      en:["3","2","1","4"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Tennisda 'deuce' nimani anglatadi?",
+      ru:"Что означает «deuce» в теннисе?",
+      en:"What does 'deuce' mean in tennis?"
+    },
+    o:{
+      uz:["40–40 hisob","Set tugashi","Tie-break boshlanishi","0–0 hisob"],
+      ru:["Счёт 40–40","Конец сета","Начало тай-брейка","Счёт 0–0"],
+      en:["A 40–40 score","The end of a set","The start of a tiebreak","A 0–0 score"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Voleybolda bir jamoa to‘pni raqib maydoniga qaytarishdan oldin odatda necha marta tegishi mumkin?",
+      ru:"Сколько касаний обычно может сделать команда в волейболе перед возвратом мяча?",
+      en:"How many touches can a volleyball team usually make before returning the ball?"
+    },
+    o:{
+      uz:["3","2","4","5"],
+      ru:["3","2","4","5"],
+      en:["3","2","4","5"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Marafonning rasmiy masofasi qancha?",
+      ru:"Какова официальная дистанция марафона?",
+      en:"What is the official marathon distance?"
+    },
+    o:{
+      uz:["42.195 km","40 km","45 km","41.5 km"],
+      ru:["42,195 км","40 км","45 км","41,5 км"],
+      en:["42.195 km","40 km","45 km","41.5 km"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Formula 1 poygasida pit stop nima uchun qilinadi?",
+      ru:"Для чего в Формуле-1 делают пит-стоп?",
+      en:"Why do Formula 1 cars make pit stops?"
+    },
+    o:{
+      uz:["Shina almashtirish va zarur servis uchun","Faqat poygani tugatish uchun","Faqat yonilg‘i rangini almashtirish uchun","Faqat penalty olish uchun"],
+      ru:["Для замены шин и необходимого обслуживания","Только для завершения гонки","Только для смены цвета топлива","Только для получения штрафа"],
+      en:["For tire changes and necessary servicing","Only to finish the race","Only to change fuel color","Only to receive a penalty"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Shaxmatda har bir o‘yinchi o‘yinni nechta dona bilan boshlaydi?",
+      ru:"Сколько фигур начинает шахматную партию у каждого игрока?",
+      en:"How many pieces does each player start with in chess?"
+    },
+    o:{
+      uz:["16","12","18","20"],
+      ru:["16","12","18","20"],
+      en:["16","12","18","20"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Shaxmatda rokировка qaysi ikki dona bilan bajariladi?",
+      ru:"Какие две фигуры участвуют в рокировке?",
+      en:"Which two pieces are involved in castling?"
+    },
+    o:{
+      uz:["Shoh va rook","Shoh va queen","Queen va bishop","Rook va knight"],
+      ru:["Король и ладья","Король и ферзь","Ферзь и слон","Ладья и конь"],
+      en:["King and rook","King and queen","Queen and bishop","Rook and knight"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Boksda 'KO' nimani anglatadi?",
+      ru:"Что означает KO в боксе?",
+      en:"What does KO mean in boxing?"
+    },
+    o:{
+      uz:["Knockout","Kick Off","Keep Out","Key Objective"],
+      ru:["Knockout","Kick Off","Keep Out","Key Objective"],
+      en:["Knockout","Kick Off","Keep Out","Key Objective"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Golfda 'birdie' nimani anglatadi?",
+      ru:"Что означает «birdie» в гольфе?",
+      en:"What does a 'birdie' mean in golf?"
+    },
+    o:{
+      uz:["Par'dan bir zarba kam","Par'dan ikki zarba kam","Par bilan teng","Par'dan bir zarba ko‘p"],
+      ru:["На один удар меньше par","На два удара меньше par","Равно par","На один удар больше par"],
+      en:["One stroke under par","Two strokes under par","Equal to par","One stroke over par"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Baseball'da home run nima?",
+      ru:"Что такое home run в бейсболе?",
+      en:"What is a home run in baseball?"
+    },
+    o:{
+      uz:["Batter to‘pni shunday uradiki, u bazalarni to‘liq aylanib chiqish imkonini beradi","Faqat foul","Pitcher almashtirilishi","Umpire xatosi"],
+      ru:["Удар, позволяющий отбивающему полностью пройти базы","Только фол","Замена питчера","Ошибка судьи"],
+      en:["A hit that allows the batter to complete the bases","Only a foul","A pitcher substitution","An umpire error"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Regbida try odatda nechta ochko beradi?",
+      ru:"Сколько очков обычно приносит try в регби?",
+      en:"How many points does a try usually score in rugby?"
+    },
+    o:{
+      uz:["5","3","6","7"],
+      ru:["5","3","6","7"],
+      en:["5","3","6","7"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Stol tennisida set odatda nechta ochkogacha o‘ynaladi?",
+      ru:"До скольких очков обычно играют сет в настольном теннисе?",
+      en:"How many points is a table-tennis game usually played to?"
+    },
+    o:{
+      uz:["11","21","15","10"],
+      ru:["11","21","15","10"],
+      en:["11","21","15","10"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Badmintonda shuttlecock nima?",
+      ru:"Что такое shuttlecock в бадминтоне?",
+      en:"What is a shuttlecock in badminton?"
+    },
+    o:{
+      uz:["O‘yinda uriladigan patli yoki sintetik volan","Raketka turi","To‘r","Hisoblagich"],
+      ru:["Волан, который перебивают ракетками","Тип ракетки","Сетка","Счётчик"],
+      en:["The feathered or synthetic projectile hit with rackets","A type of racket","The net","A scoreboard"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Olimpiya ramzidagi nechta halqa bor?",
+      ru:"Сколько колец на олимпийском символе?",
+      en:"How many rings are on the Olympic symbol?"
+    },
+    o:{
+      uz:["5","4","6","7"],
+      ru:["5","4","6","7"],
+      en:["5","4","6","7"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Decathlon nechta yengil atletika yo‘nalishidan iborat?",
+      ru:"Из скольких дисциплин состоит десятиборье?",
+      en:"How many events are in the decathlon?"
+    },
+    o:{
+      uz:["10","8","12","9"],
+      ru:["10","8","12","9"],
+      en:["10","8","12","9"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Triathlon qaysi uch sportni birlashtiradi?",
+      ru:"Какие три вида спорта входят в триатлон?",
+      en:"Which three sports make up a triathlon?"
+    },
+    o:{
+      uz:["Suzish, velosiped, yugurish","Yugurish, tennis, suzish","Velosiped, futbol, yugurish","Suzish, basketbol, yugurish"],
+      ru:["Плавание, велосипед и бег","Бег, теннис и плавание","Велосипед, футбол и бег","Плавание, баскетбол и бег"],
+      en:["Swimming, cycling, running","Running, tennis, swimming","Cycling, football, running","Swimming, basketball, running"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Basketbolda triple-double nimani anglatadi?",
+      ru:"Что означает triple-double в баскетболе?",
+      en:"What does a triple-double mean in basketball?"
+    },
+    o:{
+      uz:["Uch statistik kategoriyada kamida 10 tadan ko‘rsatkich","3 ta ketma-ket uchlik","10 ta foul","3 ta dunk"],
+      ru:["Не менее 10 в трёх статистических категориях","Три трёхочковых подряд","10 фолов","Три данка"],
+      en:["At least 10 in three statistical categories","Three consecutive three-pointers","10 fouls","Three dunks"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Tennisda Grand Slam turnirlarining soni nechta?",
+      ru:"Сколько существует турниров Большого шлема в теннисе?",
+      en:"How many Grand Slam tournaments are there in tennis?"
+    },
+    o:{
+      uz:["4","3","5","6"],
+      ru:["4","3","5","6"],
+      en:["4","3","5","6"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Marafon yuguruvchisi uchun pace nimani anglatadi?",
+      ru:"Что означает pace для марафонца?",
+      en:"What does pace mean for a marathon runner?"
+    },
+    o:{
+      uz:["Masofa birligiga to‘g‘ri keladigan yugurish vaqti/tezligi","Faqat yurak urishi","Faqat poyabzal og‘irligi","Faqat umumiy masofa"],
+      ru:["Темп бега, например время на единицу дистанции","Только пульс","Только вес обуви","Только общая дистанция"],
+      en:["Running rate, such as time per unit of distance","Only heart rate","Only shoe weight","Only total distance"]
+    },
+    a:0,p:15
+  }
+],
+
+
+logic: [
+  {
+    q:{
+      uz:"Ketma-ketlik: 2, 4, 8, 16, ?",
+      ru:"Последовательность: 2, 4, 8, 16, ?",
+      en:"Sequence: 2, 4, 8, 16, ?"
+    },
+    o:{
+      uz:["32","24","30","36"],
+      ru:["32","24","30","36"],
+      en:["32","24","30","36"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"3, 6, 12, 24, ?",
+      ru:"3, 6, 12, 24, ?",
+      en:"3, 6, 12, 24, ?"
+    },
+    o:{
+      uz:["48","36","42","54"],
+      ru:["48","36","42","54"],
+      en:["48","36","42","54"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Agar barcha A lar B bo‘lsa va barcha B lar C bo‘lsa, qaysi xulosa to‘g‘ri?",
+      ru:"Если все A являются B, а все B являются C, какой вывод верен?",
+      en:"If all A are B and all B are C, which conclusion is correct?"
+    },
+    o:{
+      uz:["Barcha A lar C","Barcha C lar A","Hech bir A C emas","A va C doim teng"],
+      ru:["Все A являются C","Все C являются A","Ни один A не является C","A и C всегда равны"],
+      en:["All A are C","All C are A","No A are C","A and C are always equal"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Bir soat 60 minut. 2 soat 45 minut nechta minut?",
+      ru:"В одном часе 60 минут. Сколько минут в 2 часах 45 минутах?",
+      en:"An hour has 60 minutes. How many minutes are in 2 hours 45 minutes?"
+    },
+    o:{
+      uz:["165","145","175","155"],
+      ru:["165","145","175","155"],
+      en:["165","145","175","155"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Agar kecha dushanba bo‘lgan bo‘lsa, ertadan keyin qaysi kun bo‘ladi?",
+      ru:"Если вчера был понедельник, какой день будет послезавтра?",
+      en:"If yesterday was Monday, what day will it be the day after tomorrow?"
+    },
+    o:{
+      uz:["Payshanba","Chorshanba","Juma","Seshanba"],
+      ru:["Четверг","Среда","Пятница","Вторник"],
+      en:["Thursday","Wednesday","Friday","Tuesday"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"5 ta mashina 5 daqiqada 5 ta detal ishlab chiqarsa, 1 mashina 5 daqiqada nechta detal ishlab chiqaradi?",
+      ru:"Если 5 машин производят 5 деталей за 5 минут, сколько деталей произведёт 1 машина за 5 минут?",
+      en:"If 5 machines produce 5 parts in 5 minutes, how many parts does 1 machine produce in 5 minutes?"
+    },
+    o:{
+      uz:["1","5","25","0"],
+      ru:["1","5","25","0"],
+      en:["1","5","25","0"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Bir oilada 2 ota va 2 o‘g‘il bor, lekin jami 3 kishi. Qanday?",
+      ru:"В семье 2 отца и 2 сына, но всего 3 человека. Как это возможно?",
+      en:"A family has 2 fathers and 2 sons but only 3 people. How?"
+    },
+    o:{
+      uz:["Bobo, ota va o‘g‘il","Ikki ota va bir bola","Uchta aka-uka","Bu imkonsiz"],
+      ru:["Дед, отец и сын","Два отца и ребёнок","Три брата","Это невозможно"],
+      en:["Grandfather, father, and son","Two fathers and a child","Three brothers","It is impossible"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Qaysi son boshqalardan farq qiladi: 2, 3, 5, 7, 9, 11?",
+      ru:"Какое число отличается: 2, 3, 5, 7, 9, 11?",
+      en:"Which number is different: 2, 3, 5, 7, 9, 11?"
+    },
+    o:{
+      uz:["9","7","11","3"],
+      ru:["9","7","11","3"],
+      en:["9","7","11","3"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Agar barcha kvadratlar to‘rtburchak bo‘lsa, barcha to‘rtburchaklar kvadratmi?",
+      ru:"Если все квадраты — прямоугольники, являются ли все прямоугольники квадратами?",
+      en:"If all squares are rectangles, are all rectangles squares?"
+    },
+    o:{
+      uz:["Yo‘q","Ha","Faqat katta bo‘lsa","Faqat teng tomonli bo‘lsa"],
+      ru:["Нет","Да","Только если большие","Только если равносторонние"],
+      en:["No","Yes","Only if large","Only if equilateral"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Ketma-ketlik: 1, 4, 9, 16, 25, ?",
+      ru:"Последовательность: 1, 4, 9, 16, 25, ?",
+      en:"Sequence: 1, 4, 9, 16, 25, ?"
+    },
+    o:{
+      uz:["36","30","35","49"],
+      ru:["36","30","35","49"],
+      en:["36","30","35","49"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Agar soat 3:00 bo‘lsa, soat va minut strelkalari orasidagi burchak nechaga teng?",
+      ru:"Каков угол между стрелками часов в 3:00?",
+      en:"What is the angle between the clock hands at 3:00?"
+    },
+    o:{
+      uz:["90°","60°","120°","180°"],
+      ru:["90°","60°","120°","180°"],
+      en:["90°","60°","120°","180°"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Agar 10 ta shamdan 3 tasi o‘chirildi, nechta sham qoladi?",
+      ru:"Если из 10 свечей 3 погасили, сколько свечей осталось?",
+      en:"If 3 of 10 candles are extinguished, how many candles remain?"
+    },
+    o:{
+      uz:["10","7","3","0"],
+      ru:["10","7","3","0"],
+      en:["10","7","3","0"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Bir son 4 ga bo‘linganda qoldiq 3 beradi. Shu son 2 ga bo‘linganda qoldiq nima bo‘ladi?",
+      ru:"Число при делении на 4 даёт остаток 3. Какой остаток будет при делении на 2?",
+      en:"A number leaves remainder 3 when divided by 4. What remainder does it leave when divided by 2?"
+    },
+    o:{
+      uz:["1","0","2","3"],
+      ru:["1","0","2","3"],
+      en:["1","0","2","3"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Agar bugun chorshanba bo‘lsa, 100 kundan keyin qaysi kun bo‘ladi?",
+      ru:"Если сегодня среда, какой день будет через 100 дней?",
+      en:"If today is Wednesday, what day will it be in 100 days?"
+    },
+    o:{
+      uz:["Juma","Payshanba","Shanba","Yakshanba"],
+      ru:["Пятница","Четверг","Суббота","Воскресенье"],
+      en:["Friday","Thursday","Saturday","Sunday"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Bir qutida faqat qizil va ko‘k sharlar bor. Ko‘rmasdan bitta rangdan ikki dona olishni kafolatlash uchun kamida nechta shar olish kerak?",
+      ru:"В коробке только красные и синие шары. Сколько шаров нужно взять вслепую, чтобы гарантированно получить два одного цвета?",
+      en:"A box has only red and blue balls. How many must you draw blindly to guarantee two of the same color?"
+    },
+    o:{
+      uz:["3","2","4","5"],
+      ru:["3","2","4","5"],
+      en:["3","2","4","5"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Ketma-ketlik: 2, 6, 12, 20, 30, ?",
+      ru:"Последовательность: 2, 6, 12, 20, 30, ?",
+      en:"Sequence: 2, 6, 12, 20, 30, ?"
+    },
+    o:{
+      uz:["42","40","44","48"],
+      ru:["42","40","44","48"],
+      en:["42","40","44","48"]
+    },
+    a:0,p:20
+  },
+
+  {
+    q:{
+      uz:"Agar barcha mushuklar hayvon bo‘lsa va Tom mushuk bo‘lsa, Tom nima?",
+      ru:"Если все кошки — животные, а Том — кошка, кто такой Том?",
+      en:"If all cats are animals and Tom is a cat, what is Tom?"
+    },
+    o:{
+      uz:["Hayvon","Faqat mushuk emas","O‘simlik","Qush"],
+      ru:["Животное","Не кошка","Растение","Птица"],
+      en:["An animal","Not a cat","A plant","A bird"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Bir sonni 3 ga ko‘paytirib, 6 qo‘shilganda 21 chiqadi. Son nechaga teng?",
+      ru:"Если число умножить на 3 и прибавить 6, получится 21. Какое число?",
+      en:"If a number is multiplied by 3 and 6 is added, the result is 21. What is the number?"
+    },
+    o:{
+      uz:["5","6","7","3"],
+      ru:["5","6","7","3"],
+      en:["5","6","7","3"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Agar 4 ishchi ishni 6 kunda bajarsa, bir xil tezlikda 8 ishchi taxminan necha kunda bajaradi?",
+      ru:"Если 4 рабочих выполняют работу за 6 дней, за сколько дней примерно выполнят её 8 рабочих при одинаковой производительности?",
+      en:"If 4 workers finish a job in 6 days, how many days would 8 workers take at the same rate?"
+    },
+    o:{
+      uz:["3 kun","6 kun","12 kun","4 kun"],
+      ru:["3 дня","6 дней","12 дней","4 дня"],
+      en:["3 days","6 days","12 days","4 days"]
+    },
+    a:0,p:15
+  }
+],
+
+
+general: [
+  {
+    q:{
+      uz:"Yerning tabiiy yo‘ldoshi nima?",
+      ru:"Как называется естественный спутник Земли?",
+      en:"What is Earth's natural satellite?"
+    },
+    o:{
+      uz:["Oy","Mars","Quyosh","Venera"],
+      ru:["Луна","Марс","Солнце","Венера"],
+      en:["Moon","Mars","Sun","Venus"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Dunyodagi eng katta okean qaysi?",
+      ru:"Какой океан самый большой?",
+      en:"Which is the largest ocean?"
+    },
+    o:{
+      uz:["Tinch","Atlantika","Hind","Arktika"],
+      ru:["Тихий","Атлантический","Индийский","Арктический"],
+      en:["Pacific","Atlantic","Indian","Arctic"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Inson tanasidagi eng katta organ qaysi?",
+      ru:"Какой самый большой орган человеческого тела?",
+      en:"What is the largest organ of the human body?"
+    },
+    o:{
+      uz:["Teri","Jigar","Yurak","O‘pka"],
+      ru:["Кожа","Печень","Сердце","Лёгкие"],
+      en:["Skin","Liver","Heart","Lungs"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Bir sutkada necha soat bor?",
+      ru:"Сколько часов в сутках?",
+      en:"How many hours are in a day?"
+    },
+    o:{
+      uz:["24","12","48","36"],
+      ru:["24","12","48","36"],
+      en:["24","12","48","36"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Dunyodagi eng baland tog‘ cho‘qqisi qaysi?",
+      ru:"Какая самая высокая горная вершина в мире?",
+      en:"What is the highest mountain peak in the world?"
+    },
+    o:{
+      uz:["Everest","K2","Elbrus","Kilimanjaro"],
+      ru:["Эверест","K2","Эльбрус","Килиманджаро"],
+      en:["Everest","K2","Elbrus","Kilimanjaro"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Avstraliyaning poytaxti qaysi?",
+      ru:"Какова столица Австралии?",
+      en:"What is the capital of Australia?"
+    },
+    o:{
+      uz:["Canberra","Sydney","Melbourne","Perth"],
+      ru:["Канберра","Сидней","Мельбурн","Перт"],
+      en:["Canberra","Sydney","Melbourne","Perth"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Eng kichik tub son qaysi?",
+      ru:"Какое наименьшее простое число?",
+      en:"What is the smallest prime number?"
+    },
+    o:{
+      uz:["2","1","0","3"],
+      ru:["2","1","0","3"],
+      en:["2","1","0","3"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi metallning kimyoviy belgisi Fe?",
+      ru:"Какой металл обозначается Fe?",
+      en:"Which metal has the chemical symbol Fe?"
+    },
+    o:{
+      uz:["Temir","Mis","Oltin","Kumush"],
+      ru:["Железо","Медь","Золото","Серебро"],
+      en:["Iron","Copper","Gold","Silver"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Dunyodagi eng katta quruqlik hayvoni qaysi?",
+      ru:"Какое самое крупное наземное животное?",
+      en:"What is the largest land animal?"
+    },
+    o:{
+      uz:["Afrika fili","Jirafa","Oq karkidon","Begemot"],
+      ru:["Африканский слон","Жираф","Белый носорог","Бегемот"],
+      en:["African elephant","Giraffe","White rhinoceros","Hippopotamus"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Quyosh tizimidagi eng katta sayyora qaysi?",
+      ru:"Какая самая большая планета Солнечной системы?",
+      en:"What is the largest planet in the Solar System?"
+    },
+    o:{
+      uz:["Yupiter","Saturn","Yer","Neptun"],
+      ru:["Юпитер","Сатурн","Земля","Нептун"],
+      en:["Jupiter","Saturn","Earth","Neptune"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Oltinning kimyoviy belgisi nima?",
+      ru:"Каков химический символ золота?",
+      en:"What is the chemical symbol for gold?"
+    },
+    o:{
+      uz:["Au","Ag","Fe","Gd"],
+      ru:["Au","Ag","Fe","Gd"],
+      en:["Au","Ag","Fe","Gd"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Dunyoda eng ko‘p ona tili sifatida gapiriladigan tillardan biri qaysi?",
+      ru:"Какой язык является одним из самых распространённых по числу носителей как родного?",
+      en:"Which is one of the world's most widely spoken languages by native speakers?"
+    },
+    o:{
+      uz:["Mandarin xitoy tili","Island tili","Lotin tili","Esperanto"],
+      ru:["Мандаринский китайский","Исландский","Латынь","Эсперанто"],
+      en:["Mandarin Chinese","Icelandic","Latin","Esperanto"]
+    },
+    a:0,p:10
+  },
+
+  {
+    q:{
+      uz:"Suv dengiz sathida taxminan nechada qaynaydi?",
+      ru:"При какой температуре вода примерно кипит на уровне моря?",
+      en:"At approximately what temperature does water boil at sea level?"
+    },
+    o:{
+      uz:["100°C","90°C","80°C","120°C"],
+      ru:["100°C","90°C","80°C","120°C"],
+      en:["100°C","90°C","80°C","120°C"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Dunyodagi eng katta qit'a qaysi?",
+      ru:"Какой континент самый большой?",
+      en:"Which continent is the largest?"
+    },
+    o:{
+      uz:["Osiyo","Afrika","Yevropa","Antarktida"],
+      ru:["Азия","Африка","Европа","Антарктида"],
+      en:["Asia","Africa","Europe","Antarctica"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi sayyora 'Qizil sayyora' deb ataladi?",
+      ru:"Какую планету называют «Красной планетой»?",
+      en:"Which planet is called the Red Planet?"
+    },
+    o:{
+      uz:["Mars","Venera","Yupiter","Merkuriy"],
+      ru:["Марс","Венера","Юпитер","Меркурий"],
+      en:["Mars","Venus","Jupiter","Mercury"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Internetdagi DNS ning asosiy vazifasi nima?",
+      ru:"Какова основная функция DNS в интернете?",
+      en:"What is the main function of DNS on the internet?"
+    },
+    o:{
+      uz:["Domen nomlarini IP manzillarga moslashtirish","Fayllarni siqish","Wi-Fi signalini kuchaytirish","Video montaj qilish"],
+      ru:["Сопоставление доменных имён с IP-адресами","Сжатие файлов","Усиление Wi-Fi","Монтаж видео"],
+      en:["Mapping domain names to IP addresses","Compressing files","Boosting Wi-Fi","Editing video"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Wikipedia qaysi turdagi resurs?",
+      ru:"Что представляет собой Wikipedia?",
+      en:"What kind of resource is Wikipedia?"
+    },
+    o:{
+      uz:["Onlayn ensiklopediya","Faqat ijtimoiy tarmoq","Video o‘yin","Operatsion tizim"],
+      ru:["Онлайн-энциклопедия","Только социальная сеть","Видеоигра","Операционная система"],
+      en:["Online encyclopedia","Only a social network","Video game","Operating system"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Qaysi biri SI birliklaridan biri emas?",
+      ru:"Какая из единиц не является единицей СИ?",
+      en:"Which is NOT an SI unit?"
+    },
+    o:{
+      uz:["Milya","Metr","Kilogramm","Sekund"],
+      ru:["Миля","Метр","Килограмм","Секунда"],
+      en:["Mile","Meter","Kilogram","Second"]
+    },
+    a:0,p:15
+  },
+
+  {
+    q:{
+      uz:"Odam odatda nechta asosiy sezgi turi bilan bog‘lanadi?",
+      ru:"Сколько основных чувств традиционно выделяют у человека?",
+      en:"How many basic senses are traditionally identified in humans?"
+    },
+    o:{
+      uz:["5","3","7","10"],
+      ru:["5","3","7","10"],
+      en:["5","3","7","10"]
+    },
+    a:0,p:5
+  },
+
+  {
+    q:{
+      uz:"Yer Quyosh atrofini taxminan qancha vaqtda bir marta aylanib chiqadi?",
+      ru:"Примерно за какое время Земля совершает один оборот вокруг Солнца?",
+      en:"Approximately how long does Earth take to orbit the Sun once?"
+    },
+    o:{
+      uz:["365.25 kun","30 kun","24 soat","180 kun"],
+      ru:["365,25 дня","30 дней","24 часа","180 дней"],
+      en:["365.25 days","30 days","24 hours","180 days"]
+    },
+    a:0,p:10
+  }
+]
+
+};
+
+
+/* =========================================================
+   LUCKY PRIZE — 10 XIL
+   ========================================================= */
+
+const LUCKY_PRIZES = [
+
+  {
+    icon:"💰",
+    effect:{
+      uz:"+50 ball!",
+      ru:"+50 очков!",
+      en:"+50 points!"
+    },
+    apply(){
+      teams[currentTeam].score += 50;
+    }
+  },
+
+  {
+    icon:"💎",
+    effect:{
+      uz:"+40 ball!",
+      ru:"+40 очков!",
+      en:"+40 points!"
+    },
+    apply(){
+      teams[currentTeam].score += 40;
+    }
+  },
+
+  {
+    icon:"⭐",
+    effect:{
+      uz:"+30 ball!",
+      ru:"+30 очков!",
+      en:"+30 points!"
+    },
+    apply(){
+      teams[currentTeam].score += 30;
+    }
+  },
+
+  {
+    icon:"🔥",
+    effect:{
+      uz:"+20 ball!",
+      ru:"+20 очков!",
+      en:"+20 points!"
+    },
+    apply(){
+      teams[currentTeam].score += 20;
+    }
+  },
+
+  {
+    icon:"🍀",
+    effect:{
+      uz:"+10 ball!",
+      ru:"+10 очков!",
+      en:"+10 points!"
+    },
+    apply(){
+      teams[currentTeam].score += 10;
+    }
+  },
+
+  {
+    icon:"⚡",
+    effect:{
+      uz:"−10 ball!",
+      ru:"−10 очков!",
+      en:"−10 points!"
+    },
+    apply(){
+      teams[currentTeam].score -= 10;
+    }
+  },
+
+  {
+    icon:"💥",
+    effect:{
+      uz:"−20 ball!",
+      ru:"−20 очков!",
+      en:"−20 points!"
+    },
+    apply(){
+      teams[currentTeam].score -= 20;
+    }
+  },
+
+  {
+    icon:"🪙",
+    effect:{
+      uz:"Eng ko‘p ballga ega boshqa jamoadan 10 ball olasiz!",
+      ru:"Вы забираете 10 очков у другой команды с наибольшим счётом!",
+      en:"Take 10 points from another team with the highest score!"
+    },
+
+    apply(){
+
+      const others = teams
+        .map((team,index)=>({team,index}))
+        .filter(x=>x.index !== currentTeam);
+
+      if(!others.length) return;
+
+      others.sort((a,b)=>b.team.score-a.team.score);
+
+      const target = others[0];
+
+      const amount = Math.min(10,Math.max(0,target.team.score));
+
+      target.team.score -= amount;
+      teams[currentTeam].score += amount;
+    }
+  },
+
+  {
+    icon:"💰",
+    effect:{
+      uz:"Eng ko‘p ballga ega boshqa jamoadan 20 ball olasiz!",
+      ru:"Вы забираете 20 очков у другой команды с наибольшим счётом!",
+      en:"Take 20 points from another team with the highest score!"
+    },
+
+    apply(){
+
+      const others = teams
+        .map((team,index)=>({team,index}))
+        .filter(x=>x.index !== currentTeam);
+
+      if(!others.length) return;
+
+      others.sort((a,b)=>b.team.score-a.team.score);
+
+      const target = others[0];
+
+      const amount = Math.min(20,Math.max(0,target.team.score));
+
+      target.team.score -= amount;
+      teams[currentTeam].score += amount;
+    }
+  },
+
+  {
+    icon:"🔄",
+    effect:{
+      uz:"Ballingiz eng kam bo‘lgan jamoadagi ball bilan almashtiriladi!",
+      ru:"Ваш счёт меняется местами со счётом команды с наименьшим количеством очков!",
+      en:"Swap your score with the team that has the lowest score!"
+    },
+
+    apply(){
+
+      const others = teams
+        .map((team,index)=>({team,index}))
+        .filter(x=>x.index !== currentTeam);
+
+      if(!others.length) return;
+
+      others.sort((a,b)=>a.team.score-b.team.score);
+
+      const target = others[0];
+
+      const temp = teams[currentTeam].score;
+
+      teams[currentTeam].score = target.team.score;
+      target.team.score = temp;
+    }
+  }
+
+];
+
+
+/* =========================================================
+   TRANSLATIONS
+   ========================================================= */
+
+const UI = {
+
+  uz:{
+    headerSubtitle:"Savollar va omad",
+    setupTitle:"Savollar",
+    setupSubtitle:"Mavzuni tanlang, jamoalarni sozlang va o‘yinni boshlang.",
+    topicLabel:"Mavzu",
+    countLabel:"Slotlar soni",
+    teamCountLabel:"Jamoalar soni",
+    teamNamesLabel:"Jamoa nomlari",
+    luckyTitle:"Lucky Prize",
+    luckySubtitle:"30 slotli matchda 10 ta yashirin omad bo‘ladi",
+    start:"🚀 O‘yinni boshlash",
+    gameTitle:"Savollar o‘yini",
+    gameSubtitle:"Raqamni tanlang va yashiringan topshiriqni oching.",
+    restart:"↻ Qayta boshlash",
+    boardTitle:"Slotlar",
+    check:"✓ Tekshirish",
+    next:"→ Keyingi",
+    correct:"To‘g‘ri! +",
+    wrong:"Noto‘g‘ri!",
+    correctAnswer:"To‘g‘ri javob:",
+    choose:"Avval javobni tanlang.",
+    turn:"Navbat:",
+    prizeTitle:"Lucky Prize!",
+    prizeSubtitle:"Omad sizga kulib boqdi!",
+    collect:"🎁 Qabul qilish",
+    finish:"O‘yin tugadi!",
+    results:"Yakuniy natijalar",
+    newMatch:"🔄 Yangi match",
+    teamPlaceholder:"Jamoa"
+  },
+
+  ru:{
+    headerSubtitle:"Вопросы и удача",
+    setupTitle:"Вопросы",
+    setupSubtitle:"Выберите тему, настройте команды и начните игру.",
+    topicLabel:"Тема",
+    countLabel:"Количество слотов",
+    teamCountLabel:"Количество команд",
+    teamNamesLabel:"Названия команд",
+    luckyTitle:"Lucky Prize",
+    luckySubtitle:"В матче на 30 слотов будет 10 скрытых призов",
+    start:"🚀 Начать игру",
+    gameTitle:"Игра вопросов",
+    gameSubtitle:"Выберите номер и откройте скрытое задание.",
+    restart:"↻ Начать заново",
+    boardTitle:"Слоты",
+    check:"✓ Проверить",
+    next:"→ Далее",
+    correct:"Правильно! +",
+    wrong:"Неправильно!",
+    correctAnswer:"Правильный ответ:",
+    choose:"Сначала выберите ответ.",
+    turn:"Ход:",
+    prizeTitle:"Lucky Prize!",
+    prizeSubtitle:"Вам повезло!",
+    collect:"🎁 Забрать",
+    finish:"Игра окончена!",
+    results:"Итоговые результаты",
+    newMatch:"🔄 Новый матч",
+    teamPlaceholder:"Команда"
+  },
+
+  en:{
+    headerSubtitle:"Questions & luck",
+    setupTitle:"Questions",
+    setupSubtitle:"Choose a topic, set up the teams and start the game.",
+    topicLabel:"Topic",
+    countLabel:"Number of slots",
+    teamCountLabel:"Number of teams",
+    teamNamesLabel:"Team names",
+    luckyTitle:"Lucky Prize",
+    luckySubtitle:"A 30-slot match contains 10 hidden prizes",
+    start:"🚀 Start Game",
+    gameTitle:"Question Game",
+    gameSubtitle:"Choose a number and reveal the hidden task.",
+    restart:"↻ Restart",
+    boardTitle:"Slots",
+    check:"✓ Check",
+    next:"→ Next",
+    correct:"Correct! +",
+    wrong:"Wrong!",
+    correctAnswer:"Correct answer:",
+    choose:"Choose an answer first.",
+    turn:"Turn:",
+    prizeTitle:"Lucky Prize!",
+    prizeSubtitle:"You got lucky!",
+    collect:"🎁 Collect",
+    finish:"Game Over!",
+    results:"Final Results",
+    newMatch:"🔄 New Match",
+    teamPlaceholder:"Team"
+  }
+
+};
+
+
+/* =========================================================
+   RANDOM FUNCTION
+   ========================================================= */
+
+function shuffle(array){
+
+  const arr = [...array];
+
+  for(let i=arr.length-1;i>0;i--){
+
+    const j = Math.floor(Math.random()*(i+1));
+
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+
+  return arr;
+}
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+function saveLanguage(){
+
+  localStorage.setItem("siteLanguage",lang);
+  localStorage.setItem("language",lang);
+  localStorage.setItem("lang",lang);
+}
+
+
+function setLanguage(newLang){
+
+  if(!UI[newLang]) return;
+
+  lang = newLang;
+
+  saveLanguage();
+
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll(".lang-btn").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.lang === lang
+    );
+  });
+
+  renderUI();
+
+  if(!currentItem) return;
+
+  if(currentItem.type === "question"){
+    renderQuestion();
+  }
+
+  if(currentItem.type === "prize"){
+    renderPrize();
+  }
+}
+
+
+/* =========================================================
+   TOPIC SELECT
+   ========================================================= */
+
+function renderTopics(){
+
+  const select = $("topic");
+
+  const oldValue = select.value || "gaming";
+
+  select.innerHTML = "";
+
+  Object.entries(TOPICS).forEach(([key,name])=>{
+
+    const option = document.createElement("option");
+
+    option.value = key;
+    option.textContent = name[lang];
+
+    select.appendChild(option);
+  });
+
+  if(TOPICS[oldValue]){
+    select.value = oldValue;
+  }
+}
+
+
+/* =========================================================
+   TEAM INPUTS
+   ========================================================= */
+
+function renderTeamInputs(){
+
+  const count = Number($("teamCount").value);
+
+  const box = $("teamInputs");
+
+  const oldNames = [...box.querySelectorAll("input")]
+    .map(input=>input.value);
+
+  box.innerHTML = "";
+
+  for(let i=0;i<count;i++){
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "team-input";
+
+    const number = document.createElement("div");
+
+    number.className = "team-number";
+
+    number.textContent = i+1;
+
+    const input = document.createElement("input");
+
+    input.type = "text";
+
+    input.maxLength = 20;
+
+    input.value =
+      oldNames[i] ||
+      `${UI[lang].teamPlaceholder} ${i+1}`;
+
+    wrapper.appendChild(number);
+    wrapper.appendChild(input);
+
+    box.appendChild(wrapper);
+  }
+}
+
+
+/* =========================================================
+   UI TRANSLATION
+   ========================================================= */
+
+function renderUI(){
+
+  const t = UI[lang];
+
+  $("headerSubtitle").textContent = t.headerSubtitle;
+
+  $("setupTitle").textContent = t.setupTitle;
+
+  $("setupSubtitle").textContent = t.setupSubtitle;
+
+  $("topicLabel").textContent = t.topicLabel;
+
+  $("countLabel").textContent = t.countLabel;
+
+  $("teamCountLabel").textContent = t.teamCountLabel;
+
+  $("teamNamesLabel").textContent = t.teamNamesLabel;
+
+  $("luckyTitle").textContent = t.luckyTitle;
+
+  $("luckySubtitle").textContent = t.luckySubtitle;
+
+  $("startBtn").textContent = t.start;
+
+  $("gameTitle").textContent = t.gameTitle;
+
+  $("gameSubtitle").textContent = t.gameSubtitle;
+
+  $("restartBtn").textContent = t.restart;
+
+  $("boardTitle").textContent = t.boardTitle;
+
+  $("checkBtn").textContent = t.check;
+
+  $("nextBtn").textContent = t.next;
+
+  $("prizeTitle").textContent = t.prizeTitle;
+
+  $("prizeSubtitle").textContent = t.prizeSubtitle;
+
+  $("collectPrizeBtn").textContent = t.collect;
+
+  $("finishTitle").textContent = t.finish;
+
+  $("finishSubtitle").textContent = t.results;
+
+  $("newMatchBtn").textContent = t.newMatch;
+
+  renderTopics();
+
+  renderTeamInputs();
+
+  if(teams.length){
+    renderScoreboard();
+  }
+}
+
+
+/* =========================================================
+   GET 20 UNIQUE QUESTIONS
+   ========================================================= */
+
+function getUniqueQuestions(topic){
+
+  const source = QUESTION_BANK[topic] || [];
+
+  /*
+    MUHIM:
+    BU YERDA OLDINGIDEK while() YO‘Q.
+
+    Shuning uchun source ichidagi savol
+    hech qachon bir match ichida qayta olinmaydi.
+  */
+
+  return shuffle(source).slice(0,20);
+}
+
+
+/* =========================================================
+   CREATE MATCH
+   ========================================================= */
+
+function startGame(){
+
+  const topic = $("topic").value;
+
+  let slotCount = Number($("questionCount").value);
+
+  const luckyEnabled = $("luckyToggle").checked;
+
+  /*
+    30 slot bo‘lsa:
+      20 unique question
+      10 prize
+
+    25 slot:
+      20 unique question
+      5 prize
+
+    20 slot:
+      20 unique question
+      0 prize
+
+    Agar lucky OFF bo‘lsa:
+      30 slotda ham 20 unique question bor.
+      Qolgan 10 slot avtomatik ravishda
+      ishlatilmaydi.
+  */
+
+  const uniqueQuestions = getUniqueQuestions(topic);
+
+  let prizeCount = 0;
+
+  if(luckyEnabled){
+
+    if(slotCount >= 30){
+      prizeCount = 10;
+    }
+    else if(slotCount >= 25){
+      prizeCount = 5;
+    }
+    else if(slotCount >= 20){
+      prizeCount = 4;
+    }
+    else if(slotCount >= 15){
+      prizeCount = 3;
+    }
+    else{
+      prizeCount = 2;
+    }
+  }
+
+  const questionCount =
+    Math.min(
+      20,
+      slotCount - prizeCount
+    );
+
+  const selectedQuestions =
+    shuffle(uniqueQuestions)
+      .slice(0,questionCount);
+
+  boardData = [];
+
+  /*
+    Avval barcha slotlarni savol sifatida yaratamiz.
+  */
+
+  selectedQuestions.forEach((question,index)=>{
+
+    boardData.push({
+
+      type:"question",
+
+      question,
+
+      number:index+1,
+
+      used:false
+
+    });
+
+  });
+
+
+  /*
+    Prize slotlarni qo‘shamiz.
+  */
+
+  for(let i=0;i<prizeCount;i++){
+
+    boardData.push({
+
+      type:"prize",
+
+      number:questionCount+i+1,
+
+      used:false
+
+    });
+
+  }
+
+
+  /*
+    Hamma slotlarni random joylashtiramiz.
+    Shuning uchun prize qayerdaligini bilib bo‘lmaydi.
+  */
+
+  boardData = shuffle(boardData);
+
+
+  /*
+    Raqamlar 1 dan slotCount gacha bo‘ladi.
+  */
+
+  boardData.forEach((item,index)=>{
+    item.number = index+1;
+  });
+
+
+  /*
+    Jamoalarni yaratamiz.
+  */
+
+  const teamCount = Number($("teamCount").value);
+
+  const inputs =
+    [...$("teamInputs").querySelectorAll("input")];
+
+  teams = [];
+
+  for(let i=0;i<teamCount;i++){
+
+    teams.push({
+
+      name:
+        inputs[i]?.value.trim() ||
+        `${UI[lang].teamPlaceholder} ${i+1}`,
+
+      score:0
+    });
+  }
+
+
+  currentTeam = 0;
+
+  currentItem = null;
+
+  selectedOption = null;
+
+  answered = false;
+
+  currentPrize = null;
+
+
+  $("setup").classList.add("hidden");
+
+  $("game").classList.remove("hidden");
+
+  $("finishPanel").classList.add("hidden");
+
+  $("questionPanel").classList.add("hidden");
+
+  $("prizePanel").classList.add("hidden");
+
+
+  renderScoreboard();
+
+  renderBoard();
+
+  updateTurn();
+
+}
+
+
+/* =========================================================
+   SCOREBOARD
+   ========================================================= */
+
+function renderScoreboard(){
+
+  const box = $("scoreboard");
+
+  box.innerHTML = "";
+
+  teams.forEach((team,index)=>{
+
+    const card = document.createElement("div");
+
+    card.className =
+      "team-card" +
+      (index === currentTeam ? " active" : "");
+
+    const name = document.createElement("div");
+
+    name.className = "team-name";
+
+    name.textContent = team.name;
+
+    const score = document.createElement("div");
+
+    score.className = "team-score";
+
+    score.textContent = team.score;
+
+    card.appendChild(name);
+
+    card.appendChild(score);
+
+    box.appendChild(card);
+  });
+}
+
+
+/* =========================================================
+   BOARD
+   ========================================================= */
+
+function renderBoard(){
+
+  const board = $("board");
+
+  board.innerHTML = "";
+
+  boardData.forEach((item,index)=>{
+
+    const button = document.createElement("button");
+
+    /*
+      Lucky Prize uchun alohida class YO‘Q.
+      Shuning uchun oldindan prize ekanligi ko‘rinmaydi.
+    */
+
+    button.className =
+      "board-item" +
+      (item.used ? " used" : "");
+
+    button.textContent = index+1;
+
+    button.disabled = item.used;
+
+    button.addEventListener("click",()=>{
+
+      openBoardItem(index);
+
+    });
+
+    board.appendChild(button);
+  });
+}
+
+
+/* =========================================================
+   OPEN SLOT
+   ========================================================= */
+
+function openBoardItem(index){
+
+  const item = boardData[index];
+
+  if(!item || item.used) return;
+
+  currentItem = item;
+
+  selectedOption = null;
+
+  answered = false;
+
+  $("questionPanel").classList.add("hidden");
+
+  $("prizePanel").classList.add("hidden");
+
+  $("finishPanel").classList.add("hidden");
+
+
+  if(item.type === "question"){
+
+    renderQuestion();
+
+    $("questionPanel").classList.remove("hidden");
+
+  }
+  else{
+
+    openPrize();
+
+    $("prizePanel").classList.remove("hidden");
+
+  }
+
+
+  window.scrollTo({
+    top:document.body.scrollHeight,
+    behavior:"smooth"
+  });
+}
+
+
+/* =========================================================
+   QUESTION
+   ========================================================= */
+
+function renderQuestion(){
+
+  if(!currentItem || currentItem.type !== "question"){
+    return;
+  }
+
+  const q = currentItem.question;
+
+  const questionText =
+    q.q[lang];
+
+  const options =
+    q.o[lang]
+      .map((text,index)=>({
+        text,
+        originalIndex:index
+      }));
+
+  /*
+    Javob variantlarini random aralashtiramiz.
+    Lekin originalIndex saqlanadi.
+  */
+
+  const shuffledOptions =
+    shuffle(options);
+
+
+  $("questionNumber").textContent =
+    `#${currentItem.number}`;
+
+  $("questionPoints").textContent =
+    `${q.p} ${lang==="uz" ? "ball" : lang==="ru" ? "очков" : "points"}`;
+
+  $("questionText").textContent =
+    questionText;
+
+  const optionsBox = $("options");
+
+  optionsBox.innerHTML = "";
+
+  shuffledOptions.forEach((option,index)=>{
+
+    const button =
+      document.createElement("button");
+
+    button.className = "option";
+
+    const letter =
+      document.createElement("span");
+
+    letter.className = "option-letter";
+
+    letter.textContent =
+      String.fromCharCode(65+index);
+
+    const text =
+      document.createElement("span");
+
+    text.textContent =
+      option.text;
+
+    button.appendChild(letter);
+
+    button.appendChild(text);
+
+    button.dataset.originalIndex =
+      option.originalIndex;
+
+    button.addEventListener("click",()=>{
+
+      if(answered) return;
+
+      document
+        .querySelectorAll(".option")
+        .forEach(el=>{
+          el.classList.remove("selected");
+        });
+
+      button.classList.add("selected");
+
+      selectedOption =
+        Number(button.dataset.originalIndex);
+
+    });
+
+    optionsBox.appendChild(button);
+  });
+
+
+  $("result").className =
+    "result hidden";
+
+  $("result").textContent = "";
+
+  $("checkBtn").classList.remove("hidden");
+
+  $("nextBtn").classList.add("hidden");
+
+}
+
+
+/* =========================================================
+   CHECK ANSWER
+   ========================================================= */
+
+function checkAnswer(){
+
+  if(answered) return;
+
+  const t = UI[lang];
+
+  if(selectedOption === null){
+
+    $("result").className =
+      "result error";
+
+    $("result").textContent =
+      t.choose;
+
+    return;
+  }
+
+
+  answered = true;
+
+  const q = currentItem.question;
+
+  const correctIndex = q.a;
+
+  const options =
+    [...document.querySelectorAll(".option")];
+
+  options.forEach(button=>{
+
+    const originalIndex =
+      Number(button.dataset.originalIndex);
+
+    if(originalIndex === correctIndex){
+
+      button.classList.add("correct");
+
+    }
+
+    if(
+      originalIndex === selectedOption &&
+      selectedOption !== correctIndex
+    ){
+
+      button.classList.add("wrong");
+
+    }
+  });
+
+
+  if(selectedOption === correctIndex){
+
+    teams[currentTeam].score += q.p;
+
+    $("result").className =
+      "result success";
+
+    $("result").textContent =
+      `${t.correct}${q.p} ${lang==="uz" ? "ball" : lang==="ru" ? "очков" : "points"}`;
+
+  }
+  else{
+
+    const correctText =
+      q.o[lang][correctIndex];
+
+    $("result").className =
+      "result error";
+
+    $("result").textContent =
+      `${t.wrong} ${t.correctAnswer} ${correctText}`;
+  }
+
+
+  $("checkBtn").classList.add("hidden");
+
+  $("nextBtn").classList.remove("hidden");
+
+  renderScoreboard();
+}
+
+
+/* =========================================================
+   NEXT ITEM
+   ========================================================= */
+
+function finishCurrentItem(){
+
+  if(!currentItem) return;
+
+
+  const index =
+    boardData.indexOf(currentItem);
+
+  if(index !== -1){
+
+    boardData[index].used = true;
+
+  }
+
+
+  /*
+    Har savol/prize tugagandan keyin navbat
+    keyingi jamoaga o‘tadi.
+  */
+
+  currentTeam =
+    (currentTeam + 1) % teams.length;
+
+  currentItem = null;
+
+  selectedOption = null;
+
+  answered = false;
+
+  currentPrize = null;
+
+
+  $("questionPanel").classList.add("hidden");
+
+  $("prizePanel").classList.add("hidden");
+
+
+  renderBoard();
+
+  renderScoreboard();
+
+  updateTurn();
+
+
+  /*
+    Barcha slot ishlatilgan bo‘lsa,
+    final natijani ko‘rsatamiz.
+  */
+
+  const remaining =
+    boardData.some(item=>!item.used);
+
+  if(!remaining){
+
+    showFinish();
+
+  }
+}
+
+
+/* =========================================================
+   PRIZE
+   ========================================================= */
+
+function openPrize(){
+
+  /*
+    Har bir prize ochilganda 10 xil effektning
+    birortasi random tanlanadi.
+  */
+
+  currentPrize =
+    LUCKY_PRIZES[
+      Math.floor(
+        Math.random() *
+        LUCKY_PRIZES.length
+      )
+    ];
+
+  renderPrize();
+}
+
+
+function renderPrize(){
+
+  if(!currentPrize) return;
+
+  $("prizeTitle").textContent =
+    UI[lang].prizeTitle;
+
+  $("prizeSubtitle").textContent =
+    `${UI[lang].prizeSubtitle} ${teams[currentTeam].name}`;
+
+  $("prizeEffect").innerHTML = "";
+
+  const icon =
+    document.createElement("span");
+
+  icon.textContent =
+    currentPrize.icon + " ";
+
+  const text =
+    document.createElement("span");
+
+  text.textContent =
+    currentPrize.effect[lang];
+
+  $("prizeEffect").appendChild(icon);
+
+  $("prizeEffect").appendChild(text);
+}
+
+
+/* =========================================================
+   COLLECT PRIZE
+   ========================================================= */
+
+function collectPrize(){
+
+  if(!currentPrize) return;
+
+  /*
+    Effect aynan bir marta ishlaydi.
+  */
+
+  currentPrize.apply();
+
+  renderScoreboard();
+
+  finishCurrentItem();
+}
+
+
+/* =========================================================
+   TURN
+   ========================================================= */
+
+function updateTurn(){
+
+  if(!teams.length){
+
+    $("turnLabel").textContent = "";
+
+    return;
+  }
+
+  $("turnLabel").textContent =
+    `${UI[lang].turn} ${teams[currentTeam].name}`;
+}
+
+
+/* =========================================================
+   FINISH
+   ========================================================= */
+
+function showFinish(){
+
+  $("questionPanel").classList.add("hidden");
+
+  $("prizePanel").classList.add("hidden");
+
+  $("finishPanel").classList.remove("hidden");
+
+
+  const ranking =
+    teams
+      .map((team,index)=>({
+        ...team,
+        originalIndex:index
+      }))
+      .sort((a,b)=>b.score-a.score);
+
+
+  const box =
+    $("finalRanking");
+
+  box.innerHTML = "";
+
+
+  ranking.forEach((team,index)=>{
+
+    const row =
+      document.createElement("div");
+
+    row.className =
+      "rank-row";
+
+    const left =
+      document.createElement("div");
+
+    left.className =
+      "rank-left";
+
+    const number =
+      document.createElement("div");
+
+    number.className =
+      "rank-number";
+
+    number.textContent =
+      index+1;
+
+    const name =
+      document.createElement("strong");
+
+    name.textContent =
+      team.name;
+
+    left.appendChild(number);
+
+    left.appendChild(name);
+
+
+    const score =
+      document.createElement("div");
+
+    score.className =
+      "rank-score";
+
+    score.textContent =
+      `${team.score} ${
+        lang==="uz"
+          ? "ball"
+          : lang==="ru"
+            ? "очков"
+            : "pts"
+      }`;
+
+    row.appendChild(left);
+
+    row.appendChild(score);
+
+    box.appendChild(row);
+  });
+
+
+  window.scrollTo({
+    top:document.body.scrollHeight,
+    behavior:"smooth"
+  });
+}
+
+
+/* =========================================================
+   RESTART
+   ========================================================= */
+
+function restartGame(){
+
+  currentItem = null;
+
+  boardData = [];
+
+  teams = [];
+
+  currentTeam = 0;
+
+  selectedOption = null;
+
+  answered = false;
+
+  currentPrize = null;
+
+
+  $("game").classList.add("hidden");
+
+  $("setup").classList.remove("hidden");
+
+  $("questionPanel").classList.add("hidden");
+
+  $("prizePanel").classList.add("hidden");
+
+  $("finishPanel").classList.add("hidden");
+
+  renderUI();
+}
+
+
+/* =========================================================
+   NEW MATCH
+   ========================================================= */
+
+function newMatch(){
+
+  /*
+    Setupga qaytmaymiz.
+    Xuddi shu topic/team/settings bilan
+    YANGI RANDOM SAVOLLAR va YANGI PRIZE
+    joylashuvini yaratamiz.
+  */
+
+  startGame();
+}
+
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+document
+  .querySelectorAll(".lang-btn")
+  .forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+      setLanguage(button.dataset.lang);
+
+    });
+
+  });
+
+
+$("teamCount").addEventListener(
+  "change",
+  renderTeamInputs
+);
+
+
+$("startBtn").addEventListener(
+  "click",
+  startGame
+);
+
+
+$("restartBtn").addEventListener(
+  "click",
+  restartGame
+);
+
+
+$("checkBtn").addEventListener(
+  "click",
+  checkAnswer
+);
+
+
+$("nextBtn").addEventListener(
+  "click",
+  finishCurrentItem
+);
+
+
+$("collectPrizeBtn").addEventListener(
+  "click",
+  collectPrize
+);
+
+
+$("newMatchBtn").addEventListener(
+  "click",
+  newMatch
+);
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+renderUI();
+
+</script>
+
+</div>
+
+</body>
+</html>

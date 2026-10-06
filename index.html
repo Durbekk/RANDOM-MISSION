@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Random Mission</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0b12;
+            color: white;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 7%;
+            border-bottom: 1px solid #252532;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .language {
+            display: flex;
+            gap: 7px;
+        }
+
+        .language button {
+            margin: 0;
+            padding: 8px 11px;
+            border: 1px solid #333341;
+            border-radius: 8px;
+            background: #151520;
+            color: #aaa;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .language button:hover,
+        .language button.active {
+            background: white;
+            color: black;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 55px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #999;
+            font-size: 17px;
+        }
+
+        .missions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: white;
+
+            background: #151520;
+            border: 1px solid #292936;
+            border-radius: 18px;
+
+            padding: 28px;
+
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #666;
+            background: #1b1b27;
+        }
+
+        .icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #999;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            padding: 35px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 18px 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .missions {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Random Mission
+    </div>
+
+    <div class="language">
+
+        <button
+            id="uzBtn"
+            onclick="changeLanguage('uz')">
+            🇺🇿 UZ
+        </button>
+
+        <button
+            id="ruBtn"
+            onclick="changeLanguage('ru')">
+            🇷🇺 RU
+        </button>
+
+        <button
+            id="enBtn"
+            onclick="changeLanguage('en')">
+            🇬🇧 EN
+        </button>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <h1 id="title">
+            🎲 Tasodifiy topshiriqlar
+        </h1>
+
+        <p id="subtitle">
+            O'zingizga tasodifiy topshiriq tanlang va sinab ko'ring!
+        </p>
+
+    </section>
+
+
+    <section class="missions">
+
+        <a
+            class="card"
+            href="minecraft.html">
+
+            <div class="icon">
+                ⛏️
+            </div>
+
+            <h2 id="minecraftTitle">
+                Minecraft
+            </h2>
+
+            <p id="minecraftText">
+                Minecraft uchun tasodifiy va qiyin topshiriqlar.
+            </p>
+
+        </a>
+
+
+        <a
+            class="card"
+            href="fc-mobile.html">
+
+            <div class="icon">
+                ⚽
+            </div>
+
+            <h2 id="fcTitle">
+                FC Mobile
+            </h2>
+
+            <p id="fcText">
+                Oddiy va juda qiyin futbol topshiriqlari.
+            </p>
+
+        </a>
+
+
+        <a
+            class="card"
+            href="pubg.html">
+
+            <div class="icon">
+                🎯
+            </div>
+
+            <h2 id="pubgTitle">
+                PUBG
+            </h2>
+
+            <p id="pubgText">
+                PUBG uchun tasodifiy o'yin topshiriqlari.
+            </p>
+
+        </a>
+
+
+        <a
+            class="card"
+            href="coding.html">
+
+            <div class="icon">
+                💻
+            </div>
+
+            <h2 id="codingTitle">
+                Dasturlash
+            </h2>
+
+            <p id="codingText">
+                Dasturlash bo'yicha tasodifiy vazifalar.
+            </p>
+
+        </a>
+
+
+        <a
+            class="card"
+            href="math.html">
+
+            <div class="icon">
+                🧮
+            </div>
+
+            <h2 id="mathTitle">
+                Matematika
+            </h2>
+
+            <p id="mathText">
+                Tasodifiy matematik masalalarni yeching.
+            </p>
+
+        </a>
+
+
+        <a
+            class="card"
+            href="random.html">
+
+            <div class="icon">
+                🎲
+            </div>
+
+            <h2 id="randomTitle">
+                Tasodifiy tanlov
+            </h2>
+
+            <p id="randomText">
+                O'zingiz variantlarni kiriting va bittasini tasodifiy tanlang.
+            </p>
+
+        </a>
+
+
+        <a
+            class="card"
+            href="questions.html">
+
+            <div class="icon">
+                ❓
+            </div>
+
+            <h2 id="questionsTitle">
+                Savol-javob
+            </h2>
+
+            <p id="questionsText">
+                Savollarni kiriting va tasodifiy savol oling.
+            </p>
+
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer id="footer">
+    © 2026 Random Mission
+</footer>
+
+
+<script>
+
+const translations = {
+
+    uz: {
+
+        title: "🎲 Tasodifiy topshiriqlar",
+
+        subtitle:
+            "O'zingizga tasodifiy topshiriq tanlang va sinab ko'ring!",
+
+        minecraftTitle: "Minecraft",
+
+        minecraftText:
+            "Minecraft uchun tasodifiy va qiyin topshiriqlar.",
+
+        fcTitle: "FC Mobile",
+
+        fcText:
+            "Oddiy va juda qiyin futbol topshiriqlari.",
+
+        pubgTitle: "PUBG",
+
+        pubgText:
+            "PUBG uchun tasodifiy o'yin topshiriqlari.",
+
+        codingTitle: "Dasturlash",
+
+        codingText:
+            "Dasturlash bo'yicha tasodifiy vazifalar.",
+
+        mathTitle: "Matematika",
+
+        mathText:
+            "Tasodifiy matematik masalalarni yeching.",
+
+        randomTitle: "Tasodifiy tanlov",
+
+        randomText:
+            "O'zingiz variantlarni kiriting va bittasini tasodifiy tanlang.",
+
+        questionsTitle: "Savol-javob",
+
+        questionsText:
+            "Savollarni kiriting va tasodifiy savol oling.",
+
+        footer:
+            "© 2026 Random Mission"
+
+    },
+
+
+    ru: {
+
+        title: "🎲 Случайные задания",
+
+        subtitle:
+            "Выберите случайное задание и попробуйте выполнить его!",
+
+        minecraftTitle: "Minecraft",
+
+        minecraftText:
+            "Случайные и сложные задания для Minecraft.",
+
+        fcTitle: "FC Mobile",
+
+        fcText:
+            "Обычные и очень сложные футбольные задания.",
+
+        pubgTitle: "PUBG",
+
+        pubgText:
+            "Случайные игровые задания для PUBG.",
+
+        codingTitle: "Программирование",
+
+        codingText:
+            "Случайные задания по программированию.",
+
+        mathTitle: "Математика",
+
+        mathText:
+            "Решайте случайные математические задачи.",
+
+        randomTitle: "Случайный выбор",
+
+        randomText:
+            "Введите варианты и выберите один случайным образом.",
+
+        questionsTitle: "Вопросы и ответы",
+
+        questionsText:
+            "Введите вопросы и получите случайный вопрос.",
+
+        footer:
+            "© 2026 Random Mission"
+
+    },
+
+
+    en: {
+
+        title: "🎲 Random Missions",
+
+        subtitle:
+            "Choose a random mission and try to complete it!",
+
+        minecraftTitle: "Minecraft",
+
+        minecraftText:
+            "Random and difficult missions for Minecraft.",
+
+        fcTitle: "FC Mobile",
+
+        fcText:
+            "Normal and very difficult football challenges.",
+
+        pubgTitle: "PUBG",
+
+        pubgText:
+            "Random gameplay challenges for PUBG.",
+
+        codingTitle: "Coding",
+
+        codingText:
+            "Random coding challenges.",
+
+        mathTitle: "Math",
+
+        mathText:
+            "Solve random mathematical problems.",
+
+        randomTitle: "Random Choice",
+
+        randomText:
+            "Enter your options and randomly choose one.",
+
+        questionsTitle: "Questions & Answers",
+
+        questionsText:
+            "Enter questions and get a random question.",
+
+        footer:
+            "© 2026 Random Mission"
+
+    }
+
+};
+
+
+function changeLanguage(language) {
+
+    localStorage.setItem(
+        "randomMissionLanguage",
+        language
+    );
+
+    applyLanguage(language);
+}
+
+
+function applyLanguage(language) {
+
+    const t = translations[language];
+
+    document.documentElement.lang = language;
+
+    document.getElementById("title").textContent =
+        t.title;
+
+    document.getElementById("subtitle").textContent =
+        t.subtitle;
+
+    document.getElementById("minecraftTitle").textContent =
+        t.minecraftTitle;
+
+    document.getElementById("minecraftText").textContent =
+        t.minecraftText;
+
+    document.getElementById("fcTitle").textContent =
+        t.fcTitle;
+
+    document.getElementById("fcText").textContent =
+        t.fcText;
+
+    document.getElementById("pubgTitle").textContent =
+        t.pubgTitle;
+
+    document.getElementById("pubgText").textContent =
+        t.pubgText;
+
+    document.getElementById("codingTitle").textContent =
+        t.codingTitle;
+
+    document.getElementById("codingText").textContent =
+        t.codingText;
+
+    document.getElementById("mathTitle").textContent =
+        t.mathTitle;
+
+    document.getElementById("mathText").textContent =
+        t.mathText;
+
+    document.getElementById("randomTitle").textContent =
+        t.randomTitle;
+
+    document.getElementById("randomText").textContent =
+        t.randomText;
+
+    document.getElementById("questionsTitle").textContent =
+        t.questionsTitle;
+
+    document.getElementById("questionsText").textContent =
+        t.questionsText;
+
+    document.getElementById("footer").textContent =
+        t.footer;
+
+
+    document
+        .getElementById("uzBtn")
+        .classList.remove("active");
+
+    document
+        .getElementById("ruBtn")
+        .classList.remove("active");
+
+    document
+        .getElementById("enBtn")
+        .classList.remove("active");
+
+
+    document
+        .getElementById(language + "Btn")
+        .classList.add("active");
+}
+
+
+const savedLanguage =
+    localStorage.getItem(
+        "randomMissionLanguage"
+    ) || "uz";
+
+
+applyLanguage(savedLanguage);
+
+</script>
+
+</body>
+</html>

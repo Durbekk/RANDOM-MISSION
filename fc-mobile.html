@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FC Mobile — Random Mission</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #0b0f19;
+        color: white;
+        min-height: 100vh;
+    }
+
+    header {
+        background: #111827;
+        padding: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #263043;
+    }
+
+    .logo {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .home {
+        color: white;
+        text-decoration: none;
+        background: #1f2937;
+        padding: 9px 14px;
+        border-radius: 9px;
+    }
+
+    .languages {
+        display: flex;
+        gap: 6px;
+    }
+
+    .lang {
+        border: none;
+        padding: 8px 11px;
+        border-radius: 8px;
+        cursor: pointer;
+        background: #1f2937;
+        color: white;
+        font-weight: bold;
+    }
+
+    .lang.active {
+        background: #2563eb;
+    }
+
+    main {
+        width: min(900px, 94%);
+        margin: 40px auto;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        color: #9ca3af;
+        margin-bottom: 30px;
+    }
+
+    .modes {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 25px;
+    }
+
+    .mode {
+        border: none;
+        padding: 13px 25px;
+        border-radius: 10px;
+        cursor: pointer;
+        color: white;
+        background: #1f2937;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .mode.active {
+        background: #2563eb;
+    }
+
+    .mission-box {
+        background: #111827;
+        border: 1px solid #263043;
+        border-radius: 18px;
+        padding: 35px 25px;
+        min-height: 210px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mode-name {
+        color: #60a5fa;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .mission {
+        font-size: 24px;
+        line-height: 1.5;
+        max-width: 750px;
+        margin-bottom: 25px;
+    }
+
+    .new-btn {
+        border: none;
+        background: #16a34a;
+        color: white;
+        padding: 13px 25px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .new-btn:hover {
+        background: #15803d;
+    }
+
+    .counter {
+        margin-top: 18px;
+        color: #9ca3af;
+    }
+
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 28px;
+        }
+
+        .mission {
+            font-size: 20px;
+        }
+
+        .modes {
+            flex-wrap: wrap;
+        }
+
+        .mode {
+            padding: 11px 18px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎲 Random Mission</div>
+
+    <a href="index.html" class="home" id="homeBtn">Bosh sahifa</a>
+
+    <div class="languages">
+        <button class="lang active" onclick="changeLanguage('uz')">🇺🇿</button>
+        <button class="lang" onclick="changeLanguage('ru')">🇷🇺</button>
+        <button class="lang" onclick="changeLanguage('en')">🇬🇧</button>
+    </div>
+</header>
+
+<main>
+
+    <h1>⚽ FC Mobile</h1>
+
+    <div class="subtitle" id="subtitle">
+        FC Mobile uchun tasodifiy topshiriq tanlang.
+    </div>
+
+    <div class="modes">
+        <button class="mode active" id="normalBtn" onclick="setMode('normal')">
+            🟢 Oddiy
+        </button>
+
+        <button class="mode" id="hardBtn" onclick="setMode('hard')">
+            🔴 Qiyin
+        </button>
+    </div>
+
+    <div class="mission-box">
+
+        <div class="mode-name" id="modeName">
+            🟢 Oddiy topshiriq
+        </div>
+
+        <div class="mission" id="mission">
+            Yangi topshiriq tugmasini bosing!
+        </div>
+
+        <button class="new-btn" onclick="newChallenge()" id="newBtn">
+            🎲 Yangi topshiriq
+        </button>
+
+    </div>
+
+    <div class="counter">
+        <span id="counterText">Topshiriqlar: 0</span>
+    </div>
+
+</main>
+
+<script>
+
+const translations = {
+
+    uz: {
+        home: "Bosh sahifa",
+        subtitle: "FC Mobile uchun tasodifiy topshiriq tanlang.",
+        normal: "🟢 Oddiy",
+        hard: "🔴 Qiyin",
+        normalMission: "🟢 Oddiy topshiriq",
+        hardMission: "🔴 Qiyin topshiriq",
+        newMission: "🎲 Yangi topshiriq",
+        counter: "Topshiriqlar: "
+    },
+
+    ru: {
+        home: "Главная",
+        subtitle: "Выберите случайное задание для FC Mobile.",
+        normal: "🟢 Обычный",
+        hard: "🔴 Сложный",
+        normalMission: "🟢 Обычное задание",
+        hardMission: "🔴 Сложное задание",
+        newMission: "🎲 Новое задание",
+        counter: "Заданий: "
+    },
+
+    en: {
+        home: "Home",
+        subtitle: "Choose a random challenge for FC Mobile.",
+        normal: "🟢 Normal",
+        hard: "🔴 Hard",
+        normalMission: "🟢 Normal challenge",
+        hardMission: "🔴 Hard challenge",
+        newMission: "🎲 New challenge",
+        counter: "Challenges: "
+    }
+
+};
+
+
+/* =========================
+   ODDIY TOPSHIRIQLAR
+========================= */
+
+const normalMissions = [
+
+{
+uz:"2 ta gol urib, o‘yinni yut.",
+ru:"Забей 2 гола и выиграй матч.",
+en:"Score 2 goals and win the match."
+},
+
+{
+uz:"3 ta gol urib, o‘yinni yut.",
+ru:"Забей 3 гола и выиграй матч.",
+en:"Score 3 goals and win the match."
+},
+
+{
+uz:"1 ta golga uzatma ber.",
+ru:"Сделай 1 голевую передачу.",
+en:"Make 1 assist."
+},
+
+{
+uz:"2 ta golga uzatma ber.",
+ru:"Сделай 2 голевые передачи.",
+en:"Make 2 assists."
+},
+
+{
+uz:"Darvozani daxlsiz saqla.",
+ru:"Сохрани свои ворота в неприкосновенности.",
+en:"Keep a clean sheet."
+},
+
+{
+uz:"Het-trik qil.",
+ru:"Сделай хет-трик.",
+en:"Score a hat-trick."
+},
+
+{
+uz:"Qarshi hujumdan gol ur.",
+ru:"Забей гол после контратаки.",
+en:"Score from a counter-attack."
+},
+
+{
+uz:"Jarima maydoni tashqarisidan gol ur.",
+ru:"Забей гол из-за штрафной.",
+en:"Score from outside the box."
+},
+
+{
+uz:"Trivela bilan gol ur.",
+ru:"Забей гол тривелой.",
+en:"Score with a trivela."
+},
+
+{
+uz:"Kuchli zarba bilan gol ur.",
+ru:"Забей гол мощным ударом.",
+en:"Score with a power shot."
+},
+
+{
+uz:"Bosh bilan gol ur.",
+ru:"Забей гол головой.",
+en:"Score a header."
+},
+
+{
+uz:"Himoyachi bilan gol ur.",
+ru:"Забей гол защитником.",
+en:"Score with a defender."
+},
+
+{
+uz:"Yarim himoyachi bilan gol ur.",
+ru:"Забей гол полузащитником.",
+en:"Score with a midfielder."
+},
+
+{
+uz:"Qanot futbolchisi bilan gol ur.",
+ru:"Забей гол вингером.",
+en:"Score with a winger."
+},
+
+{
+uz:"Kuchsiz oyoqda gol ur.",
+ru:"Забей гол слабой ногой.",
+en:"Score with the weak foot."
+},
+
+{
+uz:"Jarima zarbasidan gol ur.",
+ru:"Забей гол со штрафного.",
+en:"Score from a free kick."
+},
+
+{
+uz:"Penaltidan gol ur.",
+ru:"Забей пенальти.",
+en:"Score a penalty."
+},
+
+{
+uz:"Penaltilar seriyasida g‘alaba qozon.",
+ru:"Выиграй серию пенальти.",
+en:"Win a penalty shootout."
+},
+
+{
+uz:"Darvozabon bilan seyv qil.",
+ru:"Сделай сейв вратарём.",
+en:"Make a save with your goalkeeper."
+},
+
+{
+uz:"1 ga 1 vaziyatdan gol ur.",
+ru:"Забей в ситуации один на один.",
+en:"Score in a one-on-one situation."
+},
+
+{
+uz:"Bitta futbolchi bilan 2 ta gol ur.",
+ru:"Забей 2 гола одним игроком.",
+en:"Score 2 goals with one player."
+},
+
+{
+uz:"2 xil futbolchi bilan gol ur.",
+ru:"Забей голы двумя разными игроками.",
+en:"Score with 2 different players."
+},
+
+{
+uz:"3 xil futbolchi bilan gol ur.",
+ru:"Забей голы тремя разными игроками.",
+en:"Score with 3 different players."
+},
+
+{
+uz:"Zaxiradan tushgan futbolchi bilan gol ur.",
+ru:"Забей гол игроком, вышедшим на замену.",
+en:"Score with a substitute."
+},
+
+{
+uz:"Birinchi bo‘limda gol ur.",
+ru:"Забей гол в первом тайме.",
+en:"Score in the first half."
+},
+
+{
+uz:"Ikkinchi bo‘limda gol ur.",
+ru:"Забей гол во втором тайме.",
+en:"Score in the second half."
+},
+
+{
+uz:"Birinchi golni sen ur.",
+ru:"Забей первый гол матча.",
+en:"Score the first goal."
+},
+
+{
+uz:"Raqibga 1 tadan ko‘p aniq zarba berishga imkon bermay yut.",
+ru:"Не позволяй сопернику нанести больше 1 удара в створ и выиграй.",
+en:"Win while allowing no more than 1 shot on target."
+},
+
+{
+uz:"15 ta uzatmadan keyin gol ur.",
+ru:"Забей после 15 передач.",
+en:"Score after 15 passes."
+},
+
+{
+uz:"Qanotdan uzatma orqali gol ur.",
+ru:"Забей после подачи с фланга.",
+en:"Score from a cross."
+},
+
+{
+uz:"Teshib berilgan uzatmadan gol ur.",
+ru:"Забей после разрезающей передачи.",
+en:"Score from a through pass."
+},
+
+{
+uz:"Qarshi hujumdan 2 ta gol ur.",
+ru:"Забей 2 гола после контратак.",
+en:"Score 2 counter-attack goals."
+},
+
+{
+uz:"2 ta seyv qil.",
+ru:"Сделай 2 сейва.",
+en:"Make 2 saves."
+},
+
+{
+uz:"3 ta to‘p olib qo‘y.",
+ru:"Сделай 3 отбора.",
+en:"Make 3 tackles."
+},
+
+{
+uz:"3 ta to‘pni qaytarib ol.",
+ru:"Сделай 3 перехвата.",
+en:"Make 3 interceptions."
+},
+
+{
+uz:"4 ta zarbani darvozaga aniq yo‘llab, g‘alaba qozon.",
+ru:"Нанеси 4 удара в створ и выиграй.",
+en:"Get 4 shots on target and win."
+},
+
+{
+uz:"O‘yinda gol o‘tkazmasdan g‘alaba qozon.",
+ru:"Выиграй, не пропустив гол.",
+en:"Win without conceding."
+},
+
+{
+uz:"Qaytish g‘alabasini qo‘lga kirit.",
+ru:"Совершите камбэк и выиграй.",
+en:"Complete a comeback and win."
+},
+
+{
+uz:"2 ta golga uzatma va 1 ta gol qil.",
+ru:"Сделай 2 ассиста и забей 1 гол.",
+en:"Make 2 assists and score 1 goal."
+},
+
+{
+uz:"4 ta golga hissa qo‘sh.",
+ru:"Прими участие в 4 голах.",
+en:"Contribute to 4 goals."
+},
+
+{
+uz:"90 daqiqada g‘alaba qozon.",
+ru:"Выиграй за 90 минут.",
+en:"Win in 90 minutes."
+}
+
+];
+
+
+/* =========================
+   JUDA QIYIN TOPSHIRIQLAR
+========================= */
+
+const hardMissions = [
+
+{
+uz:"🧤 Darvozabon bilan het-trik qil va o‘yinni yut.",
+ru:"🧤 Сделай хет-трик вратарём и выиграй матч.",
+en:"🧤 Score a hat-trick with your goalkeeper and win."
+},
+
+{
+uz:"🧤 Darvozabon bilan gol ur, golga uzatma ber va o‘yinni yut.",
+ru:"🧤 Забей и отдай голевую передачу вратарём и выиграй.",
+en:"🧤 Score and assist with your goalkeeper and win."
+},
+
+{
+uz:"🧤 Darvozabon bilan gol ur va darvozani daxlsiz saqla.",
+ru:"🧤 Забей вратарём и сохрани свои ворота в неприкосновенности.",
+en:"🧤 Score with your goalkeeper and keep a clean sheet."
+},
+
+{
+uz:"🛡️ Faqat himoyachilar bilan 3 ta gol urib, o‘yinni yut.",
+ru:"🛡️ Забей 3 гола только защитниками и выиграй.",
+en:"🛡️ Score 3 goals using only defenders and win."
+},
+
+{
+uz:"🛡️ Himoyachi bilan gol + golga uzatma + darvozani daxlsiz saqlashni bajargin.",
+ru:"🛡️ Забей защитником, отдай ассист и сохрани сухие ворота.",
+en:"🛡️ Score with a defender, assist, and keep a clean sheet."
+},
+
+{
+uz:"⚽ Faqat kuchsiz oyoqda urilgan gollar bilan o‘yinni yut.",
+ru:"⚽ Выиграй матч, забивая только слабой ногой.",
+en:"⚽ Win while scoring only with weak-foot goals."
+},
+
+{
+uz:"⚽ Kuchsiz oyoqda het-trik qil.",
+ru:"⚽ Сделай хет-трик слабой ногой.",
+en:"⚽ Score a weak-foot hat-trick."
+},
+
+{
+uz:"🚫 Tez yugurishdan umuman foydalanmasdan o‘yinni yut.",
+ru:"🚫 Выиграй матч, вообще не используя ускорение.",
+en:"🚫 Win without using sprint."
+},
+
+{
+uz:"🚫 Tez yugurishsiz het-trik qil.",
+ru:"🚫 Сделай хет-трик без ускорения.",
+en:"🚫 Score a hat-trick without sprinting."
+},
+
+{
+uz:"🚫 Aldov harakatlaridan foydalanmasdan 4 ta gol ur.",
+ru:"🚫 Забей 4 гола без использования финтов.",
+en:"🚫 Score 4 goals without skill moves."
+},
+
+{
+uz:"🚫 Tez yugurish va aldov harakatlarisiz yut.",
+ru:"🚫 Выиграй без ускорения и финтов.",
+en:"🚫 Win without sprinting or using skill moves."
+},
+
+{
+uz:"🚫 Finesse zarbalaridan foydalanmasdan het-trik qil.",
+ru:"🚫 Сделай хет-трик без финес-ударов.",
+en:"🚫 Score a hat-trick without finesse shots."
+},
+
+{
+uz:"🚫 Qarshi hujumlardan foydalanmasdan 4 ta gol ur.",
+ru:"🚫 Забей 4 гола без контратак.",
+en:"🚫 Score 4 goals without counter-attacks."
+},
+
+{
+uz:"🚫 Teshib berilgan uzatmalardan foydalanmasdan yut.",
+ru:"🚫 Выиграй без разрезающих передач.",
+en:"🚫 Win without through passes."
+},
+
+{
+uz:"🚫 Qanotdan uzatmalardan foydalanmasdan yut.",
+ru:"🚫 Выиграй без подач с фланга.",
+en:"🚫 Win without crosses."
+},
+
+{
+uz:"🎯 Faqat jarima maydoni tashqarisidan gol urib yut.",
+ru:"🎯 Выиграй, забивая только из-за штрафной.",
+en:"🎯 Win while scoring only from outside the box."
+},
+
+{
+uz:"🎯 Jarima maydoni tashqarisidan 3 ta gol ur.",
+ru:"🎯 Забей 3 гола из-за штрафной.",
+en:"🎯 Score 3 goals from outside the box."
+},
+
+{
+uz:"🥅 Faqat bosh bilan 3 ta gol urib yut.",
+ru:"🥅 Забей 3 гола только головой и выиграй.",
+en:"🥅 Score 3 headers and win."
+},
+
+{
+uz:"🥅 Faqat bosh bilan 4 ta gol ur.",
+ru:"🥅 Забей 4 гола только головой.",
+en:"🥅 Score 4 headers."
+},
+
+{
+uz:"🌀 Faqat trivela zarbalari bilan 3 ta gol ur.",
+ru:"🌀 Забей 3 гола только тривелой.",
+en:"🌀 Score 3 goals using only trivela shots."
+},
+
+{
+uz:"💥 Faqat kuchli zarbalar bilan 3 ta gol ur.",
+ru:"💥 Забей 3 гола только мощными ударами.",
+en:"💥 Score 3 goals using only power shots."
+},
+
+{
+uz:"🧤 2 ta penalti qaytar va o‘yinni yut.",
+ru:"🧤 Отрази 2 пенальти и выиграй матч.",
+en:"🧤 Save 2 penalties and win."
+},
+
+{
+uz:"🧤 Penalti qaytar, keyin o‘yinni yut.",
+ru:"🧤 Отрази пенальти и затем выиграй матч.",
+en:"🧤 Save a penalty and then win."
+},
+
+{
+uz:"🔥 0–2 hisobidan qaytib, o‘yinni yut.",
+ru:"🔥 Соверши камбэк с 0:2 и выиграй.",
+en:"🔥 Come back from 0–2 and win."
+},
+
+{
+uz:"🔥 0–3 hisobidan qaytib, o‘yinni yut.",
+ru:"🔥 Соверши камбэк с 0:3 и выиграй.",
+en:"🔥 Come back from 0–3 and win."
+},
+
+{
+uz:"🔥 Birinchi bo‘limni 0–2 yutqazib, yakunda g‘alaba qozon.",
+ru:"🔥 Проигрывай 0:2 после первого тайма, но выиграй матч.",
+en:"🔥 Lose 0–2 at half-time and still win."
+},
+
+{
+uz:"🏆 5–0 hisobida g‘alaba qozon.",
+ru:"🏆 Выиграй со счётом 5:0.",
+en:"🏆 Win 5–0."
+},
+
+{
+uz:"🏆 7 ta gol urib g‘alaba qozon.",
+ru:"🏆 Забей 7 голов и выиграй.",
+en:"🏆 Score 7 goals and win."
+},
+
+{
+uz:"🏆 Kamida 5 ta gol urib, darvozani daxlsiz saqla.",
+ru:"🏆 Забей минимум 5 голов и сохрани сухие ворота.",
+en:"🏆 Score at least 5 goals and keep a clean sheet."
+},
+
+{
+uz:"⚽ Bitta futbolchi bilan 5 ta gol ur.",
+ru:"⚽ Забей 5 голов одним игроком.",
+en:"⚽ Score 5 goals with one player."
+},
+
+{
+uz:"⚽ Bitta futbolchi bilan 4 ta gol ur va 2 ta golga uzatma ber.",
+ru:"⚽ Забей 4 гола одним игроком и сделай 2 ассиста.",
+en:"⚽ Score 4 goals with one player and make 2 assists."
+},
+
+{
+uz:"⚽ 5 ta golni 5 xil futbolchi bilan ur.",
+ru:"⚽ Забей 5 голов пятью разными игроками.",
+en:"⚽ Score 5 goals with 5 different players."
+},
+
+{
+uz:"🛡️ Faqat himoyachilar bilan 4 ta gol ur.",
+ru:"🛡️ Забей 4 гола только защитниками.",
+en:"🛡️ Score 4 goals using only defenders."
+},
+
+{
+uz:"🧠 Faqat yarim himoyachilar bilan 3 ta gol ur.",
+ru:"🧠 Забей 3 гола только полузащитниками.",
+en:"🧠 Score 3 goals using only midfielders."
+},
+
+{
+uz:"⚡ Faqat qanot futbolchilari bilan 3 ta gol ur.",
+ru:"⚡ Забей 3 гола только вингерами.",
+en:"⚡ Score 3 goals using only wingers."
+},
+
+{
+uz:"🎯 20 ta ketma-ket uzatmadan keyin gol ur.",
+ru:"🎯 Забей после 20 последовательных передач.",
+en:"🎯 Score after 20 consecutive passes."
+},
+
+{
+uz:"🎯 30 ta ketma-ket uzatmadan keyin gol ur.",
+ru:"🎯 Забей после 30 последовательных передач.",
+en:"🎯 Score after 30 consecutive passes."
+},
+
+{
+uz:"⚡ 3 ta qarshi hujumdan 3 ta gol ur.",
+ru:"⚡ Забей 3 гола после 3 контратак.",
+en:"⚡ Score 3 goals from 3 counter-attacks."
+},
+
+{
+uz:"🧤 Darvozabon bilan gol ur va jamoang 3–0 hisobida yutsin.",
+ru:"🧤 Забей вратарём, а команда должна выиграть 3:0.",
+en:"🧤 Score with your goalkeeper and win 3–0."
+},
+
+{
+uz:"🧤 Darvozabon bilan golga uzatma ber va darvozani daxlsiz saqla.",
+ru:"🧤 Сделай ассист вратарём и сохрани сухие ворота.",
+en:"🧤 Assist with your goalkeeper and keep a clean sheet."
+},
+
+{
+uz:"🛡️ Himoyachi bilan het-trik qil.",
+ru:"🛡️ Сделай хет-трик защитником.",
+en:"🛡️ Score a hat-trick with a defender."
+},
+
+{
+uz:"🧠 Yarim himoyachi bilan het-trik qil.",
+ru:"🧠 Сделай хет-трик полузащитником.",
+en:"🧠 Score a hat-trick with a midfielder."
+},
+
+{
+uz:"⚡ Qanot futbolchisi bilan het-trik qil.",
+ru:"⚡ Сделай хет-трик вингером.",
+en:"⚡ Score a hat-trick with a winger."
+},
+
+{
+uz:"🎯 4 xil zarba turi bilan 4 ta gol ur.",
+ru:"🎯 Забей 4 гола четырьмя разными типами ударов.",
+en:"🎯 Score 4 goals with 4 different shot types."
+},
+
+{
+uz:"🎯 5 ta golni 5 xil futbolchi bilan ur va yut.",
+ru:"🎯 Забей 5 голов пятью разными игроками и выиграй.",
+en:"🎯 Score 5 goals with 5 different players and win."
+},
+
+{
+uz:"🧤 Darvozani daxlsiz saqla va kamida 6 ta seyv qil.",
+ru:"🧤 Сохрани сухие ворота и сделай минимум 6 сейвов.",
+en:"🧤 Keep a clean sheet and make at least 6 saves."
+},
+
+{
+uz:"🧤 2 ta penalti qaytar va keyin o‘yinni yut.",
+ru:"🧤 Отрази 2 пенальти и затем выиграй.",
+en:"🧤 Save 2 penalties and then win."
+},
+
+{
+uz:"⚽ 3 ta gol ur va uchalasini ham turli usulda kirit.",
+ru:"⚽ Забей 3 гола тремя разными способами.",
+en:"⚽ Score 3 goals using 3 different methods."
+},
+
+{
+uz:"🔥 Het-trik qil va yana 2 ta golga uzatma ber.",
+ru:"🔥 Сделай хет-трик и отдай ещё 2 голевые передачи.",
+en:"🔥 Score a hat-trick and make 2 more assists."
+},
+
+{
+uz:"🔥 5 ta gol ur va darvozani daxlsiz saqla.",
+ru:"🔥 Забей 5 голов и сохрани сухие ворота.",
+en:"🔥 Score 5 goals and keep a clean sheet."
+},
+
+{
+uz:"🚫 Tez yugurishsiz 3 ta gol ur va g‘alaba qozon.",
+ru:"🚫 Забей 3 гола без ускорения и выиграй.",
+en:"🚫 Score 3 goals without sprinting and win."
+},
+
+{
+uz:"🚫 Aldov harakatlarisiz het-trik qil.",
+ru:"🚫 Сделай хет-трик без финтов.",
+en:"🚫 Score a hat-trick without skill moves."
+},
+
+{
+uz:"🚫 Tez yugurish, aldov harakati va qanotdan uzatmasiz o‘yinni yut.",
+ru:"🚫 Выиграй без ускорения, финтов и подач с фланга.",
+en:"🚫 Win without sprinting, skill moves, or crosses."
+},
+
+{
+uz:"💀 Raqibga 0 ta aniq zarba berishga imkon berib, 3–0 yut.",
+ru:"💀 Не позволяй сопернику нанести ни одного удара в створ и выиграй 3:0.",
+en:"💀 Allow 0 shots on target and win 3–0."
+},
+
+{
+uz:"🏆 3–0 yut va raqibning zarbalari 2 tadan oshmasin.",
+ru:"🏆 Выиграй 3:0 и не позволяй сопернику сделать больше 2 ударов.",
+en:"🏆 Win 3–0 while allowing no more than 2 opponent shots."
+},
+
+{
+uz:"🔥 3 ta gol ur, 2 ta golga uzatma ber va darvozani daxlsiz saqla.",
+ru:"🔥 Забей 3 гола, сделай 2 ассиста и сохрани сухие ворота.",
+en:"🔥 Score 3 goals, make 2 assists, and keep a clean sheet."
+},
+
+{
+uz:"⚡ 4 ta gol ur, lekin har bir golni boshqa futbolchi bilan ur.",
+ru:"⚡ Забей 4 гола четырьмя разными игроками.",
+en:"⚡ Score 4 goals with 4 different players."
+},
+
+{
+uz:"🧤 Darvozabon bilan gol ur, 5 ta seyv qil va g‘alaba qozon.",
+ru:"🧤 Забей вратарём, сделай 5 сейвов и выиграй.",
+en:"🧤 Score with your goalkeeper, make 5 saves, and win."
+},
+
+{
+uz:"🎯 Faqat jarima maydoni tashqarisidagi gollar bilan 3–0 yut.",
+ru:"🎯 Выиграй 3:0, забивая только из-за штрафной.",
+en:"🎯 Win 3–0 using only outside-the-box goals."
+},
+
+{
+uz:"🥅 Faqat bosh bilan urilgan gollar orqali 3–0 yut.",
+ru:"🥅 Выиграй 3:0, забивая только головой.",
+en:"🥅 Win 3–0 using only headers."
+},
+
+{
+uz:"🌀 Faqat trivela bilan urilgan gollar orqali o‘yinni yut.",
+ru:"🌀 Выиграй, забивая только тривелой.",
+en:"🌀 Win while scoring only trivela goals."
+},
+
+{
+uz:"💥 Faqat kuchli zarbalar bilan urilgan gollar orqali o‘yinni yut.",
+ru:"💥 Выиграй, забивая только мощными ударами.",
+en:"💥 Win while scoring only power-shot goals."
+},
+
+{
+uz:"🔥 0–3 hisobidan qaytib, kamida 4–3 hisobida g‘alaba qozon.",
+ru:"🔥 Соверши камбэк с 0:3 и выиграй минимум 4:3.",
+en:"🔥 Come back from 0–3 and win by at least 4–3."
+},
+
+{
+uz:"🏆 Kamida 7 ta gol ur va 3 tadan ko‘p gol o‘tkazma.",
+ru:"🏆 Забей минимум 7 голов и пропусти не более 3.",
+en:"🏆 Score at least 7 goals and concede no more than 3."
+},
+
+{
+uz:"⚡ 2 ta qarshi hujumni ketma-ket gol bilan yakunla.",
+ru:"⚡ Заверши 2 контратаки подряд голами.",
+en:"⚡ Finish 2 consecutive counter-attacks with goals."
+},
+
+{
+uz:"🎯 Bitta o‘yinda gol, golga uzatma, jarima zarbasi goli va bosh bilan gol qil.",
+ru:"🎯 В одном матче сделай гол, ассист, гол со штрафного и головой.",
+en:"🎯 In one match, score, assist, score a free kick, and score a header."
+},
+
+{
+uz:"🧤 Darvozabon penalti qaytarsin, keyin sen o‘yinni yut.",
+ru:"🧤 Вратарь должен отбить пенальти, после чего выиграй матч.",
+en:"🧤 Your goalkeeper must save a penalty, then win the match."
+},
+
+{
+uz:"🛡️ Himoyachi gol ursin, golga uzatma bersin va jamoa yutsin.",
+ru:"🛡️ Защитник должен забить, сделать ассист и команда должна выиграть.",
+en:"🛡️ A defender must score, assist, and your team must win."
+},
+
+{
+uz:"⚽ Bitta futbolchi 5 ta golga bevosita hissa qo‘shsin.",
+ru:"⚽ Один игрок должен принять участие в 5 голах.",
+en:"⚽ One player must contribute directly to 5 goals."
+},
+
+{
+uz:"🔥 5 ta gol ur, 2 ta golga uzatma ber va darvozani daxlsiz saqla.",
+ru:"🔥 Забей 5 голов, сделай 2 ассиста и сохрани сухие ворота.",
+en:"🔥 Score 5 goals, make 2 assists, and keep a clean sheet."
+},
+
+{
+uz:"💀 Eng qiyin sinov: tez yugurish, aldov harakati, qanotdan uzatma va finesse ishlatmasdan yut.",
+ru:"💀 Самое сложное испытание: выиграй без ускорения, финтов, подач и финес-ударов.",
+en:"💀 Extreme challenge: win without sprinting, skill moves, crosses, or finesse shots."
+}
+
+];
+
+
+/* =========================
+   O'ZGARUVCHILAR
+========================= */
+
+let currentLanguage =
+    localStorage.getItem("randomMissionLanguage") || "uz";
+
+let currentMode = "normal";
+let challengeCount = 0;
+
+
+/* =========================
+   TILNI O'ZGARTIRISH
+========================= */
+
+function changeLanguage(language) {
+
+    currentLanguage = language;
+
+    localStorage.setItem(
+        "randomMissionLanguage",
+        language
+    );
+
+    applyLanguage();
+    newChallenge();
+}
+
+
+/* =========================
+   TILNI QO'LLASH
+========================= */
+
+function applyLanguage() {
+
+    const t = translations[currentLanguage];
+
+    document.getElementById("homeBtn").textContent = t.home;
+    document.getElementById("subtitle").textContent = t.subtitle;
+
+    document.getElementById("normalBtn").textContent = t.normal;
+    document.getElementById("hardBtn").textContent = t.hard;
+
+    document.getElementById("newBtn").textContent = t.newMission;
+
+    updateModeLabel();
+
+    document.querySelectorAll(".lang").forEach(button => {
+        button.classList.remove("active");
+    });
+
+    if (currentLanguage === "uz") {
+        document.querySelectorAll(".lang")[0].classList.add("active");
+    }
+
+    if (currentLanguage === "ru") {
+        document.querySelectorAll(".lang")[1].classList.add("active");
+    }
+
+    if (currentLanguage === "en") {
+        document.querySelectorAll(".lang")[2].classList.add("active");
+    }
+
+    updateCounter();
+}
+
+
+/* =========================
+   REJIMNI O'ZGARTIRISH
+========================= */
+
+function setMode(mode) {
+
+    currentMode = mode;
+
+    document
+        .getElementById("normalBtn")
+        .classList.toggle("active", mode === "normal");
+
+    document
+        .getElementById("hardBtn")
+        .classList.toggle("active", mode === "hard");
+
+    updateModeLabel();
+    newChallenge();
+}
+
+
+/* =========================
+   REJIM NOMI
+========================= */
+
+function updateModeLabel() {
+
+    const t = translations[currentLanguage];
+
+    if (currentMode === "normal") {
+        document.getElementById("modeName").textContent =
+            t.normalMission;
+    } else {
+        document.getElementById("modeName").textContent =
+            t.hardMission;
+    }
+}
+
+
+/* =========================
+   YANGI TOPSHIRIQ
+========================= */
+
+function newChallenge() {
+
+    const missions =
+        currentMode === "normal"
+            ? normalMissions
+            : hardMissions;
+
+    const randomIndex =
+        Math.floor(Math.random() * missions.length);
+
+    const mission = missions[randomIndex];
+
+    document.getElementById("mission").textContent =
+        mission[currentLanguage];
+
+    challengeCount++;
+
+    updateCounter();
+}
+
+
+/* =========================
+   HISOBLAGICH
+========================= */
+
+function updateCounter() {
+
+    const t = translations[currentLanguage];
+
+    document.getElementById("counterText").textContent =
+        t.counter + challengeCount;
+}
+
+
+/* =========================
+   BOSHLANG'ICH
+========================= */
+
+applyLanguage();
+
+</script>
+
+</body>
+</html>

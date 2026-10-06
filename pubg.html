@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUBG — Random Mission</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0f19;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    background: #111827;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #263043;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.home {
+    color: white;
+    text-decoration: none;
+    background: #1f2937;
+    padding: 9px 14px;
+    border-radius: 9px;
+}
+
+.languages {
+    display: flex;
+    gap: 6px;
+}
+
+.lang {
+    border: none;
+    padding: 8px 11px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #1f2937;
+    color: white;
+    font-weight: bold;
+}
+
+.lang.active {
+    background: #2563eb;
+}
+
+main {
+    width: min(950px, 94%);
+    margin: 40px auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    margin-bottom: 30px;
+}
+
+.modes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.mode {
+    border: none;
+    padding: 13px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    background: #1f2937;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.mode.active {
+    background: #2563eb;
+}
+
+.mission-box {
+    background: #111827;
+    border: 1px solid #263043;
+    border-radius: 18px;
+    padding: 35px 25px;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mode-name {
+    color: #60a5fa;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.mission {
+    font-size: 23px;
+    line-height: 1.5;
+    max-width: 800px;
+    margin-bottom: 25px;
+}
+
+.new-btn {
+    border: none;
+    background: #16a34a;
+    color: white;
+    padding: 13px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.new-btn:hover {
+    background: #15803d;
+}
+
+.counter {
+    margin-top: 18px;
+    color: #9ca3af;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .mission {
+        font-size: 19px;
+    }
+
+    .modes {
+        flex-wrap: wrap;
+    }
+
+    .mode {
+        padding: 11px 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">🎲 Random Mission</div>
+
+    <a href="index.html" class="home" id="homeBtn">
+        Bosh sahifa
+    </a>
+
+    <div class="languages">
+        <button class="lang active" onclick="changeLanguage('uz')">🇺🇿</button>
+        <button class="lang" onclick="changeLanguage('ru')">🇷🇺</button>
+        <button class="lang" onclick="changeLanguage('en')">🇬🇧</button>
+    </div>
+
+</header>
+
+<main>
+
+    <h1>🔫 PUBG</h1>
+
+    <div class="subtitle" id="subtitle"></div>
+
+    <div class="modes">
+
+        <button
+            class="mode active"
+            id="normalBtn"
+            onclick="setMode('normal')">
+            🟢 Oddiy
+        </button>
+
+        <button
+            class="mode"
+            id="hardBtn"
+            onclick="setMode('hard')">
+            🔴 Qiyin
+        </button>
+
+    </div>
+
+    <div class="mission-box">
+
+        <div class="mode-name" id="modeName"></div>
+
+        <div class="mission" id="mission"></div>
+
+        <button
+            class="new-btn"
+            id="newBtn"
+            onclick="newChallenge()">
+            🎲 Yangi topshiriq
+        </button>
+
+    </div>
+
+    <div class="counter">
+        <span id="counterText"></span>
+    </div>
+
+</main>
+
+<script>
+
+const translations = {
+
+    uz: {
+        home: "Bosh sahifa",
+        subtitle: "PUBG uchun tasodifiy o‘yin topshirig‘ini tanlang.",
+        normal: "🟢 Oddiy",
+        hard: "🔴 Qiyin",
+        normalMission: "🟢 Oddiy topshiriq",
+        hardMission: "🔴 Qiyin topshiriq",
+        newMission: "🎲 Yangi topshiriq",
+        counter: "Topshiriqlar: "
+    },
+
+    ru: {
+        home: "Главная",
+        subtitle: "Выберите случайное задание для PUBG.",
+        normal: "🟢 Обычный",
+        hard: "🔴 Сложный",
+        normalMission: "🟢 Обычное задание",
+        hardMission: "🔴 Сложное задание",
+        newMission: "🎲 Новое задание",
+        counter: "Заданий: "
+    },
+
+    en: {
+        home: "Home",
+        subtitle: "Choose a random PUBG challenge.",
+        normal: "🟢 Normal",
+        hard: "🔴 Hard",
+        normalMission: "🟢 Normal challenge",
+        hardMission: "🔴 Hard challenge",
+        newMission: "🎲 New challenge",
+        counter: "Challenges: "
+    }
+
+};
+
+
+/* =========================
+   ODDIY TOPSHIRIQLAR
+========================= */
+
+const normalMissions = [
+
+{
+uz:"🎯 Bir o‘yinda 3 ta raqibni yo‘q qil.",
+ru:"🎯 Устрани 3 противников за одну игру.",
+en:"🎯 Eliminate 3 enemies in one match."
+},
+
+{
+uz:"🔫 Faqat avtomat bilan 2 ta raqibni yo‘q qil.",
+ru:"🔫 Устрани 2 противников только из автомата.",
+en:"🔫 Eliminate 2 enemies using only an assault rifle."
+},
+
+{
+uz:"🎯 Bir marta boshga zarba ber.",
+ru:"🎯 Сделай один выстрел в голову.",
+en:"🎯 Get one headshot."
+},
+
+{
+uz:"🏃 O‘yin davomida kamida 1000 metr yugur.",
+ru:"🏃 Пробеги не менее 1000 метров за игру.",
+en:"🏃 Run at least 1000 meters in one match."
+},
+
+{
+uz:"📦 5 ta o‘lja qutisini och.",
+ru:"📦 Открой 5 ящиков с добычей.",
+en:"📦 Open 5 loot crates."
+},
+
+{
+uz:"🔫 Ikki xil qurol bilan bittadan raqibni yo‘q qil.",
+ru:"🔫 Устрани по одному противнику из двух разных видов оружия.",
+en:"🔫 Eliminate one enemy with each of two different weapons."
+},
+
+{
+uz:"🎯 Uzoq masofadan bitta raqibni yo‘q qil.",
+ru:"🎯 Устрани одного противника с дальней дистанции.",
+en:"🎯 Eliminate one enemy from long range."
+},
+
+{
+uz:"🏆 Top-10 ga kir.",
+ru:"🏆 Попади в топ-10.",
+en:"🏆 Reach the top 10."
+},
+
+{
+uz:"🚗 Mashinada kamida 1500 metr yur.",
+ru:"🚗 Проедь на машине не менее 1500 метров.",
+en:"🚗 Drive at least 1500 meters."
+},
+
+{
+uz:"💥 Granata bilan bitta raqibni yo‘q qil.",
+ru:"💥 Устрани одного противника гранатой.",
+en:"💥 Eliminate one enemy with a grenade."
+},
+
+{
+uz:"🎯 Bitta o‘yinda 2 ta boshga zarba ber.",
+ru:"🎯 Сделай 2 выстрела в голову за одну игру.",
+en:"🎯 Get 2 headshots in one match."
+},
+
+{
+uz:"🔫 SMG bilan 2 ta raqibni yo‘q qil.",
+ru:"🔫 Устрани 2 противников из SMG.",
+en:"🔫 Eliminate 2 enemies with an SMG."
+},
+
+{
+uz:"🏆 Top-5 ga kir.",
+ru:"🏆 Попади в топ-5.",
+en:"🏆 Reach the top 5."
+},
+
+{
+uz:"🎯 Snayper bilan bitta raqibni yo‘q qil.",
+ru:"🎯 Устрани одного противника из снайперской винтовки.",
+en:"🎯 Eliminate one enemy with a sniper rifle."
+},
+
+{
+uz:"🛡️ Zirhni to‘liq darajaga yetkaz.",
+ru:"🛡️ Найди броню высокого уровня.",
+en:"🛡️ Find high-level armor."
+},
+
+{
+uz:"🎒 Ryukzakni yuqori darajaga yetkaz.",
+ru:"🎒 Найди рюкзак высокого уровня.",
+en:"🎒 Find a high-level backpack."
+},
+
+{
+uz:"🔫 Shotgun bilan bitta raqibni yo‘q qil.",
+ru:"🔫 Устрани одного противника из дробовика.",
+en:"🔫 Eliminate one enemy with a shotgun."
+},
+
+{
+uz:"🎯 3 ta boshga zarba berib Top-10 ga kir.",
+ru:"🎯 Сделай 3 хедшота и попади в топ-10.",
+en:"🎯 Get 3 headshots and reach the top 10."
+},
+
+{
+uz:"🏃 O‘yin davomida transportdan foydalanma.",
+ru:"🏃 Не используй транспорт в течение всей игры.",
+en:"🏃 Do not use any vehicle during the match."
+},
+
+{
+uz:"🔫 Faqat bitta turdagi qurol bilan o‘yin o‘yna.",
+ru:"🔫 Играй всю игру только с одним типом оружия.",
+en:"🔫 Play the entire match using only one weapon type."
+},
+
+{
+uz:"🏆 Top-3 ga kir.",
+ru:"🏆 Попади в топ-3.",
+en:"🏆 Reach the top 3."
+},
+
+{
+uz:"💣 Frag granata bilan zarar yetkaz.",
+ru:"💣 Нанеси урон осколочной гранатой.",
+en:"💣 Deal damage with a frag grenade."
+},
+
+{
+uz:"🎯 Bitta o‘yinda 4 ta raqibni yo‘q qil.",
+ru:"🎯 Устрани 4 противников за одну игру.",
+en:"🎯 Eliminate 4 enemies in one match."
+},
+
+{
+uz:"🔫 AR bilan 3 ta raqibni yo‘q qil.",
+ru:"🔫 Устрани 3 противников из штурмовой винтовки.",
+en:"🔫 Eliminate 3 enemies with an assault rifle."
+},
+
+{
+uz:"🏆 G‘alaba qozon.",
+ru:"🏆 Победи в игре.",
+en:"🏆 Win the match."
+},
+
+{
+uz:"🎯 Bitta o‘yinda 5 ta boshga zarba ber.",
+ru:"🎯 Сделай 5 выстрелов в голову за одну игру.",
+en:"🎯 Get 5 headshots in one match."
+},
+
+{
+uz:"🚗 Mashinadan tushmasdan kamida 500 metr yur.",
+ru:"🚗 Проедь не менее 500 метров, не выходя из машины.",
+en:"🚗 Drive at least 500 meters without leaving the vehicle."
+},
+
+{
+uz:"🔫 Pistolet bilan bitta raqibni yo‘q qil.",
+ru:"🔫 Устрани одного противника из пистолета.",
+en:"🔫 Eliminate one enemy with a pistol."
+},
+
+{
+uz:"🎯 Optikadan foydalanib 2 ta raqibni yo‘q qil.",
+ru:"🎯 Устрани 2 противников с использованием прицела.",
+en:"🎯 Eliminate 2 enemies using a scope."
+},
+
+{
+uz:"🏆 Kamida 8 ta kill bilan Top-10 ga kir.",
+ru:"🏆 Попади в топ-10 минимум с 8 убийствами.",
+en:"🏆 Reach the top 10 with at least 8 eliminations."
+}
+
+];
+
+
+/* =========================
+   JUDA QIYIN TOPSHIRIQLAR
+========================= */
+
+const hardMissions = [
+
+{
+uz:"🎯 Kar98K bilan 250 metr masofadan optikasiz boshga zarba ber.",
+ru:"🎯 Сделай хедшот из Kar98K с расстояния 250 метров без прицела.",
+en:"🎯 Get a 250-meter Kar98K headshot without a scope."
+},
+
+{
+uz:"💀 AWM bilan 300 metr masofadan boshga zarba ber va raqibni yo‘q qil.",
+ru:"💀 Сделай хедшот из AWM с 300 метров и устрани противника.",
+en:"💀 Get a 300-meter AWM headshot and eliminate the enemy."
+},
+
+{
+uz:"🔥 M24 bilan 200 metr masofadan ketma-ket 2 ta boshga zarba ber.",
+ru:"🔥 Сделай 2 последовательных хедшота из M24 с расстояния 200 метров.",
+en:"🔥 Get 2 consecutive 200-meter M24 headshots."
+},
+
+{
+uz:"🎯 M416 bilan 150 metr masofadan 5 ta boshga zarba ber.",
+ru:"🎯 Сделай 5 хедшотов из M416 с расстояния 150 метров.",
+en:"🎯 Get 5 M416 headshots from 150 meters."
+},
+
+{
+uz:"💀 AKM bilan 200 metr masofadan optikasiz boshga zarba ber.",
+ru:"💀 Сделай хедшот из AKM с 200 метров без прицела.",
+en:"💀 Get a 200-meter AKM headshot without a scope."
+},
+
+{
+uz:"🎯 DP-28 bilan 150 metr masofadan harakatlanayotgan raqibni boshiga ur.",
+ru:"🎯 Попади в голову движущемуся противнику из DP-28 с 150 метров.",
+en:"🎯 Headshot a moving enemy with a DP-28 from 150 meters."
+},
+
+{
+uz:"💀 S686 bilan 50 metr masofadan raqibni yo‘q qil.",
+ru:"💀 Устрани противника из S686 с расстояния 50 метров.",
+en:"💀 Eliminate an enemy with an S686 from 50 meters."
+},
+
+{
+uz:"🔥 S686 bilan ketma-ket 2 ta raqibga boshga zarba ber.",
+ru:"🔥 Сделай хедшот двум противникам подряд из S686.",
+en:"🔥 Get headshots on 2 enemies consecutively with an S686."
+},
+
+{
+uz:"🎯 S12K bilan 100 metr masofadan raqibni yo‘q qil.",
+ru:"🎯 Устрани противника из S12K с расстояния 100 метров.",
+en:"🎯 Eliminate an enemy with an S12K from 100 meters."
+},
+
+{
+uz:"💀 Desert Eagle bilan 150 metr masofadan boshga zarba ber.",
+ru:"💀 Сделай хедшот из Desert Eagle с расстояния 150 метров.",
+en:"💀 Get a 150-meter Desert Eagle headshot."
+},
+
+{
+uz:"🎯 Pistolet bilan 100 metr masofadan raqibni yo‘q qil.",
+ru:"🎯 Устрани противника из пистолета с расстояния 100 метров.",
+en:"🎯 Eliminate an enemy with a pistol from 100 meters."
+},
+
+{
+uz:"🏹 Arbalet bilan 100 metr masofadan boshga zarba ber.",
+ru:"🏹 Сделай хедшот из арбалета с расстояния 100 метров.",
+en:"🏹 Get a 100-meter crossbow headshot."
+},
+
+{
+uz:"🔥 UMP45 bilan 120 metr masofadan 3 ta raqibni yo‘q qil.",
+ru:"🔥 Устрани 3 противников из UMP45 с расстояния 120 метров.",
+en:"🔥 Eliminate 3 enemies with an UMP45 from 120 meters."
+},
+
+{
+uz:"🎯 Vector bilan 100 metr masofadan 3 ta boshga zarba ber.",
+ru:"🎯 Сделай 3 хедшота из Vector с расстояния 100 метров.",
+en:"🎯 Get 3 Vector headshots from 100 meters."
+},
+
+{
+uz:"💀 Groza bilan 150 metr masofadan 4 ta raqibni yo‘q qil.",
+ru:"💀 Устрани 4 противников из Groza с расстояния 150 метров.",
+en:"💀 Eliminate 4 enemies with a Groza from 150 meters."
+},
+
+{
+uz:"🎯 Mk14 bilan 200 metr masofadan 5 ta boshga zarba ber.",
+ru:"🎯 Сделай 5 хедшотов из Mk14 с расстояния 200 метров.",
+en:"🎯 Get 5 Mk14 headshots from 200 meters."
+},
+
+{
+uz:"🔥 Faqat optikasiz qurol ishlatib 5 ta raqibni yo‘q qil.",
+ru:"🔥 Устрани 5 противников, используя оружие только без прицела.",
+en:"🔥 Eliminate 5 enemies using weapons only without scopes."
+},
+
+{
+uz:"💀 Hech qanday optikasiz Top-3 ga kir va kamida 8 ta raqibni yo‘q qil.",
+ru:"💀 Попади в топ-3 без использования прицелов и устрани минимум 8 противников.",
+en:"💀 Reach the top 3 without using scopes and get at least 8 eliminations."
+},
+
+{
+uz:"🎯 300 metr yoki undan uzoq masofadan 2 ta boshga zarba ber.",
+ru:"🎯 Сделай 2 хедшота с расстояния 300 метров или дальше.",
+en:"🎯 Get 2 headshots from 300 meters or farther."
+},
+
+{
+uz:"🔥 Harakatlanayotgan raqibga 150 metr masofadan boshga zarba ber.",
+ru:"🔥 Сделай хедшот по движущемуся противнику с 150 метров.",
+en:"🔥 Headshot a moving enemy from 150 meters."
+},
+
+{
+uz:"💀 Harakatlanayotgan raqibni 200 metr masofadan boshiga ur.",
+ru:"💀 Попади в голову движущемуся противнику с 200 метров.",
+en:"💀 Headshot a moving enemy from 200 meters."
+},
+
+{
+uz:"🎯 3 xil qurol bilan 3 xil masofada boshga zarba ber.",
+ru:"🎯 Сделай хедшоты из 3 разных видов оружия на 3 разных дистанциях.",
+en:"🎯 Get headshots with 3 different weapons at 3 different distances."
+},
+
+{
+uz:"🏆 5 ta boshga zarba ber, 5 ta raqibni yo‘q qil va Top-3 ga kir.",
+ru:"🏆 Сделай 5 хедшотов, устрани 5 противников и попади в топ-3.",
+en:"🏆 Get 5 headshots, 5 eliminations, and reach the top 3."
+},
+
+{
+uz:"💀 10 ta raqibni yo‘q qil va hech qachon optika ishlatma.",
+ru:"💀 Устрани 10 противников и ни разу не используй прицел.",
+en:"💀 Eliminate 10 enemies without using a scope."
+},
+
+{
+uz:"🔥 10 ta raqibni faqat boshga zarbalar bilan yo‘q qil.",
+ru:"🔥 Устрани 10 противников только выстрелами в голову.",
+en:"🔥 Eliminate 10 enemies using only headshots."
+},
+
+{
+uz:"🎯 5 xil qurol bilan bittadan raqibni boshga zarba bilan yo‘q qil.",
+ru:"🎯 Устрани по одному противнику хедшотом из 5 разных видов оружия.",
+en:"🎯 Get one headshot elimination with each of 5 different weapons."
+},
+
+{
+uz:"💀 Snayper bilan 3 ta raqibni yo‘q qil va birorta o‘qni boshdan boshqa joyga tekkizma.",
+ru:"💀 Устрани 3 противников из снайперской винтовки и не попади ни разу ниже головы.",
+en:"💀 Eliminate 3 enemies with a sniper rifle without hitting anywhere except the head."
+},
+
+{
+uz:"🔥 Faqat bitta qurol bilan 7 ta raqibni yo‘q qil va Top-3 ga kir.",
+ru:"🔥 Устрани 7 противников только из одного оружия и попади в топ-3.",
+en:"🔥 Get 7 eliminations using only one weapon and reach the top 3."
+},
+
+{
+uz:"🎯 Birinchi topgan quroling bilan butun o‘yinni o‘yna va 6 ta raqibni yo‘q qil.",
+ru:"🎯 Играй всю игру только с первым найденным оружием и устрани 6 противников.",
+en:"🎯 Use only the first weapon you find and get 6 eliminations."
+},
+
+{
+uz:"💀 Qurolni almashtirmasdan 5 ta raqibni yo‘q qil.",
+ru:"💀 Устрани 5 противников, не меняя оружие.",
+en:"💀 Eliminate 5 enemies without switching weapons."
+},
+
+{
+uz:"🏆 0 ta transport vositasidan foydalanib g‘alaba qozon va kamida 7 ta raqibni yo‘q qil.",
+ru:"🏆 Победи без использования транспорта и устрани минимум 7 противников.",
+en:"🏆 Win without using any vehicle and get at least 7 eliminations."
+},
+
+{
+uz:"🔥 Faqat yugurib harakatlanib, transport ishlatmasdan Top-3 ga kir.",
+ru:"🔥 Попади в топ-3, передвигаясь только бегом и не используя транспорт.",
+en:"🔥 Reach the top 3 using only running and no vehicles."
+},
+
+{
+uz:"💀 G‘alaba qozon, lekin butun o‘yin davomida hech qanday davolovchi buyum ishlatma.",
+ru:"💀 Победи, не используя ни одного лечебного предмета за всю игру.",
+en:"💀 Win without using any healing item during the entire match."
+},
+
+{
+uz:"🎯 Faqat boshga zarba bilan 5 ta raqibni yo‘q qil va g‘alaba qozon.",
+ru:"🎯 Устрани 5 противников только хедшотами и победи.",
+en:"🎯 Get 5 eliminations using only headshots and win."
+},
+
+{
+uz:"🔥 3 ta raqibni ketma-ket 3 xil qurol bilan yo‘q qil.",
+ru:"🔥 Устрани 3 противников подряд из 3 разных видов оружия.",
+en:"🔥 Eliminate 3 enemies consecutively with 3 different weapons."
+},
+
+{
+uz:"💀 4 ta raqibni ketma-ket har safar boshqa qurol bilan yo‘q qil.",
+ru:"💀 Устрани 4 противников подряд, каждый раз используя другое оружие.",
+en:"💀 Eliminate 4 enemies consecutively using a different weapon each time."
+},
+
+{
+uz:"🎯 Bitta o‘yinda 3 ta 200 metrlik boshga zarba ber.",
+ru:"🎯 Сделай 3 хедшота с расстояния 200 метров за одну игру.",
+en:"🎯 Get 3 headshots from 200 meters in one match."
+},
+
+{
+uz:"💀 Bitta o‘yinda 2 ta 300 metrlik boshga zarba ber.",
+ru:"💀 Сделай 2 хедшота с расстояния 300 метров за одну игру.",
+en:"💀 Get 2 headshots from 300 meters in one match."
+},
+
+{
+uz:"🔥 150 metr yoki undan uzoq masofadan 5 ta raqibni yo‘q qil.",
+ru:"🔥 Устрани 5 противников с расстояния 150 метров или дальше.",
+en:"🔥 Eliminate 5 enemies from 150 meters or farther."
+},
+
+{
+uz:"🎯 100 metr yoki undan uzoq masofadan faqat boshga zarba bilan 5 ta raqibni yo‘q qil.",
+ru:"🎯 Устрани 5 противников хедшотами с расстояния 100 метров или дальше.",
+en:"🎯 Get 5 headshot eliminations from 100 meters or farther."
+},
+
+{
+uz:"💀 3 ta raqibni 100 metr masofadan optikasiz yo‘q qil.",
+ru:"💀 Устрани 3 противников с 100 метров без прицела.",
+en:"💀 Eliminate 3 enemies from 100 meters without a scope."
+},
+
+{
+uz:"🔥 5 ta raqibni optikasiz yo‘q qil va Top-5 ga kir.",
+ru:"🔥 Устрани 5 противников без прицела и попади в топ-5.",
+en:"🔥 Eliminate 5 enemies without a scope and reach the top 5."
+},
+
+{
+uz:"🎯 Faqat uzoq masofadan o‘q uzib 5 ta raqibni yo‘q qil.",
+ru:"🎯 Устрани 5 противников, стреляя только с дальней дистанции.",
+en:"🎯 Eliminate 5 enemies using only long-range attacks."
+},
+
+{
+uz:"💀 Birorta yaqin masofadagi jangga kirmasdan Top-3 ga kir.",
+ru:"💀 Попади в топ-3, не участвуя ни в одном ближнем бою.",
+en:"💀 Reach the top 3 without taking part in any close-range fight."
+},
+
+{
+uz:"🔥 Faqat bitta qurol turidan foydalanib 10 ta raqibni yo‘q qil.",
+ru:"🔥 Устрани 10 противников, используя только один тип оружия.",
+en:"🔥 Eliminate 10 enemies using only one weapon type."
+},
+
+{
+uz:"🏆 12 ta raqibni yo‘q qil va g‘alaba qozon.",
+ru:"🏆 Устрани 12 противников и победи.",
+en:"🏆 Get 12 eliminations and win."
+},
+
+{
+uz:"💀 15 ta raqibni yo‘q qil.",
+ru:"💀 Устрани 15 противников.",
+en:"💀 Get 15 eliminations."
+},
+
+{
+uz:"🎯 8 ta boshga zarba va 10 ta raqibni yo‘q qilish bilan Top-3 ga kir.",
+ru:"🎯 Сделай 8 хедшотов, устрани 10 противников и попади в топ-3.",
+en:"🎯 Get 8 headshots, 10 eliminations, and reach the top 3."
+},
+
+{
+uz:"🔥 0 ta granata, 0 ta transport va 0 ta davolovchi buyum bilan Top-3 ga kir.",
+ru:"🔥 Попади в топ-3 без гранат, транспорта и лечебных предметов.",
+en:"🔥 Reach the top 3 without grenades, vehicles, or healing items."
+},
+
+{
+uz:"💀 5 ta raqibni faqat boshga zarba bilan yo‘q qil, birorta tana zarbasi qilma.",
+ru:"💀 Устрани 5 противников только хедшотами, не попав ни разу в тело.",
+en:"💀 Eliminate 5 enemies using only headshots without body shots."
+},
+
+{
+uz:"🎯 Birinchi 10 daqiqada 5 ta boshga zarba ber.",
+ru:"🎯 Сделай 5 хедшотов в первые 10 минут.",
+en:"🎯 Get 5 headshots in the first 10 minutes."
+},
+
+{
+uz:"🔥 O‘yinning dastlabki 5 daqiqasida 3 ta raqibni yo‘q qil va Top-5 ga kir.",
+ru:"🔥 Устрани 3 противников в первые 5 минут и попади в топ-5.",
+en:"🔥 Eliminate 3 enemies in the first 5 minutes and reach the top 5."
+},
+
+{
+uz:"💀 0 ta kill bilan oxirgi 10 ta o‘yinchigacha yetib bor, keyin 5 ta raqibni yo‘q qil.",
+ru:"💀 Доживи до последних 10 игроков без убийств, затем устрани 5 противников.",
+en:"💀 Reach the final 10 players with zero eliminations, then get 5 eliminations."
+},
+
+{
+uz:"🎯 3 xil qurolning har biri bilan 100 metrdan boshga zarba ber.",
+ru:"🎯 Сделай хедшот с 100 метров из каждого из 3 разных видов оружия.",
+en:"🎯 Get a 100-meter headshot with each of 3 different weapons."
+},
+
+{
+uz:"🔥 3 ta raqibni ketma-ket faqat boshga zarba bilan yo‘q qil.",
+ru:"🔥 Устрани 3 противников подряд только хедшотами.",
+en:"🔥 Eliminate 3 enemies consecutively using only headshots."
+},
+
+{
+uz:"💀 5 ta raqibni ketma-ket yo‘q qil, har birida boshqa qurol ishlat.",
+ru:"💀 Устрани 5 противников подряд, используя новое оружие для каждого.",
+en:"💀 Eliminate 5 enemies consecutively using a different weapon each time."
+},
+
+{
+uz:"🎯 200 metr masofadan optikasiz harakatlanayotgan raqibni boshidan ur.",
+ru:"🎯 Сделай хедшот по движущемуся противнику с 200 метров без прицела.",
+en:"🎯 Headshot a moving enemy from 200 meters without a scope."
+},
+
+{
+uz:"💀 Kar98K bilan optikasiz 3 ta raqibni yo‘q qil va Top-5 ga kir.",
+ru:"💀 Устрани 3 противников из Kar98K без прицела и попади в топ-5.",
+en:"💀 Eliminate 3 enemies with a Kar98K without a scope and reach the top 5."
+},
+
+{
+uz:"🔥 AWM bilan 3 ta boshga zarba ber va hech kim seni yiqitmasin.",
+ru:"🔥 Сделай 3 хедшота из AWM и ни разу не будь нокаутирован.",
+en:"🔥 Get 3 AWM headshots without being knocked down."
+},
+
+{
+uz:"🎯 M416 bilan 200 metr masofadan 3 ta raqibni yo‘q qil.",
+ru:"🎯 Устрани 3 противников из M416 с расстояния 200 метров.",
+en:"🎯 Eliminate 3 enemies with an M416 from 200 meters."
+},
+
+{
+uz:"💀 AKM bilan 150 metr masofadan 5 ta raqibni yo‘q qil.",
+ru:"💀 Устрани 5 противников из AKM с расстояния 150 метров.",
+en:"💀 Eliminate 5 enemies with an AKM from 150 meters."
+},
+
+{
+uz:"🔥 Crossbow bilan 2 ta boshga zarba ber va Top-10 ga kir.",
+ru:"🔥 Сделай 2 хедшота из арбалета и попади в топ-10.",
+en:"🔥 Get 2 crossbow headshots and reach the top 10."
+},
+
+{
+uz:"🎯 Shotgun bilan 3 ta raqibni 50 metr yoki undan uzoq masofadan yo‘q qil.",
+ru:"🎯 Устрани 3 противников из дробовика с расстояния 50 метров или дальше.",
+en:"🎯 Eliminate 3 enemies with a shotgun from 50 meters or farther."
+},
+
+{
+uz:"💀 Pistolet bilan 3 ta raqibni 100 metr yoki undan uzoq masofadan yo‘q qil.",
+ru:"💀 Устрани 3 противников из пистолета с расстояния 100 метров или дальше.",
+en:"💀 Eliminate 3 enemies with a pistol from 100 meters or farther."
+},
+
+/* SKORPION — FAQAT 3 TA */
+
+{
+uz:"🎯 Skorpion bilan 200 metr masofadan optikasiz boshga zarba ber.",
+ru:"🎯 Сделай хедшот из Skorpion с расстояния 200 метров без прицела.",
+en:"🎯 Get a 200-meter Skorpion headshot without a scope."
+},
+
+{
+uz:"💀 Skorpion bilan 150 metr masofadan 3 ta raqibni optikasiz yo‘q qil.",
+ru:"💀 Устрани 3 противников из Skorpion с 150 метров без прицела.",
+en:"💀 Eliminate 3 enemies with a Skorpion from 150 meters without a scope."
+},
+
+{
+uz:"🔥 Skorpion bilan 200 metr masofadan boshga zarba ber, yana 5 ta raqibni yo‘q qil va Top-3 ga kir.",
+ru:"🔥 Сделай хедшот из Skorpion с 200 метров, устрани ещё 5 противников и попади в топ-3.",
+en:"🔥 Get a 200-meter Skorpion headshot, eliminate 5 more enemies, and reach the top 3."
+},
+
+/* ENG OXIRGI SINOVLAR */
+
+{
+uz:"💀 10 ta raqibni yo‘q qil, kamida 5 tasi boshga zarba bo‘lsin va Top-3 ga kir.",
+ru:"💀 Устрани 10 противников, минимум 5 из них хедшотами, и попади в топ-3.",
+en:"💀 Get 10 eliminations, at least 5 by headshot, and reach the top 3."
+},
+
+{
+uz:"🔥 5 xil qurol bilan raqiblarni yo‘q qil, har bir qurolda kamida bitta boshga zarba bo‘lsin.",
+ru:"🔥 Устрани противников из 5 разных видов оружия, сделав минимум один хедшот каждым.",
+en:"🔥 Get eliminations with 5 different weapons, including at least one headshot with each."
+},
+
+{
+uz:"💀 Bir o‘yinda 3 ta boshga zarbani 200 metr, 250 metr va 300 metr masofalardan bajar.",
+ru:"💀 Сделай хедшоты с 200, 250 и 300 метров за одну игру.",
+en:"💀 Get headshots from 200, 250, and 300 meters in one match."
+},
+
+{
+uz:"🎯 Optikasiz 5 ta raqibni yo‘q qil, ulardan kamida 2 tasi boshga zarba bo‘lsin va Top-3 ga kir.",
+ru:"🎯 Устрани 5 противников без прицела, минимум 2 хедшотами, и попади в топ-3.",
+en:"🎯 Eliminate 5 enemies without scopes, with at least 2 headshots, and reach the top 3."
+},
+
+{
+uz:"💀 3 ta raqibni 150 metrdan uzoq masofada yo‘q qil, keyin yaqin masofada yana 3 tasini yo‘q qil.",
+ru:"💀 Устрани 3 противников с расстояния более 150 метров, затем ещё 3 в ближнем бою.",
+en:"💀 Eliminate 3 enemies from over 150 meters, then 3 more at close range."
+},
+
+{
+uz:"🔥 7 ta raqibni yo‘q qil, 4 xil qurol ishlat va Top-3 ga kir.",
+ru:"🔥 Устрани 7 противников, используй 4 разных оружия и попади в топ-3.",
+en:"🔥 Get 7 eliminations, use 4 different weapons, and reach the top 3."
+},
+
+{
+uz:"💀 12 ta raqibni yo‘q qil, 6 ta boshga zarba ber va g‘alaba qozon.",
+ru:"💀 Устрани 12 противников, сделай 6 хедшотов и победи.",
+en:"💀 Get 12 eliminations, 6 headshots, and win."
+},
+
+{
+uz:"🏆 15 ta raqibni yo‘q qil va g‘alaba qozon. Hech qanday transport ishlatma.",
+ru:"🏆 Устрани 15 противников и победи. Не используй транспорт.",
+en:"🏆 Get 15 eliminations and win without using any vehicle."
+},
+
+{
+uz:"💀 MUTLAQ SINOV: 10 ta raqibni yo‘q qil, 5 ta boshga zarba ber, optika ishlatma va Top-3 ga kir.",
+ru:"💀 АБСОЛЮТНОЕ ИСПЫТАНИЕ: устрани 10 противников, сделай 5 хедшотов, не используй прицел и попади в топ-3.",
+en:"💀 ULTIMATE CHALLENGE: get 10 eliminations, 5 headshots, use no scopes, and reach the top 3."
+},
+
+{
+uz:"🔥 YAKUNIY SINOV: 12 ta raqibni yo‘q qil, 3 xil qurol bilan boshga zarba ber, 200 metrdan kam bo‘lmagan masofada bitta boshga zarba qil va g‘alaba qozon.",
+ru:"🔥 ФИНАЛЬНОЕ ИСПЫТАНИЕ: устрани 12 противников, сделай хедшоты из 3 разных видов оружия, один хедшот с расстояния не менее 200 метров и победи.",
+en:"🔥 FINAL CHALLENGE: get 12 eliminations, headshots with 3 different weapons, one headshot from at least 200 meters, and win."
+}
+
+];
+
+
+let language = localStorage.getItem("randomMissionLanguage") || "uz";
+let mode = "normal";
+let completed = 0;
+
+
+/* =========================
+   TILNI O‘ZGARTIRISH
+========================= */
+
+function changeLanguage(lang) {
+
+    language = lang;
+
+    localStorage.setItem("randomMissionLanguage", lang);
+
+    document.querySelectorAll(".lang").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    document.querySelector(
+        `.lang[onclick="changeLanguage('${lang}')"]`
+    ).classList.add("active");
+
+    updateInterface();
+}
+
+
+/* =========================
+   INTERFEYS
+========================= */
+
+function updateInterface() {
+
+    const t = translations[language];
+
+    document.getElementById("homeBtn").textContent = t.home;
+    document.getElementById("subtitle").textContent = t.subtitle;
+
+    document.getElementById("normalBtn").textContent = t.normal;
+    document.getElementById("hardBtn").textContent = t.hard;
+
+    document.getElementById("newBtn").textContent = t.newMission;
+
+    document.getElementById("modeName").textContent =
+        mode === "normal" ? t.normalMission : t.hardMission;
+
+    document.getElementById("counterText").textContent =
+        t.counter + completed;
+}
+
+
+/* =========================
+   REJIM
+========================= */
+
+function setMode(selectedMode) {
+
+    mode = selectedMode;
+
+    document.getElementById("normalBtn")
+        .classList.toggle("active", mode === "normal");
+
+    document.getElementById("hardBtn")
+        .classList.toggle("active", mode === "hard");
+
+    completed = 0;
+
+    updateInterface();
+
+    newChallenge();
+}
+
+
+/* =========================
+   TASODIFIY TOPSHIRIQ
+========================= */
+
+function newChallenge() {
+
+    const missions =
+        mode === "normal"
+            ? normalMissions
+            : hardMissions;
+
+    const randomIndex =
+        Math.floor(Math.random() * missions.length);
+
+    const mission = missions[randomIndex];
+
+    document.getElementById("mission").textContent =
+        mission[language];
+
+    completed++;
+
+    const t = translations[language];
+
+    document.getElementById("counterText").textContent =
+        t.counter + completed;
+}
+
+
+/* =========================
+   BOSHLANG‘ICH HOLAT
+========================= */
+
+updateInterface();
+newChallenge();
+
+</script>
+
+</body>
+</html>
