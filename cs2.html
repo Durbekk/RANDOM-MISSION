@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS2 - Random Mission</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0b0b12;
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 7%;
+    border-bottom:1px solid #252532;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.language{
+    display:flex;
+    gap:7px;
+}
+
+.language button{
+    padding:8px 11px;
+    border:1px solid #333341;
+    border-radius:8px;
+    background:#151520;
+    color:#aaa;
+    cursor:pointer;
+}
+
+.language button.active,
+.language button:hover{
+    background:white;
+    color:black;
+}
+
+main{
+    max-width:950px;
+    margin:auto;
+    padding:50px 20px;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.icon{
+    font-size:55px;
+    margin-bottom:12px;
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#999;
+}
+
+.modes{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.mode-btn{
+    border:1px solid #333341;
+    background:#151520;
+    color:#aaa;
+    border-radius:12px;
+    padding:12px 20px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.mode-btn:hover{
+    transform:translateY(-2px);
+}
+
+.mode-btn.active{
+    background:white;
+    color:black;
+}
+
+.mode-description{
+    text-align:center;
+    color:#777;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.mission-box{
+    background:#151520;
+    border:1px solid #292936;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+}
+
+.difficulty{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    background:#242431;
+    color:#aaa;
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+.mission-number{
+    color:#777;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.mission{
+    font-size:23px;
+    line-height:1.5;
+    min-height:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.3s;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    margin-top:30px;
+}
+
+.main-btn{
+    border:none;
+    border-radius:12px;
+    padding:13px 24px;
+    background:white;
+    color:black;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.main-btn:hover{
+    transform:translateY(-2px);
+    opacity:.9;
+}
+
+.back{
+    display:block;
+    width:fit-content;
+    margin:25px auto 0;
+    color:#888;
+    text-decoration:none;
+}
+
+.back:hover{
+    color:white;
+}
+
+@media(max-width:600px){
+    header{
+        padding:18px 20px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    main{
+        padding:35px 15px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .mission{
+        font-size:19px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+Random Mission
+</div>
+
+<div class="language">
+<button id="uzBtn" onclick="changeLanguage('uz')">🇺🇿 UZ</button>
+<button id="ruBtn" onclick="changeLanguage('ru')">🇷🇺 RU</button>
+<button id="enBtn" onclick="changeLanguage('en')">🇬🇧 EN</button>
+</div>
+
+</header>
+
+<main>
+
+<section class="hero">
+
+<div class="icon">🔫</div>
+
+<h1 id="title">CS2</h1>
+
+<p id="subtitle">
+Counter-Strike 2 uchun random topshiriqlar
+</p>
+
+</section>
+
+<div class="modes">
+
+<button class="mode-btn active"
+id="easyBtn"
+onclick="setDifficulty('easy')">
+🟢 Oddiy
+</button>
+
+<button class="mode-btn"
+id="hardBtn"
+onclick="setDifficulty('hard')">
+🔴 Qiyin
+</button>
+
+<button class="mode-btn"
+id="impossibleBtn"
+onclick="setDifficulty('impossible')">
+☠️ Impossible
+</button>
+
+</div>
+
+<div class="mode-description" id="modeDescription">
+Oddiy darajadagi topshiriqlar.
+</div>
+
+<section class="mission-box">
+
+<div class="difficulty" id="difficultyLabel">
+🟢 ODDIY
+</div>
+
+<div class="mission-number" id="missionNumber">
+Topshiriq #1
+</div>
+
+<div class="mission" id="mission">
+Boshlash uchun tugmani bosing
+</div>
+
+<div class="buttons">
+<button class="main-btn"
+id="randomBtn"
+onclick="randomMission()">
+🎲 Tasodifiy topshiriq
+</button>
+</div>
+
+</section>
+
+<a class="back" href="index.html" id="back">
+← Bosh sahifaga qaytish
+</a>
+
+</main>
+
+<script>
+
+const translations={
+
+uz:{
+title:"CS2",
+subtitle:"Counter-Strike 2 uchun random topshiriqlar",
+
+easy:"🟢 Oddiy",
+hard:"🔴 Qiyin",
+impossible:"☠️ Impossible",
+
+easyDesc:"Oddiy darajadagi topshiriqlar.",
+hardDesc:"Qiyin darajadagi topshiriqlar.",
+impossibleDesc:"Eng yuqori daraja — taxminan 5% o‘yinchi bajara oladigan challenge'lar.",
+
+easyLabel:"🟢 ODDIY",
+hardLabel:"🔴 QIYIN",
+impossibleLabel:"☠️ IMPOSSIBLE",
+
+button:"🎲 Tasodifiy topshiriq",
+back:"← Bosh sahifaga qaytish",
+number:"Topshiriq",
+start:"Boshlash uchun tugmani bosing",
+
+missions:{
+
+easy:[
+
+"Bir roundda 2 ta kill qiling.",
+
+"AK-47 bilan bitta headshot kill qiling.",
+
+"M4A1-S yoki M4A4 bilan 2 ta kill qiling.",
+
+"Round davomida o‘lmasdan 2 ta kill qiling.",
+
+"Bir roundda grenade bilan damage bering.",
+
+"Bombani plant qiling.",
+
+"Bombani defuse qiling.",
+
+"Deagle bilan kill qiling.",
+
+"AWP bilan bitta kill qiling.",
+
+"SMG bilan 2 ta kill qiling.",
+
+"Pistol roundda kamida 1 ta kill qiling.",
+
+"Bir roundda assist oling.",
+
+"Flash yordamida raqibga damage yoki kill qiling.",
+
+"Shotgun bilan bitta kill qiling.",
+
+"Roundni MVP bo‘lib yakunlashga harakat qiling."
+
+],
+
+hard:[
+
+"Bir roundda 4 ta kill qiling.",
+
+"Faqat headshot bilan 3 ta kill qiling.",
+
+"AWP bilan ketma-ket 2 ta kill qiling.",
+
+"Deagle bilan 3 ta kill qiling.",
+
+"AK-47 bilan 4 ta kill qiling.",
+
+"M4 bilan 4 ta kill qiling.",
+
+"Bir roundda kill va bomb plant qiling.",
+
+"Bir roundda kill va bomb defuse qiling.",
+
+"Granata yordamida kill qiling.",
+
+"Flashdan keyin raqibni kill qiling.",
+
+"Bir roundda 3 xil qurol bilan kill qiling.",
+
+"Faqat pistol bilan 3 ta kill qiling.",
+
+"AWP bilan headshot qiling va roundni yuting.",
+
+"Bir roundda 3 ta headshot qiling.",
+
+"Ikki round ketma-ket birinchi killni oling.",
+
+"Bir roundda 4 ta raqibni turli pozitsiyalardan kill qiling.",
+
+"Scout bilan 2 ta kill qiling.",
+
+"Deagle bilan headshot qilib roundni yuting.",
+
+"Bir roundda grenade damage va 3 ta kill qiling.",
+
+"10 ta killga o‘limsiz erishishga harakat qiling."
+
+],
+
+impossible:[
+
+"Bir roundda 5 ta kill qiling.",
+
+"Faqat Deagle bilan 5 ta kill qiling.",
+
+"Faqat AWP bilan 5 ta kill qiling.",
+
+"Bir roundda 4 ta headshot kill qiling.",
+
+"AWP bilan ketma-ket 4 ta kill qiling.",
+
+"Deagle bilan ketma-ket 4 ta headshot qiling.",
+
+"Bir roundda 4 xil qurol bilan kill qiling.",
+
+"Granata bilan kill qilib, keyin yana 4 ta kill qiling.",
+
+"Bir roundda 5 ta raqibni o‘zingiz eliminatsiya qiling.",
+
+"3 ta round ketma-ket birinchi killni oling.",
+
+"3 ta round ketma-ket 3+ kill qiling.",
+
+"Faqat pistol bilan butun roundni yutib, kamida 4 ta kill qiling.",
+
+"AWP bilan 5 ta kill qilib, birortasini bodyshot qilmaslikka harakat qiling.",
+
+"Bir roundda 4 ta headshot va bomb plant qiling.",
+
+"Bir matchda 30+ killga erishing.",
+
+"Bir matchda 15+ headshot qiling.",
+
+"Bir matchda kamida 3 ta clutch yutishga harakat qiling.",
+
+"1v3 yoki undan qiyin clutch yuting.",
+
+"1v4 clutch yuting.",
+
+"1v5 clutch yuting."
+
+]
+
+}
+
+},
+
+ru:{
+title:"CS2",
+subtitle:"Случайные задания для Counter-Strike 2",
+
+easy:"🟢 Обычный",
+hard:"🔴 Сложный",
+impossible:"☠️ Impossible",
+
+easyDesc:"Задания обычного уровня.",
+hardDesc:"Сложные задания.",
+impossibleDesc:"Максимальный уровень — задания примерно для 5% игроков.",
+
+easyLabel:"🟢 ОБЫЧНЫЙ",
+hardLabel:"🔴 СЛОЖНЫЙ",
+impossibleLabel:"☠️ IMPOSSIBLE",
+
+button:"🎲 Случайное задание",
+back:"← Вернуться на главную",
+number:"Задание",
+start:"Нажмите кнопку, чтобы начать",
+
+missions:{
+
+easy:[
+"Сделайте 2 убийства за раунд.",
+"Сделайте убийство в голову с AK-47.",
+"Сделайте 2 убийства с M4A1-S или M4A4.",
+"Сделайте 2 убийства, не погибнув.",
+"Нанесите урон гранатой.",
+"Установите бомбу.",
+"Обезвредьте бомбу.",
+"Сделайте убийство с Deagle.",
+"Сделайте убийство с AWP.",
+"Сделайте 2 убийства с SMG.",
+"Сделайте хотя бы одно убийство в пистолетном раунде.",
+"Получите ассист за раунд.",
+"Получите убийство после использования Flash.",
+"Сделайте убийство с дробовика.",
+"Постарайтесь закончить раунд MVP."
+],
+
+hard:[
+"Сделайте 4 убийства за раунд.",
+"Сделайте 3 убийства только в голову.",
+"Сделайте 2 последовательных убийства с AWP.",
+"Сделайте 3 убийства с Deagle.",
+"Сделайте 4 убийства с AK-47.",
+"Сделайте 4 убийства с M4.",
+"Сделайте убийство и установите бомбу.",
+"Сделайте убийство и обезвредьте бомбу.",
+"Сделайте убийство с помощью гранаты.",
+"Сделайте убийство после Flash.",
+"Сделайте убийства из 3 разных видов оружия за раунд.",
+"Сделайте 3 убийства только с пистолета.",
+"Сделайте хедшот с AWP и выиграйте раунд.",
+"Сделайте 3 хедшота за раунд.",
+"Получите первый килл в двух раундах подряд.",
+"Сделайте 4 убийства с разных позиций.",
+"Сделайте 2 убийства со Scout.",
+"Сделайте хедшот с Deagle и выиграйте раунд.",
+"Нанесите урон гранатой и сделайте 3 убийства.",
+"Попробуйте сделать 10 убийств без смерти."
+],
+
+impossible:[
+"Сделайте 5 убийств за раунд.",
+"Сделайте 5 убийств только с Deagle.",
+"Сделайте 5 убийств только с AWP.",
+"Сделайте 4 убийства в голову за раунд.",
+"Сделайте 4 последовательных убийства с AWP.",
+"Сделайте 4 последовательных хедшота с Deagle.",
+"Сделайте убийства из 4 разных видов оружия за раунд.",
+"Сделайте убийство гранатой и ещё 4 убийства.",
+"Самостоятельно устраните всех 5 противников за раунд.",
+"Получите первый килл в 3 раундах подряд.",
+"Сделайте 3+ убийства в 3 раундах подряд.",
+"Выиграйте раунд только с пистолетом и сделайте минимум 4 убийства.",
+"Сделайте 5 убийств с AWP без bodyshot.",
+"Сделайте 4 хедшота и установите бомбу за один раунд.",
+"Наберите 30+ убийств за матч.",
+"Наберите 15+ хедшотов за матч.",
+"Выиграйте минимум 3 clutch за матч.",
+"Выиграйте clutch 1v3 или сложнее.",
+"Выиграйте clutch 1v4.",
+"Выиграйте clutch 1v5."
+]
+
+}
+
+},
+
+en:{
+title:"CS2",
+subtitle:"Random Counter-Strike 2 challenges",
+
+easy:"🟢 Normal",
+hard:"🔴 Hard",
+impossible:"☠️ Impossible",
+
+easyDesc:"Normal difficulty challenges.",
+hardDesc:"Hard challenges.",
+impossibleDesc:"Maximum difficulty — challenges roughly 5% of players could complete.",
+
+easyLabel:"🟢 NORMAL",
+hardLabel:"🔴 HARD",
+impossibleLabel:"☠️ IMPOSSIBLE",
+
+button:"🎲 Random Mission",
+back:"← Back to Home",
+number:"Mission",
+start:"Press the button to start",
+
+missions:{
+
+easy:[
+"Get 2 kills in one round.",
+"Get an AK-47 headshot kill.",
+"Get 2 kills with an M4A1-S or M4A4.",
+"Get 2 kills without dying.",
+"Deal damage with a grenade.",
+"Plant the bomb.",
+"Defuse the bomb.",
+"Get a kill with the Deagle.",
+"Get a kill with the AWP.",
+"Get 2 SMG kills.",
+"Get at least 1 kill during a pistol round.",
+"Get an assist in a round.",
+"Get a kill after using a flash.",
+"Get a shotgun kill.",
+"Try to finish the round as MVP."
+],
+
+hard:[
+"Get 4 kills in one round.",
+"Get 3 headshot kills.",
+"Get 2 consecutive AWP kills.",
+"Get 3 Deagle kills.",
+"Get 4 AK-47 kills.",
+"Get 4 M4 kills.",
+"Get a kill and plant the bomb in one round.",
+"Get a kill and defuse the bomb in one round.",
+"Get a grenade kill.",
+"Get a kill after a flash.",
+"Get kills with 3 different weapons in one round.",
+"Get 3 kills using only a pistol.",
+"Get an AWP headshot and win the round.",
+"Get 3 headshots in one round.",
+"Get the first kill in two consecutive rounds.",
+"Get 4 kills from different positions.",
+"Get 2 Scout kills.",
+"Get a Deagle headshot and win the round.",
+"Deal grenade damage and get 3 kills.",
+"Try to get 10 kills without dying."
+],
+
+impossible:[
+"Get 5 kills in one round.",
+"Get 5 kills using only the Deagle.",
+"Get 5 kills using only the AWP.",
+"Get 4 headshot kills in one round.",
+"Get 4 consecutive AWP kills.",
+"Get 4 consecutive Deagle headshots.",
+"Get kills with 4 different weapons in one round.",
+"Get a grenade kill and then 4 more kills.",
+"Eliminate all 5 enemies yourself in one round.",
+"Get the first kill in 3 consecutive rounds.",
+"Get 3+ kills in 3 consecutive rounds.",
+"Win a round with only a pistol and get at least 4 kills.",
+"Get 5 AWP kills without a bodyshot.",
+"Get 4 headshots and plant the bomb in one round.",
+"Get 30+ kills in one match.",
+"Get 15+ headshots in one match.",
+"Win at least 3 clutches in one match.",
+"Win a 1v3 or harder clutch.",
+"Win a 1v4 clutch.",
+"Win a 1v5 clutch."
+]
+
+}
+
+}
+
+};
+
+let currentLanguage=
+localStorage.getItem("randomMissionLanguage")||"uz";
+
+let difficulty="easy";
+
+let usedMissions={
+easy:[],
+hard:[],
+impossible:[]
+};
+
+let missionCounter=0;
+
+function changeLanguage(language){
+
+currentLanguage=language;
+
+localStorage.setItem(
+"randomMissionLanguage",
+language
+);
+
+applyLanguage(language);
+
+}
+
+function setDifficulty(mode){
+
+difficulty=mode;
+
+document.querySelectorAll(".mode-btn")
+.forEach(btn=>btn.classList.remove("active"));
+
+document.getElementById(mode+"Btn")
+.classList.add("active");
+
+const t=translations[currentLanguage];
+
+document.getElementById("modeDescription")
+.textContent=t[mode+"Desc"];
+
+document.getElementById("difficultyLabel")
+.textContent=t[mode+"Label"];
+
+usedMissions[mode]=[];
+
+missionCounter=0;
+
+document.getElementById("missionNumber")
+.textContent=t.number+" #1";
+
+document.getElementById("mission")
+.textContent=t.start;
+
+}
+
+function applyLanguage(language){
+
+const t=translations[language];
+
+document.documentElement.lang=language;
+
+document.getElementById("title")
+.textContent=t.title;
+
+document.getElementById("subtitle")
+.textContent=t.subtitle;
+
+document.getElementById("easyBtn")
+.textContent=t.easy;
+
+document.getElementById("hardBtn")
+.textContent=t.hard;
+
+document.getElementById("impossibleBtn")
+.textContent=t.impossible;
+
+document.getElementById("modeDescription")
+.textContent=t[difficulty+"Desc"];
+
+document.getElementById("difficultyLabel")
+.textContent=t[difficulty+"Label"];
+
+document.getElementById("randomBtn")
+.textContent=t.button;
+
+document.getElementById("back")
+.textContent=t.back;
+
+if(missionCounter===0){
+
+document.getElementById("mission")
+.textContent=t.start;
+
+document.getElementById("missionNumber")
+.textContent=t.number+" #1";
+
+}
+
+document.querySelectorAll(".language button")
+.forEach(btn=>btn.classList.remove("active"));
+
+document.getElementById(language+"Btn")
+.classList.add("active");
+
+}
+
+function randomMission(){
+
+const t=translations[currentLanguage];
+
+const missions=t.missions[difficulty];
+
+if(usedMissions[difficulty].length>=missions.length){
+usedMissions[difficulty]=[];
+}
+
+const available=missions
+.map((_,index)=>index)
+.filter(index=>
+!usedMissions[difficulty].includes(index)
+);
+
+const randomIndex=
+available[
+Math.floor(
+Math.random()*available.length
+)
+];
+
+usedMissions[difficulty].push(randomIndex);
+
+missionCounter++;
+
+const missionElement=
+document.getElementById("mission");
+
+missionElement.style.opacity="0";
+missionElement.style.transform=
+"translateY(15px) scale(.98)";
+
+setTimeout(()=>{
+
+missionElement.textContent=
+missions[randomIndex];
+
+document.getElementById("missionNumber")
+.textContent=
+t.number+" #"+missionCounter;
+
+missionElement.style.opacity="1";
+missionElement.style.transform=
+"translateY(0) scale(1)";
+
+},180);
+
+}
+
+applyLanguage(currentLanguage);
+
+</script>
+
+</body>
+</html>
