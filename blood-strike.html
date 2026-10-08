@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood Strike - Random Mission</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0b12;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 7%;
+    border-bottom: 1px solid #252532;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.language {
+    display: flex;
+    gap: 7px;
+}
+
+.language button {
+    padding: 8px 11px;
+    border: 1px solid #333341;
+    border-radius: 8px;
+    background: #151520;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.language button.active,
+.language button:hover {
+    background: white;
+    color: black;
+}
+
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.hero .icon {
+    font-size: 55px;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #999;
+}
+
+.mission-box {
+    background: #151520;
+    border: 1px solid #292936;
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+}
+
+.mission-number {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.mission {
+    font-size: 23px;
+    line-height: 1.5;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+button.main-btn {
+    border: none;
+    border-radius: 12px;
+    padding: 13px 24px;
+    background: white;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button.main-btn:hover {
+    transform: translateY(-2px);
+    opacity: .9;
+}
+
+.back {
+    display: block;
+    width: fit-content;
+    margin: 25px auto 0;
+    color: #888;
+    text-decoration: none;
+}
+
+.back:hover {
+    color: white;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 18px 20px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    main {
+        padding: 35px 15px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .mission {
+        font-size: 19px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Random Mission</div>
+
+    <div class="language">
+        <button id="uzBtn" onclick="changeLanguage('uz')">🇺🇿 UZ</button>
+        <button id="ruBtn" onclick="changeLanguage('ru')">🇷🇺 RU</button>
+        <button id="enBtn" onclick="changeLanguage('en')">🇬🇧 EN</button>
+    </div>
+</header>
+
+<main>
+
+<section class="hero">
+    <div class="icon">🩸</div>
+
+    <h1 id="title">Blood Strike</h1>
+
+    <p id="subtitle">
+        Blood Strike uchun qiyin random topshiriqlar
+    </p>
+</section>
+
+<section class="mission-box">
+
+    <div class="mission-number" id="missionNumber">
+        Topshiriq #1
+    </div>
+
+    <div class="mission" id="mission">
+        Boshlash uchun tugmani bosing
+    </div>
+
+    <div class="buttons">
+        <button class="main-btn" id="randomBtn" onclick="randomMission()">
+            🎲 Tasodifiy topshiriq
+        </button>
+    </div>
+
+</section>
+
+<a class="back" href="index.html" id="back">
+    ← Bosh sahifaga qaytish
+</a>
+
+</main>
+
+<script>
+
+const translations = {
+
+uz: {
+
+title: "Blood Strike",
+
+subtitle: "Blood Strike uchun qiyin random topshiriqlar",
+
+button: "🎲 Tasodifiy topshiriq",
+
+back: "← Bosh sahifaga qaytish",
+
+number: "Topshiriq",
+
+start: "Boshlash uchun tugmani bosing",
+
+missions: [
+
+"Faqat boshga o‘q uzib, 5 ta eliminatsiya qiling.",
+
+"Bir marta ham qayta o‘qlamasdan 3 ta eliminatsiya qiling.",
+
+"Faqat ikkilamchi qurol bilan 4 ta eliminatsiya qiling.",
+
+"Bir match davomida 3 xil quroldan foydalanib eliminatsiya qiling.",
+
+"Faqat hip-fire ishlatib 5 ta eliminatsiya qiling.",
+
+"Bir matchda 2 ta raqibni ketma-ket 5 soniya ichida yo‘q qiling.",
+
+"Snayper bilan ketma-ket 3 ta aniq zarba bering.",
+
+"Raqibni ko‘rganingizdan keyin 3 soniya ichida eliminatsiya qiling.",
+
+"Faqat yaqin masofadagi janglarda 6 ta eliminatsiya qiling.",
+
+"Bir matchda 4 xil qurol bilan kamida bittadan eliminatsiya qiling.",
+
+"Bir marta ham transport vositasidan foydalanmasdan matchni yakunlang.",
+
+"Bir match davomida hech qanday granata ishlatmang.",
+
+"Faqat bitta asosiy quroldan foydalanib matchni yakunlang.",
+
+"3 ta eliminatsiyani ketma-ket boshqa qurolga o‘tmasdan bajaring.",
+
+"Raqibni birinchi ko‘rganingizda imkon qadar tez eliminatsiya qiling.",
+
+"Bir matchda 10 ta eliminatsiyaga erishing.",
+
+"Faqat uzoq masofadan 4 ta eliminatsiya qiling.",
+
+"Yaqin jangda raqibni mag‘lub etib, darhol boshqa raqibga qarshi jangni davom ettiring.",
+
+"Bir match davomida 3 marta ketma-ket eliminatsiya seriyasi qiling.",
+
+"Match davomida kamida 5 ta headshot qiling.",
+
+"Bir matchda 2 xil qurol turidan foydalanib 8 ta eliminatsiya qiling.",
+
+"Raqibga birinchi o‘qni tekkizib, duelni yutib chiqing.",
+
+"3 ta eliminatsiyani ketma-ket o‘zingizga hech qanday yordam bermasdan bajaring.",
+
+"Matchning oxirigacha bir xil asosiy qurolni saqlab qoling.",
+
+"5 ta eliminatsiyani o‘limsiz amalga oshiring."
+]
+
+},
+
+ru: {
+
+title: "Blood Strike",
+
+subtitle: "Сложные случайные задания для Blood Strike",
+
+button: "🎲 Случайное задание",
+
+back: "← Вернуться на главную",
+
+number: "Задание",
+
+start: "Нажмите кнопку, чтобы начать",
+
+missions: [
+
+"Сделайте 5 устранений, используя только попадания в голову.",
+
+"Сделайте 3 устранения без единой перезарядки.",
+
+"Сделайте 4 устранения только из дополнительного оружия.",
+
+"За один матч сделайте устранение из 3 разных видов оружия.",
+
+"Сделайте 5 устранений, используя только стрельбу от бедра.",
+
+"За один матч устраните 2 противников подряд в течение 5 секунд.",
+
+"Снайперской винтовкой сделайте 3 точных попадания подряд.",
+
+"После обнаружения противника устраните его в течение 3 секунд.",
+
+"Сделайте 6 устранений только в ближнем бою.",
+
+"За один матч сделайте хотя бы по одному устранению из 4 разных видов оружия.",
+
+"Завершите матч, ни разу не используя транспорт.",
+
+"Завершите матч без использования гранат.",
+
+"Завершите матч, используя только одно основное оружие.",
+
+"Сделайте 3 устранения подряд, не меняя оружие.",
+
+"После первого обнаружения противника постарайтесь устранить его как можно быстрее.",
+
+"Сделайте 10 устранений за один матч.",
+
+"Сделайте 4 устранения только на дальней дистанции.",
+
+"После победы в ближнем бою сразу продолжите бой со следующим противником.",
+
+"За один матч сделайте 3 серии последовательных устранений.",
+
+"Сделайте минимум 5 попаданий в голову за матч.",
+
+"Сделайте 8 устранений за матч, используя 2 разных типа оружия.",
+
+"Попадите первым выстрелом по противнику и выиграйте дуэль.",
+
+"Сделайте 3 последовательных устранения без помощи союзников.",
+
+"Сохраните одно основное оружие до конца матча.",
+
+"Сделайте 5 устранений, не погибнув."
+]
+
+},
+
+en: {
+
+title: "Blood Strike",
+
+subtitle: "Difficult random challenges for Blood Strike",
+
+button: "🎲 Random Mission",
+
+back: "← Back to Home",
+
+number: "Mission",
+
+start: "Press the button to start",
+
+missions: [
+
+"Get 5 eliminations using only headshots.",
+
+"Get 3 eliminations without reloading once.",
+
+"Get 4 eliminations using only your secondary weapon.",
+
+"Get eliminations with 3 different weapon types in one match.",
+
+"Get 5 eliminations using hip-fire only.",
+
+"Eliminate 2 enemies consecutively within 5 seconds.",
+
+"Get 3 accurate sniper shots in a row.",
+
+"Eliminate an enemy within 3 seconds after spotting them.",
+
+"Get 6 eliminations only in close-range fights.",
+
+"Get at least one elimination with 4 different weapon types in one match.",
+
+"Finish the match without using any vehicle.",
+
+"Finish the match without using grenades.",
+
+"Finish the match using only one primary weapon.",
+
+"Get 3 consecutive eliminations without switching weapons.",
+
+"After spotting an enemy, eliminate them as quickly as possible.",
+
+"Get 10 eliminations in one match.",
+
+"Get 4 eliminations only from long range.",
+
+"After winning a close-range fight, immediately continue fighting another enemy.",
+
+"Get 3 elimination streaks during one match.",
+
+"Get at least 5 headshots in one match.",
+
+"Get 8 eliminations using 2 different weapon types.",
+
+"Hit the enemy first and win the duel.",
+
+"Get 3 consecutive eliminations without assistance from teammates.",
+
+"Keep the same primary weapon until the end of the match.",
+
+"Get 5 eliminations without dying."
+]
+
+}
+
+};
+
+let currentLanguage =
+localStorage.getItem("randomMissionLanguage") || "uz";
+
+let usedMissions = [];
+let missionCounter = 0;
+
+function changeLanguage(language) {
+
+    currentLanguage = language;
+
+    localStorage.setItem(
+        "randomMissionLanguage",
+        language
+    );
+
+    applyLanguage(language);
+}
+
+function applyLanguage(language) {
+
+    const t = translations[language];
+
+    document.documentElement.lang = language;
+
+    document.getElementById("title").textContent =
+        t.title;
+
+    document.getElementById("subtitle").textContent =
+        t.subtitle;
+
+    document.getElementById("randomBtn").textContent =
+        t.button;
+
+    document.getElementById("back").textContent =
+        t.back;
+
+    if (missionCounter === 0) {
+
+        document.getElementById("mission").textContent =
+            t.start;
+
+        document.getElementById("missionNumber").textContent =
+            t.number + " #1";
+
+    } else {
+
+        document.getElementById("missionNumber").textContent =
+            t.number + " #" + missionCounter;
+
+    }
+
+    document.getElementById("uzBtn")
+        .classList.remove("active");
+
+    document.getElementById("ruBtn")
+        .classList.remove("active");
+
+    document.getElementById("enBtn")
+        .classList.remove("active");
+
+    document.getElementById(language + "Btn")
+        .classList.add("active");
+}
+
+function randomMission() {
+
+    const missions =
+        translations[currentLanguage].missions;
+
+    if (usedMissions.length >= missions.length) {
+        usedMissions = [];
+    }
+
+    const available =
+        missions
+        .map((_, index) => index)
+        .filter(index => !usedMissions.includes(index));
+
+    const randomIndex =
+        available[
+            Math.floor(
+                Math.random() * available.length
+            )
+        ];
+
+    usedMissions.push(randomIndex);
+
+    missionCounter++;
+
+    const missionElement =
+        document.getElementById("mission");
+
+    missionElement.style.opacity = "0";
+    missionElement.style.transform = "translateY(15px)";
+
+    setTimeout(() => {
+
+        missionElement.textContent =
+            missions[randomIndex];
+
+        document.getElementById("missionNumber")
+            .textContent =
+            translations[currentLanguage].number
+            + " #"
+            + missionCounter;
+
+        missionElement.style.transition =
+            "0.35s ease";
+
+        missionElement.style.opacity = "1";
+        missionElement.style.transform =
+            "translateY(0)";
+
+    }, 180);
+}
+
+applyLanguage(currentLanguage);
+
+</script>
+
+</body>
+</html>
