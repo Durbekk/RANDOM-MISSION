@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox - Random Mission</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0b0b12;
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 7%;
+    border-bottom:1px solid #252532;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.language{
+    display:flex;
+    gap:7px;
+}
+
+.language button{
+    padding:8px 11px;
+    border:1px solid #333341;
+    border-radius:8px;
+    background:#151520;
+    color:#aaa;
+    cursor:pointer;
+}
+
+.language button.active,
+.language button:hover{
+    background:white;
+    color:black;
+}
+
+main{
+    max-width:950px;
+    margin:auto;
+    padding:50px 20px;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.icon{
+    font-size:55px;
+    margin-bottom:12px;
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#999;
+}
+
+.modes{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.mode-btn{
+    border:1px solid #333341;
+    background:#151520;
+    color:#aaa;
+    border-radius:12px;
+    padding:12px 20px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.mode-btn:hover{
+    transform:translateY(-2px);
+}
+
+.mode-btn.active{
+    background:white;
+    color:black;
+}
+
+.mode-description{
+    text-align:center;
+    color:#777;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.mission-box{
+    background:#151520;
+    border:1px solid #292936;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+}
+
+.difficulty{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    background:#242431;
+    color:#aaa;
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+.mission-number{
+    color:#777;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.mission{
+    font-size:23px;
+    line-height:1.5;
+    min-height:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.3s;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    margin-top:30px;
+}
+
+.main-btn{
+    border:none;
+    border-radius:12px;
+    padding:13px 24px;
+    background:white;
+    color:black;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.main-btn:hover{
+    transform:translateY(-2px);
+    opacity:.9;
+}
+
+.back{
+    display:block;
+    width:fit-content;
+    margin:25px auto 0;
+    color:#888;
+    text-decoration:none;
+}
+
+.back:hover{
+    color:white;
+}
+
+@media(max-width:600px){
+    header{
+        padding:18px 20px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    main{
+        padding:35px 15px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .mission{
+        font-size:19px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+Random Mission
+</div>
+
+<div class="language">
+<button id="uzBtn" onclick="changeLanguage('uz')">🇺🇿 UZ</button>
+<button id="ruBtn" onclick="changeLanguage('ru')">🇷🇺 RU</button>
+<button id="enBtn" onclick="changeLanguage('en')">🇬🇧 EN</button>
+</div>
+
+</header>
+
+<main>
+
+<section class="hero">
+
+<div class="icon">🎮</div>
+
+<h1 id="title">Roblox</h1>
+
+<p id="subtitle">
+Roblox uchun random topshiriqlar
+</p>
+
+</section>
+
+<div class="modes">
+
+<button class="mode-btn active"
+id="easyBtn"
+onclick="setDifficulty('easy')">
+🟢 Oddiy
+</button>
+
+<button class="mode-btn"
+id="hardBtn"
+onclick="setDifficulty('hard')">
+🔴 Qiyin
+</button>
+
+<button class="mode-btn"
+id="impossibleBtn"
+onclick="setDifficulty('impossible')">
+☠️ Impossible
+</button>
+
+</div>
+
+<div class="mode-description" id="modeDescription">
+Oddiy darajadagi topshiriqlar.
+</div>
+
+<section class="mission-box">
+
+<div class="difficulty" id="difficultyLabel">
+🟢 ODDIY
+</div>
+
+<div class="mission-number" id="missionNumber">
+Topshiriq #1
+</div>
+
+<div class="mission" id="mission">
+Boshlash uchun tugmani bosing
+</div>
+
+<div class="buttons">
+<button class="main-btn"
+id="randomBtn"
+onclick="randomMission()">
+🎲 Tasodifiy topshiriq
+</button>
+</div>
+
+</section>
+
+<a class="back" href="index.html" id="back">
+← Bosh sahifaga qaytish
+</a>
+
+</main>
+
+<script>
+
+const translations={
+
+uz:{
+title:"Roblox",
+subtitle:"Roblox uchun random topshiriqlar",
+
+easy:"🟢 Oddiy",
+hard:"🔴 Qiyin",
+impossible:"☠️ Impossible",
+
+easyDesc:"Oddiy darajadagi topshiriqlar.",
+hardDesc:"Qiyin darajadagi topshiriqlar.",
+impossibleDesc:"Eng yuqori daraja — taxminan 5% o‘yinchi bajara oladigan challenge'lar.",
+
+easyLabel:"🟢 ODDIY",
+hardLabel:"🔴 QIYIN",
+impossibleLabel:"☠️ IMPOSSIBLE",
+
+button:"🎲 Tasodifiy topshiriq",
+back:"← Bosh sahifaga qaytish",
+number:"Topshiriq",
+start:"Boshlash uchun tugmani bosing",
+
+missions:{
+
+easy:[
+
+"Roblox'da yangi bir o'yin topib o'ynang.",
+
+"Biror obby'ni oxirigacha bajaring.",
+
+"Biror yangi Roblox o'yinida 10 daqiqa o'ynang.",
+
+"Do'stingiz bilan birga bitta match o'ynang.",
+
+"Avataringizning kiyimini o'zgartiring.",
+
+"Biror simulator o'yinida yangi level oching.",
+
+"Biror racing o'yinida poygada qatnashing.",
+
+"Biror tycoon o'yinida yangi obyekt sotib oling.",
+
+"Biror survival o'yinida 10 daqiqa yashab qoling.",
+
+"Biror horror o'yinini o'ynab ko'ring.",
+
+"Yangi o'yinda kamida bitta achievement oling.",
+
+"Roblox'dagi 3 xil o'yinni sinab ko'ring.",
+
+"Avataringizga yangi accessory qo'shing.",
+
+"Biror parkour o'yinida 5 ta checkpoint o'ting.",
+
+"Random o'yin tanlab, 15 daqiqa o'ynang."
+
+],
+
+hard:[
+
+"Biror qiyin obby'ni bir marta ham yiqilmasdan tugating.",
+
+"Biror survival o'yinida 20 daqiqa yashab qoling.",
+
+"Biror horror o'yinida vazifani birinchi urinishda bajaring.",
+
+"Racing o'yinida birinchi uchlikka kiring.",
+
+"Tycoon o'yinida katta upgrade sotib oling.",
+
+"3 xil o'yinda ketma-ket g'alaba qozoning.",
+
+"Biror competitive o'yinda eng yuqori natijaga erishing.",
+
+"Obby'da 20 ta checkpointni ketma-ket o'ting.",
+
+"Biror simulator'da 5 ta level ko'tariling.",
+
+"Do'stingiz bilan birga qiyin bossni yengishga harakat qiling.",
+
+"Biror o'yinda top-10 ga kiring.",
+
+"Avatarni faqat random itemlardan foydalanib yarating.",
+
+"3 xil janrdagi Roblox o'yinini ketma-ket o'ynang.",
+
+"Biror multiplayer o'yinida MVP bo'lishga harakat qiling.",
+
+"20 daqiqa davomida bitta Roblox o'yinidan chiqmasdan o'ynang.",
+
+"Biror qiyin puzzle'ni yordam olmasdan yeching.",
+
+"Biror o'yinda kamida 3 ta achievement oling.",
+
+"Racing o'yinida hech qanday xatosiz bir race o'tkazing.",
+
+"Survival o'yinida eng qiyin hududga boring.",
+
+"Biror o'yinda yangi rekord o'rnatishga harakat qiling."
+
+],
+
+impossible:[
+
+"Eng qiyin obby'ni bir marta ham yiqilmasdan tugating.",
+
+"Biror competitive o'yinda birinchi o'rinni egallang.",
+
+"Survival o'yinida 30 daqiqa davomida o'lmasdan yashang.",
+
+"Horror o'yinini birinchi urinishdayoq to'liq tugating.",
+
+"3 ta turli competitive o'yinda ketma-ket g'alaba qozoning.",
+
+"Biror racing o'yinida ketma-ket 5 ta poygada g'alaba qozoning.",
+
+"Obby'da 50 ta checkpointni xatosiz o'ting.",
+
+"Biror o'yinda leaderboard'ning yuqori qismiga chiqing.",
+
+"Do'stingiz bilan birga eng qiyin bossni yengib chiqing.",
+
+"Biror simulator'da juda yuqori levelga chiqishga harakat qiling.",
+
+"5 xil Roblox o'yinida ketma-ket g'alaba qozoning.",
+
+"Biror o'yinda barcha mavjud achievementlarni olishga harakat qiling.",
+
+"30 daqiqa davomida faqat bitta Roblox o'yinini o'ynang va o'lmaslikka harakat qiling.",
+
+"Random tanlangan qiyin o'yinni hech qanday yordam olmasdan tugating.",
+
+"Biror multiplayer o'yinida MVP bo'lib, matchni yutib chiqing.",
+
+"Eng qiyin puzzle'ni internetdan yordam olmasdan yeching.",
+
+"Racing o'yinida 5 ta race ketma-ket xatosiz bajaring.",
+
+"Biror survival o'yinining eng qiyin bosqichiga yetib boring.",
+
+"Biror obby'da speedrun qilib o'z rekordingizni yangilang.",
+
+"Roblox'da random o'yin tanlab, undagi eng qiyin challenge'ni bajaring."
+
+]
+
+}
+
+},
+
+ru:{
+title:"Roblox",
+subtitle:"Случайные задания для Roblox",
+
+easy:"🟢 Обычный",
+hard:"🔴 Сложный",
+impossible:"☠️ Impossible",
+
+easyDesc:"Задания обычного уровня.",
+hardDesc:"Сложные задания.",
+impossibleDesc:"Максимальный уровень — задания примерно для 5% игроков.",
+
+easyLabel:"🟢 ОБЫЧНЫЙ",
+hardLabel:"🔴 СЛОЖНЫЙ",
+impossibleLabel:"☠️ IMPOSSIBLE",
+
+button:"🎲 Случайное задание",
+back:"← Вернуться на главную",
+number:"Задание",
+start:"Нажмите кнопку, чтобы начать",
+
+missions:{
+
+easy:[
+"Найдите и сыграйте в новую игру Roblox.",
+"Пройдите любой obby до конца.",
+"Играйте в новую игру Roblox 10 минут.",
+"Сыграйте один матч вместе с другом.",
+"Измените одежду своего аватара.",
+"Откройте новый уровень в simulator.",
+"Участвуйте в гонке.",
+"Купите новый объект в tycoon.",
+"Выживите 10 минут в survival-игре.",
+"Попробуйте horror-игру.",
+"Получите хотя бы одно достижение.",
+"Попробуйте 3 разные игры Roblox.",
+"Добавьте новый accessory на аватар.",
+"Пройдите 5 checkpoint в parkour-игре.",
+"Выберите случайную игру и играйте 15 минут."
+],
+
+hard:[
+"Пройдите сложный obby без падений.",
+"Выживите 20 минут в survival-игре.",
+"Пройдите задание horror-игры с первой попытки.",
+"Попадите в топ-3 в гоночной игре.",
+"Купите большое улучшение в tycoon.",
+"Победите в 3 разных играх подряд.",
+"Покажите лучший результат в competitive-игре.",
+"Пройдите 20 checkpoint подряд.",
+"Поднимитесь на 5 уровней в simulator.",
+"Попробуйте победить сложного босса вместе с другом.",
+"Попадите в топ-10 игроков.",
+"Создайте аватар только из случайных предметов.",
+"Сыграйте 3 разных жанра Roblox подряд.",
+"Попробуйте стать MVP в multiplayer-игре.",
+"Играйте 20 минут в одной игре без выхода.",
+"Решите сложную головоломку без помощи.",
+"Получите минимум 3 достижения.",
+"Проведите гонку без ошибок.",
+"Доберитесь до самой сложной зоны survival-игры.",
+"Попробуйте установить новый рекорд."
+],
+
+impossible:[
+"Пройдите самый сложный obby без единого падения.",
+"Займите первое место в competitive-игре.",
+"Выживите 30 минут в survival-игре.",
+"Полностью пройдите horror-игру с первой попытки.",
+"Победите в 3 competitive-играх подряд.",
+"Выиграйте 5 гонок подряд.",
+"Пройдите 50 checkpoint без ошибок.",
+"Попадите в верхнюю часть leaderboard.",
+"Победите самого сложного босса вместе с другом.",
+"Достигните очень высокого уровня в simulator.",
+"Победите в 5 разных играх Roblox подряд.",
+"Попробуйте получить все достижения игры.",
+"Играйте 30 минут в одной игре и не умирайте.",
+"Пройдите случайную сложную игру без помощи.",
+"Станьте MVP и выиграйте multiplayer-матч.",
+"Решите самую сложную головоломку без интернета.",
+"Проведите 5 гонок подряд без ошибок.",
+"Доберитесь до самой сложной стадии survival-игры.",
+"Побейте свой рекорд в obby speedrun.",
+"Выполните самое сложное задание случайной игры Roblox."
+]
+
+}
+
+},
+
+en:{
+title:"Roblox",
+subtitle:"Random Roblox challenges",
+
+easy:"🟢 Normal",
+hard:"🔴 Hard",
+impossible:"☠️ Impossible",
+
+easyDesc:"Normal difficulty challenges.",
+hardDesc:"Hard challenges.",
+impossibleDesc:"Maximum difficulty — challenges roughly 5% of players could complete.",
+
+easyLabel:"🟢 NORMAL",
+hardLabel:"🔴 HARD",
+impossibleLabel:"☠️ IMPOSSIBLE",
+
+button:"🎲 Random Mission",
+back:"← Back to Home",
+number:"Mission",
+start:"Press the button to start",
+
+missions:{
+
+easy:[
+"Find and play a new Roblox game.",
+"Complete any obby.",
+"Play a new Roblox game for 10 minutes.",
+"Play one match with a friend.",
+"Change your avatar's outfit.",
+"Unlock a new level in a simulator.",
+"Take part in a racing game.",
+"Buy a new item in a tycoon.",
+"Survive for 10 minutes in a survival game.",
+"Try a horror game.",
+"Get at least one achievement.",
+"Try 3 different Roblox games.",
+"Add a new accessory to your avatar.",
+"Pass 5 checkpoints in a parkour game.",
+"Choose a random game and play for 15 minutes."
+],
+
+hard:[
+"Complete a difficult obby without falling.",
+"Survive for 20 minutes in a survival game.",
+"Complete a horror-game objective on your first attempt.",
+"Finish in the top 3 in a racing game.",
+"Buy a major upgrade in a tycoon game.",
+"Win 3 different games in a row.",
+"Get your best result in a competitive game.",
+"Pass 20 checkpoints in a row.",
+"Level up 5 times in a simulator.",
+"Try to defeat a difficult boss with a friend.",
+"Reach the top 10 players.",
+"Create an avatar using only random items.",
+"Play 3 different Roblox genres in a row.",
+"Try to become MVP in a multiplayer game.",
+"Play one Roblox game for 20 minutes without leaving.",
+"Solve a difficult puzzle without help.",
+"Get at least 3 achievements.",
+"Complete a race without making a mistake.",
+"Reach the hardest area of a survival game.",
+"Try to set a new record."
+],
+
+impossible:[
+"Complete the hardest obby without falling once.",
+"Finish first in a competitive game.",
+"Survive for 30 minutes in a survival game.",
+"Complete a horror game on your first attempt.",
+"Win 3 competitive games in a row.",
+"Win 5 races in a row.",
+"Pass 50 checkpoints without mistakes.",
+"Reach the top section of a leaderboard.",
+"Defeat the hardest boss with a friend.",
+"Reach a very high level in a simulator.",
+"Win 5 different Roblox games in a row.",
+"Try to unlock every achievement in a game.",
+"Play one Roblox game for 30 minutes without dying.",
+"Complete a randomly chosen difficult game without help.",
+"Become MVP and win a multiplayer match.",
+"Solve the hardest puzzle without using internet help.",
+"Complete 5 races in a row without mistakes.",
+"Reach the hardest stage of a survival game.",
+"Beat your own obby speedrun record.",
+"Complete the hardest challenge in a randomly selected Roblox game."
+]
+
+}
+
+}
+
+};
+
+let currentLanguage=
+localStorage.getItem("randomMissionLanguage")||"uz";
+
+let difficulty="easy";
+
+let usedMissions={
+easy:[],
+hard:[],
+impossible:[]
+};
+
+let missionCounter=0;
+
+function changeLanguage(language){
+currentLanguage=language;
+localStorage.setItem("randomMissionLanguage",language);
+applyLanguage(language);
+}
+
+function setDifficulty(mode){
+
+difficulty=mode;
+
+document.querySelectorAll(".mode-btn")
+.forEach(btn=>btn.classList.remove("active"));
+
+document.getElementById(mode+"Btn")
+.classList.add("active");
+
+const t=translations[currentLanguage];
+
+document.getElementById("modeDescription")
+.textContent=t[mode+"Desc"];
+
+document.getElementById("difficultyLabel")
+.textContent=t[mode+"Label"];
+
+usedMissions[mode]=[];
+missionCounter=0;
+
+document.getElementById("missionNumber")
+.textContent=t.number+" #1";
+
+document.getElementById("mission")
+.textContent=t.start;
+}
+
+function applyLanguage(language){
+
+const t=translations[language];
+
+document.documentElement.lang=language;
+
+document.getElementById("title").textContent=t.title;
+document.getElementById("subtitle").textContent=t.subtitle;
+
+document.getElementById("easyBtn").textContent=t.easy;
+document.getElementById("hardBtn").textContent=t.hard;
+document.getElementById("impossibleBtn").textContent=t.impossible;
+
+document.getElementById("modeDescription")
+.textContent=t[difficulty+"Desc"];
+
+document.getElementById("difficultyLabel")
+.textContent=t[difficulty+"Label"];
+
+document.getElementById("randomBtn").textContent=t.button;
+document.getElementById("back").textContent=t.back;
+
+if(missionCounter===0){
+
+document.getElementById("mission").textContent=t.start;
+
+document.getElementById("missionNumber")
+.textContent=t.number+" #1";
+
+}
+
+document.querySelectorAll(".language button")
+.forEach(btn=>btn.classList.remove("active"));
+
+document.getElementById(language+"Btn")
+.classList.add("active");
+}
+
+function randomMission(){
+
+const t=translations[currentLanguage];
+const missions=t.missions[difficulty];
+
+if(usedMissions[difficulty].length>=missions.length){
+usedMissions[difficulty]=[];
+}
+
+const available=missions
+.map((_,index)=>index)
+.filter(index=>
+!usedMissions[difficulty].includes(index)
+);
+
+const randomIndex=
+available[
+Math.floor(Math.random()*available.length)
+];
+
+usedMissions[difficulty].push(randomIndex);
+missionCounter++;
+
+const missionElement=document.getElementById("mission");
+
+missionElement.style.opacity="0";
+missionElement.style.transform="translateY(15px) scale(.98)";
+
+setTimeout(()=>{
+
+missionElement.textContent=missions[randomIndex];
+
+document.getElementById("missionNumber")
+.textContent=t.number+" #"+missionCounter;
+
+missionElement.style.opacity="1";
+missionElement.style.transform="translateY(0) scale(1)";
+
+},180);
+}
+
+applyLanguage(currentLanguage);
+
+</script>
+
+</body>
+</html>
